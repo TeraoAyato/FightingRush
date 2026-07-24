@@ -1,5 +1,5 @@
 ﻿  main.cpp
-C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\SummerSakuhinn\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
   (ソース ファイル 'main.cpp' をコンパイルしています)
   
-  SummerSakuhinn.vcxproj -> C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\x64\Debug\SummerSakuhinn.exe
+  SummerSakuhinn.vcxproj -> C:\Users\Train\Documents\GitHub\NatuSakuhin\SummerSakuhinn\x64\Debug\SummerSakuhinn.exe

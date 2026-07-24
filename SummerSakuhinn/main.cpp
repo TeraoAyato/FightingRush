@@ -4,9 +4,9 @@
 
 namespace
 {
-	constexpr int kDefaultPosX = 200;	// 初期X座標
-	constexpr int kDefaultPosY = 200;	// 初期Y座標
-	constexpr int kMoveSpeed = 6;	// 移動速度
+	constexpr int kDefaultPosX = 600;	// 初期X座標
+	constexpr int kDefaultPosY = 240;	// 初期Y座標
+	constexpr int kMoveSpeed = 4;	// 移動速度
 	constexpr int kWidth = 128;	// キャラクターの横幅
 	constexpr int kHeight = 128;	// キャラクターの縦幅
 
@@ -15,7 +15,7 @@ namespace
 	constexpr int kMarginLeft = 40;
 	constexpr int kMarginRight = 50;
 	constexpr int kMarginTop = 50;
-	constexpr int kMarginBottom = 0;
+	constexpr int kMarginBottom = -2;
 }
 
 
