@@ -12,7 +12,9 @@ public:
 	void Update();
 	void Draw();
 
+	// アニメーション
 private:
 	int m_idleHandle;
+	int m_runHandle;
 };
 
