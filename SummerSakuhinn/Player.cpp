@@ -2,7 +2,8 @@
 #include "Player.h"
 
 Player::Player():
-	m_idleHandle(-1)
+	m_idleHandle(-1),
+	m_runHandle(-1)
 {
 }
 
