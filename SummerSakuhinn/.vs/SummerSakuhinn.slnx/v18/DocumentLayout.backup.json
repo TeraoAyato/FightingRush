@@ -7,20 +7,20 @@
       "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\SceneMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:SceneMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{48961B3B-61B9-4C62-8F61-2DFEAA7DAF6E}|SummerSakuhinn.vcxproj|solutionrelative:SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
@@ -43,8 +43,7 @@
               "ViewState": "AgIAACQAAAAAAAAAAAAAADIAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-07-24T10:05:25.549Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -56,8 +55,7 @@
               "RelativeToolTip": "SceneMain.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-24T10:05:17.651Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-24T10:05:17.651Z"
             },
             {
               "$type": "Document",
@@ -67,7 +65,7 @@
               "RelativeDocumentMoniker": "Player.cpp",
               "ToolTip": "C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\Player.cpp",
               "RelativeToolTip": "Player.cpp",
-              "ViewState": "AgIAADwAAAAAAAAAAAAYwFUAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAiwMcAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-07-24T09:47:24.55Z",
               "EditorCaption": ""
@@ -76,24 +74,24 @@
         },
         {
           "DockedWidth": 149,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\Player.h",
               "RelativeDocumentMoniker": "Player.h",
               "ToolTip": "C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\Player.h",
               "RelativeToolTip": "Player.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-07-24T09:43:24.071Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SceneMain.h",
               "DocumentMoniker": "C:\\Users\\Train\\OneDrive\\Documents\\GitHub\\NatuSakuhin\\SummerSakuhinn\\SceneMain.h",
               "RelativeDocumentMoniker": "SceneMain.h",
@@ -101,8 +99,7 @@
               "RelativeToolTip": "SceneMain.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-07-25T07:48:27.793Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-25T07:48:27.793Z"
             }
           ]
         }
