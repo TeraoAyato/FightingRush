@@ -1,4 +1,5 @@
 #pragma once
+#include "Player.h"
 class SceneMain
 {
 public:
@@ -13,6 +14,8 @@ public:
 
 private:
 	int m_frameCount;
+
+	Player m_player;
 
 };
 
