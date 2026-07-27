@@ -29,7 +29,8 @@ private:
 	int m_attackType;	// 攻撃の種類（1 or 2)
 
 	// ボタン入力タイマー
-	
+	int m_ComboInputTime;	// 入力猶予タイマー
+	int m_nextAttackType;	// 次に出す攻撃タイプ
 	// アニメーション用フレームカウント
 	int m_frameCount;
 

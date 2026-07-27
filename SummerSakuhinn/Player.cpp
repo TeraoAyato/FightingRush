@@ -32,6 +32,8 @@ Player::Player() :
 	m_isAttacking(false),
 	m_isAttackInput(false),
 	m_ComboInput(false),
+	m_ComboInputTime(0),
+	m_nextAttackType(0),
 	m_attackFrame(0),
 	m_frameCount(0),
 	m_attackType(1)
@@ -56,6 +58,8 @@ void Player::Init()
 	m_isAttacking = false;
 	m_isAttackInput = false;
 	m_ComboInput = false;
+	m_ComboInputTime = 0;
+	m_nextAttackType = 0;
 	m_attackFrame = 0;
 	m_frameCount = 0;
 	m_attackType = 1;
@@ -131,8 +135,8 @@ void Player::Update()
 
 	bool isPushNow = isPushX || isPushY;
 
-	bool isTrigger = (!m_isAttackInput && isPushNow);
 	// 攻撃ボタンが押されているか
+	bool isTrigger = (!m_isAttackInput && isPushNow);
 	m_isAttackInput = isPushNow;
 
 	// 攻撃開始
@@ -155,7 +159,18 @@ void Player::Update()
 	}
 	else if (m_isAttacking && isTrigger)
 	{
-		m_ComboInput = true;
+		if (m_attackFrame >= 10)
+		{
+			if (isPushY)
+			{
+				m_nextAttackType = 3;	// 攻撃3予約
+			}
+			else if (isPushX)
+			{
+				m_nextAttackType = 2;	// 攻撃2予約
+			}
+		}
+		//	m_ComboInput = true;
 	}
 
 	// 移動中か判定
@@ -217,7 +232,7 @@ void Player::Update()
 		m_posY = Game::kScreenHeight - kHeight + kMarginBottom;
 	}
 
-	// 攻撃のタイマー処理
+	// 攻撃アニメーション切り替え処理
 	if (m_isAttacking)
 	{
 		m_attackFrame++;
@@ -228,12 +243,19 @@ void Player::Update()
 		{
 			if (m_attackFrame >= kAttack1AnimNum * animSpeed)
 			{
-				if (m_ComboInput)
+				if (m_nextAttackType == 2)
 				{
 					// 連打入力があれば攻撃2に移行
 					m_attackType = 2;
 					m_attackFrame = 0;
-					m_ComboInput = false;
+					m_nextAttackType = 0;
+				}
+				else if (m_nextAttackType == 3)
+				{
+					// 連打入力があれば攻撃3に移行
+					m_attackType = 3;
+					m_attackFrame = 0;
+					m_nextAttackType = 0;
 				}
 				else
 				{
@@ -246,8 +268,16 @@ void Player::Update()
 		{
 			if (m_attackFrame >= kAttack2AnimNum * animSpeed)
 			{
-				m_isAttacking = false;
-				m_attackType = 1;
+				if (m_nextAttackType == 3)
+				{
+					m_attackType = 3;
+					m_attackFrame = 0;
+					m_nextAttackType = 0;
+				}
+				else
+				{
+					m_isAttacking = false;
+				}
 			}
 		}
 		// 【攻撃3(強攻撃)】
@@ -261,7 +291,7 @@ void Player::Update()
 		}
 	}
 
-	
+
 }
 
 void Player::Draw()
@@ -302,7 +332,7 @@ void Player::Draw()
 			}
 			DrawRotaGraph(centerX, centerY, Size, Angle, m_attack3Handle[animIndex], TRUE, turnFlag);
 		}
-		
+
 	}
 	else if (m_isMoving)
 	{
@@ -314,7 +344,6 @@ void Player::Draw()
 		int animIndex = (m_frameCount / 10) % 7;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_idleHandle[animIndex], TRUE, turnFlag);
 	}
-
 	// デバッグ用表示
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
