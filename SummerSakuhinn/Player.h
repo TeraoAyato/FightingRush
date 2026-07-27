@@ -26,6 +26,9 @@ private:
 	bool m_isAttackInput;	// 攻撃ボタン長押し防止
 	bool m_ComboInput;	// 攻撃の連打入力確認
 	int m_attackFrame;	// 攻撃が始まってからのフレーム数
+	int m_attackType;	// 攻撃の種類（1 or 2)
+
+	// ボタン入力タイマー
 	
 	// アニメーション用フレームカウント
 	int m_frameCount;
@@ -34,6 +37,8 @@ private:
 	int m_idleHandle[7];	// 待機画像
 	int m_runHandle[10];	// 走り画像
 	int m_attack1Handle[6];	// 攻撃1画像
+	int m_attack2Handle[4];	// 攻撃2画像
+	int m_attack3Handle[6];	// 攻撃3画像
 	
 };
 

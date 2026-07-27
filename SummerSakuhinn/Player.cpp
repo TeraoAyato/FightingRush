@@ -5,7 +5,9 @@
 namespace
 {
 	// 攻撃アニメーション
-	constexpr int kAttackAnimNum = 5;
+	constexpr int kAttack1AnimNum = 6;	// 攻撃1【弱攻撃】
+	constexpr int kAttack2AnimNum = 4;	// 攻撃2【弱攻撃】
+	constexpr int kAttack3AnimNum = 6;	// 攻撃3【強攻撃】
 
 	// プレイヤー
 	constexpr int kDefaultPosX = 600;	// 初期X座標
@@ -19,7 +21,7 @@ namespace
 	constexpr int kMarginLeft = 40;
 	constexpr int kMarginRight = 50;
 	constexpr int kMarginTop = 50;
-	constexpr int kMarginBottom = -2;
+	constexpr int kMarginBottom = -15;
 }
 
 Player::Player() :
@@ -31,11 +33,14 @@ Player::Player() :
 	m_isAttackInput(false),
 	m_ComboInput(false),
 	m_attackFrame(0),
-	m_frameCount(0)
+	m_frameCount(0),
+	m_attackType(1)
 {
 	for (int i = 0; i < 7; i++)  m_idleHandle[i] = -1;
 	for (int i = 0; i < 10; i++) m_runHandle[i] = -1;
 	for (int i = 0; i < 6; i++) m_attack1Handle[i] = -1;
+	for (int i = 0; i < 4; i++) m_attack2Handle[i] = -1;
+	for (int i = 0; i < 6; i++) m_attack3Handle[i] = -1;
 }
 
 Player::~Player()
@@ -53,6 +58,7 @@ void Player::Init()
 	m_ComboInput = false;
 	m_attackFrame = 0;
 	m_frameCount = 0;
+	m_attackType = 1;
 
 	LoadDivGraph(
 		"sozai/Player/Idle.png",	// ファイル名
@@ -77,13 +83,33 @@ void Player::Init()
 
 	// 攻撃1画像
 	LoadDivGraph(
-		"sozai/Player/Attack1.png",	// ファイル名
+		"sozai/Player/Attack1.png",	// 素材ファイル名
 		6,	// 総コマ数
 		6,	// 横コマ数
 		1,	// 縦コマ数
 		kWidth,	// 1コマの幅
 		kHeight,	// １コマの高さ
 		m_attack1Handle	// 保存配列
+	);
+	// 攻撃1画像
+	LoadDivGraph(
+		"sozai/Player/Attack2.png",	// 素材ファイル名
+		4,	// 総コマ数
+		4,	// 横コマ数
+		1,	// 縦コマ数
+		kWidth,	// 1コマの幅
+		kHeight,	// １コマの高さ
+		m_attack2Handle	// 保存配列
+	);
+	// 攻撃3画像
+	LoadDivGraph(
+		"sozai/Player/Attack3.png",	// 素材ファイル名
+		6,	// 総コマ数
+		6,	// 横コマ数
+		1,	// 縦コマ数
+		kWidth,	// 1コマの幅
+		kHeight,	// １コマの高さ
+		m_attack3Handle	// 保存配列
 	);
 
 }
@@ -100,60 +126,70 @@ void Player::Update()
 	// コントローラー入力
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	// 現在ボタンが押されているか
-	bool isPushNow = (padState & PAD_INPUT_3);
+	bool isPushX = (padState & PAD_INPUT_3);
+	bool isPushY = (padState & PAD_INPUT_4);
+
+	bool isPushNow = isPushX || isPushY;
 
 	bool isTrigger = (!m_isAttackInput && isPushNow);
 	// 攻撃ボタンが押されているか
 	m_isAttackInput = isPushNow;
 
+	// 攻撃開始
 	if (!m_isAttacking && isTrigger)
 	{
 		m_isAttacking = true;
+		m_attackType = 1;
 		m_attackFrame = 0;	// アニメーションタイマーをリセット
 		m_ComboInput = false;
+
+		// Yボタンなら【攻撃3】Xボタンなら攻撃1、2
+		if (isPushY)
+		{
+			m_attackType = 3;	// 攻撃3【強攻撃】
+		}
+		else if (isPushX)
+		{
+			m_attackType = 1;	// 攻撃1【弱攻撃】
+		}
 	}
 	else if (m_isAttacking && isTrigger)
 	{
 		m_ComboInput = true;
 	}
-	
+
 	// 移動中か判定
 	m_isMoving = false;
-// 
-	// 入力に合わせて向きを変える
-	if (padState & PAD_INPUT_LEFT)
-	{
-		// 左入力、向き
-		m_posX -= kMoveSpeed;
-		m_isMoving = true;
-		m_isDirRight = false;
-	}
-	if (padState & PAD_INPUT_RIGHT)
-	{
-		// 右入力、向き
-		m_posX += kMoveSpeed;
-		m_isMoving = true;
-		m_isDirRight = true;
-	}
-	if (padState & PAD_INPUT_UP) 
-	{ m_posY -= kMoveSpeed;
-	m_isMoving = true;
-	}	// 上入力
-	if (padState & PAD_INPUT_DOWN) 
-	{ m_posY += kMoveSpeed;
-	m_isMoving = true; 
-	}	// 下入力
 
-	// 攻撃のタイマー処理
-	if (m_isAttacking)
+	// 攻撃中でないときに移動可能
+	if (!m_isAttacking)
 	{
-		m_attackFrame++;
 
-		int animSpeed = 5;
-		if (m_attackFrame >= kAttackAnimNum * animSpeed)
+		// 入力に合わせて向きを変える
+		if (padState & PAD_INPUT_LEFT)
 		{
-			m_isAttacking = false;	// アニメーションが終わったら攻撃終了
+			// 左入力、向き
+			m_posX -= kMoveSpeed;
+			m_isMoving = true;
+			m_isDirRight = false;
 		}
+		if (padState & PAD_INPUT_RIGHT)
+		{
+			// 右入力、向き
+			m_posX += kMoveSpeed;
+			m_isMoving = true;
+			m_isDirRight = true;
+		}
+		if (padState & PAD_INPUT_UP)
+		{
+			m_posY -= kMoveSpeed;
+			m_isMoving = true;
+		}	// 上入力
+		if (padState & PAD_INPUT_DOWN)
+		{
+			m_posY += kMoveSpeed;
+			m_isMoving = true;
+		}	// 下入力
 	}
 
 	// 画面外に出ない処理
@@ -180,6 +216,52 @@ void Player::Update()
 	{
 		m_posY = Game::kScreenHeight - kHeight + kMarginBottom;
 	}
+
+	// 攻撃のタイマー処理
+	if (m_isAttacking)
+	{
+		m_attackFrame++;
+		int animSpeed = 5;
+
+		// 【攻撃1】
+		if (m_attackType == 1)
+		{
+			if (m_attackFrame >= kAttack1AnimNum * animSpeed)
+			{
+				if (m_ComboInput)
+				{
+					// 連打入力があれば攻撃2に移行
+					m_attackType = 2;
+					m_attackFrame = 0;
+					m_ComboInput = false;
+				}
+				else
+				{
+					m_isAttacking = false;// アニメーションが終わったら攻撃終了
+				}
+			}
+		}
+		// 【攻撃2】
+		else if (m_attackType == 2)
+		{
+			if (m_attackFrame >= kAttack2AnimNum * animSpeed)
+			{
+				m_isAttacking = false;
+				m_attackType = 1;
+			}
+		}
+		// 【攻撃3(強攻撃)】
+		else if (m_attackType == 3)
+		{
+			if (m_attackFrame >= kAttack3AnimNum * animSpeed)
+			{
+				m_isAttacking = false;
+				m_attackType = 1;
+			}
+		}
+	}
+
+	
 }
 
 void Player::Draw()
@@ -193,9 +275,36 @@ void Player::Draw()
 	if (m_isAttacking)
 	{
 		int animIndex = m_attackFrame / 5;
-		DrawRotaGraph(centerX, centerY, Size, Angle, m_attack1Handle[animIndex], TRUE, turnFlag);
+		// 【攻撃1】
+		if (m_attackType == 1)
+		{
+			if (animIndex >= kAttack1AnimNum)
+			{
+				animIndex = kAttack1AnimNum - 1;
+			}
+			DrawRotaGraph(centerX, centerY, Size, Angle, m_attack1Handle[animIndex], TRUE, turnFlag);
+		}
+		// 【攻撃2】
+		if (m_attackType == 2)
+		{
+			if (animIndex >= kAttack2AnimNum)
+			{
+				animIndex = kAttack2AnimNum - 1;
+			}
+			DrawRotaGraph(centerX, centerY, Size, Angle, m_attack2Handle[animIndex], TRUE, turnFlag);
+		}
+		// 【攻撃3】
+		else if (m_attackType == 3)
+		{
+			if (animIndex >= kAttack3AnimNum)
+			{
+				animIndex = kAttack3AnimNum - 1;
+			}
+			DrawRotaGraph(centerX, centerY, Size, Angle, m_attack3Handle[animIndex], TRUE, turnFlag);
+		}
+		
 	}
-	else if(m_isMoving)
+	else if (m_isMoving)
 	{
 		int animIndex = (m_frameCount / 5) % 10;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_runHandle[animIndex], TRUE, turnFlag);
@@ -209,9 +318,4 @@ void Player::Draw()
 	// デバッグ用表示
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
-
-	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	DrawFormatString(0, 80, GetColor(255, 255, 255), "PAD:%d", padState);
-
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "ImgHandle:%d", m_idleHandle[0]);
 }
