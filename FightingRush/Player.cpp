@@ -342,6 +342,8 @@ void Player::Draw()
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_idleHandle[animIndex], TRUE, turnFlag);
 	}
 	// デバッグ用表示
+#ifdef _DEBUG
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
+#endif
 }
