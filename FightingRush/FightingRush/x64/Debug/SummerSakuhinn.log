@@ -1,0 +1,7 @@
+﻿  Player.cpp
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'Player.cpp' をコンパイルしています)
+  
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.cpp(298,13): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+  SummerSakuhinn.vcxproj -> C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\x64\Debug\FightingRush.exe

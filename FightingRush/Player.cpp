@@ -120,6 +120,7 @@ void Player::Init()
 
 void Player::End()
 {
+	// 画像を一括で削除
 	InitGraph();
 }
 
@@ -132,7 +133,6 @@ void Player::Update()
 	// 現在ボタンが押されているか
 	bool isPushX = (padState & PAD_INPUT_3);
 	bool isPushY = (padState & PAD_INPUT_4);
-
 	bool isPushNow = isPushX || isPushY;
 
 	// 攻撃ボタンが押されているか
@@ -147,7 +147,7 @@ void Player::Update()
 		m_attackFrame = 0;	// アニメーションタイマーをリセット
 		m_ComboInput = false;
 
-		// Yボタンなら【攻撃3】Xボタンなら攻撃1、2
+		// Yボタンなら【攻撃3】Xボタンなら【攻撃1、2】
 		if (isPushY)
 		{
 			m_attackType = 3;	// 攻撃3【強攻撃】
@@ -213,19 +213,16 @@ void Player::Update()
 	{
 		m_posX = -kMarginLeft;
 	}
-
 	// 右端制限
 	if (m_posX + kWidth - kMarginRight > Game::kScreenWidth)
 	{
 		m_posX = Game::kScreenWidth - kWidth + kMarginRight;
 	}
-
 	// 上端制限
 	if (m_posY + kMarginTop < 0)
 	{
 		m_posY = -kMarginTop;
 	}
-
 	// 下端制限
 	if (m_posY + kHeight - kMarginBottom > Game::kScreenHeight)
 	{
@@ -245,14 +242,14 @@ void Player::Update()
 			{
 				if (m_nextAttackType == 2)
 				{
-					// 連打入力があれば攻撃2に移行
+					// 連打入力があれば【攻撃2】に移行
 					m_attackType = 2;
 					m_attackFrame = 0;
 					m_nextAttackType = 0;
 				}
 				else if (m_nextAttackType == 3)
 				{
-					// 連打入力があれば攻撃3に移行
+					// 連打入力があれば【攻撃3】に移行
 					m_attackType = 3;
 					m_attackFrame = 0;
 					m_nextAttackType = 0;
