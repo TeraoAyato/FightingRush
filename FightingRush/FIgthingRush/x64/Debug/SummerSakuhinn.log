@@ -1,0 +1,23 @@
+﻿  main.cpp
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+  Player.cpp
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'Player.cpp' をコンパイルしています)
+  
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\Player.cpp(301,13): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+  SceneMain.cpp
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+  コードを生成中...
+  LINK : 前回のインクリメンタル リンクで C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\x64\Debug\SummerSakuhinn.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+  SummerSakuhinn.vcxproj -> C:\Users\Train\OneDrive\Documents\GitHub\NatuSakuhin\SummerSakuhinn\x64\Debug\SummerSakuhinn.exe
