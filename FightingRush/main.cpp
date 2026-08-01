@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "SceneMain.h"
 #include "Player.h"
-#include "Bg.h"
 
 
 
@@ -31,11 +30,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
-
-
-	// マップのロード
-	Bg map;
-	map.Init();
 	
 	// ゲームシーンの作成
 	SceneMain scene;
@@ -50,8 +44,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 		// 画面をクリア
 		ClearDrawScreen();
 
-		map.Update();
-		map.Draw();
 		scene.Update();
 		scene.Draw();
 
@@ -75,8 +67,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	}
 
 	scene.End();
-
-	map.End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 
