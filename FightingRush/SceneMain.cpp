@@ -1,5 +1,6 @@
 #include "SceneMain.h"
 #include "DxLib.h"
+#include "Bg.h"
 
 SceneMain::SceneMain(): 
 	m_frameCount(0)
