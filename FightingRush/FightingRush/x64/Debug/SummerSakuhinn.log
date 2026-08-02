@@ -1,12 +1,56 @@
-﻿  Player.cpp
-C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+﻿  Bg.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Bg.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  Enemy.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'Enemy.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.cpp(10,28): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.cpp(11,27): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.cpp(12,28): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
+  main.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+  Player.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
   (ソース ファイル 'Player.cpp' をコンパイルしています)
   
-C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Player.cpp' をコンパイルしています)
   
-C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
   (ソース ファイル 'Player.cpp' をコンパイルしています)
   
-  SummerSakuhinn.vcxproj -> C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\x64\Debug\FightingRush.exe
+  SceneMain.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+  コードを生成中...
+  LINK : 前回のインクリメンタル リンクで C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\x64\Debug\FightingRush.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+  SummerSakuhinn.vcxproj -> C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\x64\Debug\FightingRush.exe
