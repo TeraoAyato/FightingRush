@@ -295,7 +295,7 @@ void Player::Draw()
 {
 	int centerX = m_posX + kWidth / 2;
 	int centerY = m_posY + kHeight / 2;
-	float Size = 1.2;
+	float Size = 1.0;
 	float Angle = 0.0;
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
@@ -341,9 +341,12 @@ void Player::Draw()
 		int animIndex = (m_frameCount / 10) % 7;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_idleHandle[animIndex], TRUE, turnFlag);
 	}
+	float offsetX = 0.0f;
+	float offsetY = 0.0f;
 	// デバッグ用表示
 #ifdef _DEBUG
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
+	DrawCircle(centerX,centerY, 5, GetColor(0, 0, 255), TRUE);
 #endif
 }

@@ -13,6 +13,13 @@ public:
 	void Update();
 	void Draw();
 
+	float GetPosX()const { return m_posX; }
+	float GetPosY() const { return m_posY; }
+
+	// プレイヤー中心座標
+	float GetCenterX() const { return static_cast<float>(m_posX + 64); }
+	float GetCenterY() const { return static_cast<float>(m_posY + 90); }
+
 private:
 
 	// アニメーション画像ハンドル
