@@ -16,6 +16,5 @@ private:
 	int m_frameCount;
 
 	Player m_player;
-
 };
 
