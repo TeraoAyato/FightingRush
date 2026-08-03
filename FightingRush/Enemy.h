@@ -13,11 +13,13 @@ public:
 private:
 	int m_EnemyIdleHandle[4];	// 画像ハンドル
 	int m_EnemyWalkHandle[4];	// 画像ハンドル
+	int m_EnemyPunchHandle[3];	// 画像ハンドル
 
 
 	int m_EnemyAnimFrame;
+	int m_EnemyAttackFrame;	// 攻撃中のアニメーションフレーム数
 	bool m_isMoving;	// 移動中かどうか
-
+	bool m_isAttacking;	// 攻撃中かどうか
 	float m_posX;	// X座標
 	float m_posY;	// Y座標
 	float m_speed;	// 移動速度
