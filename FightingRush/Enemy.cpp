@@ -92,6 +92,11 @@ void Enemy::End()
 
 void Enemy::Update(float playerX, float playerY)
 {
+	// 攻撃クールタイム
+	if (m_EnemyAttackCoolTime)
+	{
+		m_EnemyAttackCoolTime--;
+	}
 	// 左右の間合い（プレイヤーの横どの距離で止まるか）
 	constexpr float kStopDistanceX = 40.0f;
 
@@ -103,8 +108,6 @@ void Enemy::Update(float playerX, float playerY)
 	float absDiffX = std::abs(diffX);
 	float absDiffY = std::abs(diffY);
 
-	bool isMovingX = false;
-	bool isMovingY = false;
 
 	if (m_isAttacking)
 	{
@@ -115,10 +118,28 @@ void Enemy::Update(float playerX, float playerY)
 		{
 			m_isAttacking = false;
 			m_EnemyAnimFrame = 0;
+
+			m_EnemyAttackCoolTime = 60;	// パンチ後のクールタイムを設定
 		}
 		return;
-		// ここから再開
 	}
+
+	if (!m_isAttacking && m_EnemyAttackCoolTime <= 0 && absDiffX <= kStopDistanceX + 10.0f && absDiffY <= 20.0f)
+	{
+		m_isAttacking = true;
+		m_EnemyAttackFrame = 0;
+
+		// プレイヤーの方向を向かせる
+		if(diffX != 0.0f)
+		{
+			m_direction = (diffX > 0.0f) ? 1 : -1;
+		}
+		return;
+	}
+
+	bool isMovingX = false;
+	bool isMovingY = false;
+
 	// kStopDistanceX以上離れてたらプレイヤーを追従する
 	if (absDiffX > kStopDistanceX)
 	{
@@ -184,11 +205,25 @@ void Enemy::Update(float playerX, float playerY)
 
 void Enemy::Draw()
 {
-	int animIndex = (m_EnemyAnimFrame / 15) % 4; // 15フレームごとに次のコマに切り替え
+//	int animIndex = (m_EnemyAnimFrame / 15) % 4; // 15フレームごとに次のコマに切り替え
 
 	const int* currentHandle = m_isMoving ? m_EnemyWalkHandle : m_EnemyIdleHandle ;
+	int animIndex = 0;
 
-	if (currentHandle[0] != -1)
+	if (m_isAttacking)
+	{
+		currentHandle = m_EnemyPunchHandle;
+		animIndex = (m_EnemyAttackFrame / 10) % 3; // パンチアニメーション
+	}
+	else if (m_isMoving)
+	{
+		animIndex = (m_EnemyAnimFrame / 15) % 4; // 歩行アニメーション
+	}
+	else
+	{
+		animIndex = (m_EnemyAnimFrame / 15) % 4; // 待機アニメーション
+	}
+	if (currentHandle != nullptr && currentHandle[0] != -1)
 	{
 		// 敵が右を向く時画像を反転させる
 		BOOL isTurn = (m_direction == 1) ? TRUE : FALSE;

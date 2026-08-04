@@ -18,6 +18,7 @@ private:
 
 	int m_EnemyAnimFrame;
 	int m_EnemyAttackFrame;	// 攻撃中のアニメーションフレーム数
+	int m_EnemyAttackCoolTime;	// 攻撃後のクールタイム
 	bool m_isMoving;	// 移動中かどうか
 	bool m_isAttacking;	// 攻撃中かどうか
 	float m_posX;	// X座標
