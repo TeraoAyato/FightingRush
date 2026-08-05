@@ -223,6 +223,11 @@ void Player::Update()
 	{
 		m_posY = -kMarginTop;
 	}
+	// 背景の建物より上に行かないようにする
+	if (m_posY < 230.0f)
+	{
+		m_posY = 230.0f;
+	}
 	// 下端制限
 	if (m_posY + kHeight - kMarginBottom > Game::kScreenHeight)
 	{

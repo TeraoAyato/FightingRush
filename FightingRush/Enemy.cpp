@@ -8,7 +8,7 @@ namespace
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr int kEnemySpeed = 2.0f;	// 移動速度
-	constexpr int kEnemySize = 1.0;	// キャラクターの大きさ
+	constexpr float kEnemySize = 1.2;	// キャラクターの大きさ
 	constexpr int kEnemyAngle = 0.0;	// キャラクターの角度
 
 
