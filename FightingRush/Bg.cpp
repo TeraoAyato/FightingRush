@@ -13,8 +13,6 @@ namespace
 	// 画面に配置するチップの数
 	constexpr int kChipNumX = (Game::kScreenWidth + kChipSize - 1) / kChipSize;  
 	constexpr int kChipNumY = (Game::kScreenHeight + kChipSize - 1) / kChipSize; 
-//	constexpr int kChipNumX = (Game::kScreenWidth + kChipSize - 1) / kChipSize;  
-//	constexpr int kChipNumY = (Game::kScreenHeight + kChipSize - 1) / kChipSize;
 
 	// マップチップの配置情報（縦 kChipNumY 行 × 横 kChipNumX 列）
 	constexpr int kChipSetting[kChipNumY][kChipNumX] =

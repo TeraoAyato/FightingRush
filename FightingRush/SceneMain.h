@@ -18,7 +18,7 @@ public:
 private:
 	int m_frameCount;
 
-//	Bg m_bg;
+	Bg m_bg;
 	Enemy m_enemy;
 	Player m_player;
 };
