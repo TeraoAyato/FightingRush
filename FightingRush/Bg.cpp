@@ -11,8 +11,8 @@ namespace
 	constexpr int kGraphChipNumX = 17;
 
 	// 画面に配置するチップの数
-	constexpr int kChipNumX = (Game::kScreenWidth + kChipSize - 1) / kChipSize;  
-	constexpr int kChipNumY = (Game::kScreenHeight + kChipSize - 1) / kChipSize; 
+	constexpr int kChipNumX = (Game::kScreenWidth + kChipSize - 1) / kChipSize;
+	constexpr int kChipNumY = (Game::kScreenHeight + kChipSize - 1) / kChipSize;
 
 	// マップチップの配置情報（縦 kChipNumY 行 × 横 kChipNumX 列）
 	constexpr int kChipSetting[kChipNumY][kChipNumX] =
@@ -95,4 +95,39 @@ void Bg::Draw()
 			);
 		}
 	}
+
+#ifdef _DEBUG
+	// 1. 縦線を描く
+	for (int x = 0; x <= kChipNumX; x++)
+	{
+		int lineX = x * kChipSize;
+		// (lineX, 0) から (lineX, 画面下端) まで縦線を引く
+		DrawLine(lineX, 0, lineX, Game::kScreenHeight, GetColor(0, 250, 0));
+	}
+
+	// 2. 横線を描く
+	for (int y = 0; y <= kChipNumY; y++)
+	{
+		int lineY = y * kChipSize;
+		// (0, lineY) から (画面右端, lineY) まで横線を引く
+		DrawLine(0, lineY, Game::kScreenWidth, lineY, GetColor(0, 250, 0));
+	}
+
+	// 3. 【便利おまけ】各マスの(x, y)配列インデックス番号を薄く表示する
+	// ※必要に応じてコメントアウトを解除して使ってください
+	/*
+	for (int y = 0; y < kChipNumY; y++)
+	{
+		for (int x = 0; x < kChipNumX; x++)
+		{
+			DrawFormatString(
+				x * kChipSize + 2,
+				y * kChipSize + 2,
+				GetColor(200, 200, 200),
+				"%d,%d", x, y
+			);
+		}
+	}
+	*/
+#endif
 }

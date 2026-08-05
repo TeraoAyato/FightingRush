@@ -50,8 +50,6 @@ void SceneMain::Draw()
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(255, 255, 255));
 	DrawFormatString(0, 16, GetColor(255, 255, 255), "FRAME:%d", m_frameCount);
-
-
 #endif
 	
 	m_enemy.Draw();
