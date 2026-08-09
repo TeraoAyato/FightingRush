@@ -11,7 +11,8 @@ namespace
 	constexpr float kEnemySize = 1.2;	// キャラクターの大きさ
 	constexpr int kEnemyAngle = 0.0;	// キャラクターの角度
 
-
+	// 当たり判定の半径
+	constexpr float kColRadius = 6.0f;
 }
 
 Enemy::Enemy() :
@@ -114,7 +115,7 @@ void Enemy::Update(float playerX, float playerY)
 		m_isMoving = false;
 		m_EnemyAttackFrame++;
 
-		if (m_EnemyAttackFrame >= 3 * 10)
+		if (m_EnemyAttackFrame >= 3 * 10) //　エネミー攻撃アニメーション
 		{
 			m_isAttacking = false;
 			m_EnemyAnimFrame = 0;
@@ -242,7 +243,64 @@ void Enemy::Draw()
 
 		// デバッグ
 #ifdef _DEBUG
-		DrawCircle(static_cast<int>(m_posX), static_cast<int>(m_posY), 5, GetColor(255, 0, 0), TRUE);
+		// 攻撃HitBox
+		float atkX, atkY, atkW, atkH;
+		if (GetAttackHitBox(atkX, atkY, atkW, atkH))
+		{
+			DrawBox(
+				static_cast<int>(atkX), static_cast<int>(atkY),
+				static_cast<int>(atkX + atkW), static_cast<int>(atkY + atkH),
+				GetColor(255, 0, 0), FALSE
+			);
+		}
+		// 当たり判定（HitBox）のデバッグ枠を描画（緑色）
+		float boxX, boxY, boxW, boxH;
+		HitBox(boxX, boxY, boxW, boxH);
+
+		DrawBox(
+			static_cast<int>(boxX), static_cast<int>(boxY),
+			static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
+			GetColor(0, 255, 0), FALSE
+		);
 #endif
+	}	
+}
+
+bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
+{
+	// 攻撃（パンチ）アニメーション中のみ判定を発生させる
+	if (m_isAttacking)
+	{
+		float attackWidth = 35.0f; // 敵のパンチの横幅
+		float attackHeight = 25.0f; // 敵のパンチの高さ
+
+		// 向き（m_direction: 1が右、-1が左）に合わせて位置を設定
+		if (m_direction == 1)
+		{
+			outX = m_posX; // 右側へ発生
+		}
+		else
+		{
+			outX = m_posX - attackWidth; // 左側へ発生
+		}
+
+		outY = m_posY - 10.0f; // 高さ
+		outW = attackWidth;
+		outH = attackHeight;
+
+		return true;
 	}
+
+	return false;
+}
+
+void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
+{
+	// ダメージ判定のサイズ
+	outW = kEnemyWidth * kEnemySize * 0.25f;
+	outH = kEnemyHeight * kEnemySize * 0.7f;
+
+	// 中心座標から左上の座標を計算
+	outX = m_posX - (outW / 2.0f);
+	outY = m_posY - (outH / 2.0f);
 }

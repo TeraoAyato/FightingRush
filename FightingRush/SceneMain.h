@@ -21,5 +21,10 @@ private:
 	Bg m_bg;
 	Enemy m_enemy;
 	Player m_player;
+
+	// 当たり判定
+	bool m_OnHit = false;
+	bool m_OnEnemyHit = false;
+
 };
 

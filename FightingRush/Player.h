@@ -20,6 +20,14 @@ public:
 	float GetCenterX() const { return static_cast<float>(m_posX + 64); }
 	float GetCenterY() const { return static_cast<float>(m_posY + 90); }
 
+	bool GetAttackHitBox(float& outX, float& outY, float& outW, float& outH)const;
+	void HitBox(float& outX, float& outY, float& outW, float& outH)const;
+
+	// 被ダメージ開始を知らせる関数
+	void OnDamage();
+
+	// ダメージ中かどうかを外部から取得する関数
+	bool IsHit() const { return m_isHit; }
 private:
 
 	// アニメーション画像ハンドル
@@ -28,6 +36,7 @@ private:
 	int m_attack1Handle[6];	// 攻撃1画像
 	int m_attack2Handle[4];	// 攻撃2画像
 	int m_attack3Handle[6];	// 攻撃3画像
+	int m_DamageHitHandle[4];	// ダメージ判定画像
 
 	// 座標
 	int m_posX;
@@ -43,6 +52,11 @@ private:
 	bool m_ComboInput;	// 攻撃の連打入力確認
 	int m_attackFrame;	// 攻撃が始まってからのフレーム数
 	int m_attackType;	// 攻撃の種類（1 or 2)
+
+	// ダメージ状態用
+	bool m_isHit;	// ダメージ状態か判定
+	int m_hitFrame;	// ダメージフレーム数
+
 
 	// ボタン入力タイマー
 	int m_ComboInputTime;	// 入力猶予タイマー

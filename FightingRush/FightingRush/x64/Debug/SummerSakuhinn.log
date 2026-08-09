@@ -1,3 +1,9 @@
-﻿  Bg.cpp
-C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Bg.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+﻿  Enemy.cpp
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Enemy.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'Enemy.cpp' をコンパイルしています)
+  
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Enemy.cpp(10,28): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Enemy.cpp(11,29): warning C4305: '初期化中': 'double' から 'const float' へ切り詰めます。
+C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\Enemy.cpp(12,28): warning C4244: '初期化中': 'double' から 'const int' への変換です。データが失われる可能性があります。
   SummerSakuhinn.vcxproj -> C:\Users\Train\OneDrive\Documents\GitHub\FightingRush\FightingRush\x64\Debug\FightingRush.exe

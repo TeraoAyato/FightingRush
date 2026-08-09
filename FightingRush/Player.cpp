@@ -36,13 +36,16 @@ Player::Player() :
 	m_nextAttackType(0),
 	m_attackFrame(0),
 	m_frameCount(0),
-	m_attackType(1)
+	m_attackType(1),
+	m_isHit(false),
+	m_hitFrame(0)
 {
 	for (int i = 0; i < 7; i++)  m_idleHandle[i] = -1;
 	for (int i = 0; i < 10; i++) m_runHandle[i] = -1;
 	for (int i = 0; i < 6; i++) m_attack1Handle[i] = -1;
 	for (int i = 0; i < 4; i++) m_attack2Handle[i] = -1;
 	for (int i = 0; i < 6; i++) m_attack3Handle[i] = -1;
+	for (int i = 0; i < 4; i++) m_DamageHitHandle[i] = -1;
 }
 
 Player::~Player()
@@ -116,6 +119,17 @@ void Player::Init()
 		m_attack3Handle	// 保存配列
 	);
 
+	// ダメージ画像
+	LoadDivGraph(
+		"sozai/Player/Damage.png",	// 素材ファイル名
+		4,	// 総コマ数
+		4,	// 横コマ数
+		1,	// 縦コマ数
+		kWidth,	// 1コマの幅
+		kHeight,	// １コマの高さ
+		m_DamageHitHandle	// 保存配列
+	);
+
 }
 
 void Player::End()
@@ -124,9 +138,33 @@ void Player::End()
 	InitGraph();
 }
 
+void Player::OnDamage()
+{
+	if (m_isHit)return;
+
+	m_isHit = true;
+	m_hitFrame = 0;	//フレームリセット
+	m_isAttacking = false;	// 攻撃中なら攻撃終了
+}
 void Player::Update()
 {
 	m_frameCount++;
+
+	// ダメージ状態中の処理
+	if (m_isHit)
+	{
+		m_hitFrame++;
+
+		// 30フレーム（約0.5秒）経過したらダメージ状態解除
+		if (m_hitFrame >= 30)
+		{
+			m_isHit = false;
+			m_hitFrame = 0;
+		}
+
+		// ダメージ中は操作不能にするためここで処理を抜ける（return）
+		return;
+	}
 
 	// コントローラー入力
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -304,7 +342,17 @@ void Player::Draw()
 	float Angle = 0.0;
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
-	if (m_isAttacking)
+	// ★ 1. 最優先で「ダメージ中」を描画
+	if (m_isHit)
+	{
+		// 4コマ画像を m_hitFrame（30フレーム中）に合わせて切り替え
+		int animIndex = m_hitFrame / 8;
+		if (animIndex >= 4) animIndex = 3; // 配列外参照防止（全4コマ）
+
+		DrawRotaGraph(centerX, centerY, Size, Angle, m_DamageHitHandle[animIndex], TRUE, turnFlag);
+	}
+	// 2. 攻撃中
+	else if (m_isAttacking)
 	{
 		int animIndex = m_attackFrame / 5;
 		// 【攻撃1】
@@ -317,7 +365,7 @@ void Player::Draw()
 			DrawRotaGraph(centerX, centerY, Size, Angle, m_attack1Handle[animIndex], TRUE, turnFlag);
 		}
 		// 【攻撃2】
-		if (m_attackType == 2)
+		else if (m_attackType == 2)
 		{
 			if (animIndex >= kAttack2AnimNum)
 			{
@@ -336,16 +384,19 @@ void Player::Draw()
 		}
 
 	}
+	// 3. 移動中
 	else if (m_isMoving)
 	{
 		int animIndex = (m_frameCount / 5) % 10;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_runHandle[animIndex], TRUE, turnFlag);
 	}
+	// 4. 待機中
 	else
 	{
 		int animIndex = (m_frameCount / 10) % 7;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_idleHandle[animIndex], TRUE, turnFlag);
 	}
+
 	float offsetX = 0.0f;
 	float offsetY = 0.0f;
 	// デバッグ用表示
@@ -353,5 +404,78 @@ void Player::Draw()
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
 	DrawCircle(centerX,centerY, 5, GetColor(0, 0, 255), TRUE);
+
+	// ★ 攻撃のHitBoxを赤枠で描画
+	float atkX, atkY, atkW, atkH;
+	if (GetAttackHitBox(atkX, atkY, atkW, atkH))
+	{
+		DrawBox(
+			static_cast<int>(atkX), static_cast<int>(atkY),
+			static_cast<int>(atkX + atkW), static_cast<int>(atkY + atkH),
+			GetColor(255, 0, 0), FALSE
+		);
+	}
+	// 当たり判定（HitBox）のデバッグ枠を描画（緑色）
+	float boxX, boxY, boxW, boxH;
+	HitBox(boxX, boxY, boxW, boxH);
+
+	DrawBox
+	(
+		static_cast<int>(boxX), static_cast<int>(boxY),
+		static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
+		GetColor(0, 255, 0), FALSE
+	);
+	
 #endif
+}
+
+bool Player::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
+{
+	// 攻撃アニメーション中のみ判定を行う
+	if (m_isAttacking)
+	{
+		// 1. キャラクターの中心座標を計算
+		float centerX = static_cast<float>(m_posX + kWidth / 2);
+		float centerY = static_cast<float>(m_posY + kHeight / 2);
+
+		// 2. 攻撃判定（HitBox）の大きさを指定
+		float attackWidth = 30.0f; // 拳の横幅
+		float attackHeight = 20.0f; // 拳の縦幅
+
+		// 3. 向きに合わせて前方に当たり判定を出す
+		if (m_isDirRight)
+		{
+			// 右向き
+			outX = centerX;
+		}
+		else
+		{
+			// 左向き
+			outX = centerX - attackWidth;
+		}
+
+		// 当たり判定の位置調整
+		outY = centerY + 5.0f;
+		outW = attackWidth;
+		outH = attackHeight;
+
+		return true; // 攻撃している
+	}
+
+	return false; // 攻撃していない
+}
+
+void Player::HitBox(float& outX, float& outY, float& outW, float& outH) const
+{
+	// 描画の中心座標を取得
+	float centerX = static_cast<float>(m_posX + kWidth / 2);
+	float centerY = static_cast<float>(m_posY + kHeight / 2);
+
+	// ダメージ判定のサイズ
+	outW = 40.0f;
+	outH = 70.0f;
+
+	// 中心から左上座標を算出
+	outX = centerX - (outW / 2.0f);
+	outY = (centerY - (outH / 2.0f)) + 25.0f;
 }
