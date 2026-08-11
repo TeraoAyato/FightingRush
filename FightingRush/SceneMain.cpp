@@ -67,6 +67,8 @@ void SceneMain::Update()
 		if (CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
 		{
 			m_OnHit = true;
+
+			m_enemy.OnDamage(m_player.GetCenterX()); // 敵にダメージを与える
 		}
 	}
 
@@ -77,12 +79,14 @@ void SceneMain::Update()
 		float pBodyX, pBodyY, pBodyW, pBodyH;
 		m_player.HitBox(pBodyX, pBodyY, pBodyW, pBodyH);
 
-		// ★ CheckAABB 関数を直接呼び出し
+		// 当たり判定
 		if (CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
 		{
 			m_OnEnemyHit = true;
 
 			m_player.OnDamage(); // プレイヤーにダメージを与える
+
+			
 		}
 	}
 

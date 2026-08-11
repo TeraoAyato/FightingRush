@@ -342,12 +342,12 @@ void Player::Draw()
 	float Angle = 0.0;
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
-	// ★ 1. 最優先で「ダメージ中」を描画
+	// 最優先でダメージアニメーションを描画
 	if (m_isHit)
 	{
-		// 4コマ画像を m_hitFrame（30フレーム中）に合わせて切り替え
+		// m_hitFrameに合わせて切り替え
 		int animIndex = m_hitFrame / 8;
-		if (animIndex >= 4) animIndex = 3; // 配列外参照防止（全4コマ）
+		if (animIndex >= 4) animIndex = 3;
 
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_DamageHitHandle[animIndex], TRUE, turnFlag);
 	}

@@ -23,7 +23,10 @@ Enemy::Enemy() :
 	m_posX(1000.0f),	// 初期出現位置
 	m_posY(320.0f), // 初期出現位置
 	m_speed(kEnemySpeed),	// 移動スピード
-	m_direction(1)	// 移動方向
+	m_direction(1),	// 移動方向
+	m_isHit(false),
+	m_hitFrame(0),
+	m_knockbackDir(0.0f)
 {
 	for (int i = 0;i < 4;i++)
 	{
@@ -62,6 +65,13 @@ void Enemy::Init()
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_EnemyPunchHandle
 	);
+
+	LoadDivGraph(
+		"sozai/Enemy/hurt.png",	// ダメージ状態画像
+		2, 2, 1,            // 総数2コマ（横2コマ、縦1コマ）
+		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
+		m_DamageHitHandle
+	);
 }
 
 void Enemy::End()
@@ -93,6 +103,21 @@ void Enemy::End()
 
 void Enemy::Update(float playerX, float playerY)
 {
+	if (m_isHit)
+	{
+		m_hitFrame++;
+
+		float knockbackSpeed = 6.0f; // ノックバック速度
+		m_posX += m_knockbackDir * knockbackSpeed;
+
+		if (m_hitFrame >= 20)
+		{
+			m_isHit = false;
+			m_hitFrame = 0;
+		}
+		return;
+	}
+
 	// 攻撃クールタイム
 	if (m_EnemyAttackCoolTime)
 	{
@@ -206,12 +231,17 @@ void Enemy::Update(float playerX, float playerY)
 
 void Enemy::Draw()
 {
-//	int animIndex = (m_EnemyAnimFrame / 15) % 4; // 15フレームごとに次のコマに切り替え
+
 
 	const int* currentHandle = m_isMoving ? m_EnemyWalkHandle : m_EnemyIdleHandle ;
 	int animIndex = 0;
 
-	if (m_isAttacking)
+	if (m_isHit)
+	{
+		currentHandle = m_DamageHitHandle;
+		animIndex = (m_hitFrame / 10) % 2;
+	}
+	else if (m_isAttacking)
 	{
 		currentHandle = m_EnemyPunchHandle;
 		animIndex = (m_EnemyAttackFrame / 10) % 3; // パンチアニメーション
@@ -303,4 +333,21 @@ void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	// 中心座標から左上の座標を計算
 	outX = m_posX - (outW / 2.0f);
 	outY = m_posY - (outH / 2.0f);
+}
+
+void Enemy::OnDamage(float playerX)
+{
+	if (m_isHit)return;
+
+	m_isHit = true;
+	m_hitFrame = 0;
+
+	if (playerX < m_posX)
+	{
+		m_knockbackDir = 0.4f; // プレイヤーが左にいる場合、右方向にノックバック
+	}
+	else
+	{
+		m_knockbackDir = -0.4f; // プレイヤーが右にいる場合、左方向にノックバック
+	}
 }
