@@ -351,3 +351,11 @@ void Enemy::OnDamage(float playerX)
 		m_knockbackDir = -0.4f; // プレイヤーが右にいる場合、左方向にノックバック
 	}
 }
+
+void Enemy::SetIdle()
+{
+	m_isMoving = false;       // 移動停止
+	m_isAttacking = false;    // 攻撃動作キャンセルの停止
+	m_EnemyAttackFrame = 0;   // 攻撃フレーム初期化
+	m_EnemyAnimFrame++;       // 待機アニメーションのコマだけは進める
+}

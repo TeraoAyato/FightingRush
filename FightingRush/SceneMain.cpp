@@ -52,6 +52,15 @@ void SceneMain::End()
 void SceneMain::Update()
 {
 	m_player.Update();
+	if (m_player.IsDead())
+	{
+		m_enemy.SetIdle();	// プレイヤー死亡時、敵は待機状態
+
+		m_bg.Update();
+		m_frameCount++;
+		return;
+	}
+	// プレイヤー生存時のみアニメーション
 	m_enemy.Update(m_player.GetCenterX(), m_player.GetCenterY());
 
 	m_OnHit = false;

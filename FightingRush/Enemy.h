@@ -14,6 +14,8 @@ public:
 	void HitBox(float& outX,float& outY,float& outW,float& outH)const;
 	void OnDamage(float playerX);
 
+	void SetIdle();
+
 private:
 	int m_EnemyIdleHandle[4];	// 敵待機状態ハンドル
 	int m_EnemyWalkHandle[4];	// 敵歩行ハンドル
