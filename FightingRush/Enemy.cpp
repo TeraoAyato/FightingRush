@@ -28,8 +28,8 @@ Enemy::Enemy() :
 	m_isHit(false),
 	m_hitFrame(0),
 	m_knockbackDir(0.0f),
-	m_hp(3),		// 現在HP
-	m_maxHp(3),		// 最大HP
+	m_hp(4),		// 現在HP
+	m_maxHp(4),		// 最大HP
 	m_isDead(false),
 	m_deadFrame(0)
 {

@@ -170,23 +170,7 @@ void Player::End()
 	InitGraph();
 }
 
-void Player::OnDamage(int damage)
-{
-	if (m_isHit || m_isDead)return;
 
-	m_isHit = true;
-	m_hitFrame = 0;	//フレームリセット
-	m_isAttacking = false;	// 攻撃中なら攻撃終了
-
-	m_hp -= damage;
-	if (m_hp <= 0)
-	{
-		m_hp = 0;
-		m_isDead = true;	// 死亡判定
-		m_deadFrame = 0;	// アニメーションタイマー
-	}
-	
-}
 void Player::Update()
 {
 	// 死亡したら操作不能
@@ -460,7 +444,6 @@ void Player::Draw()
 #ifdef _DEBUG
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
-	DrawCircle(centerX,centerY, 5, GetColor(0, 0, 255), TRUE);
 
 	// ★ 攻撃のHitBoxを赤枠で描画
 	float atkX, atkY, atkW, atkH;
@@ -484,6 +467,24 @@ void Player::Draw()
 	);
 	
 #endif
+}
+
+void Player::OnDamage(int damage)
+{
+	if (m_isHit || m_isDead)return;
+
+	m_isHit = true;
+	m_hitFrame = 0;	//フレームリセット
+	m_isAttacking = false;	// 攻撃中なら攻撃終了
+
+	m_hp -= damage;
+	if (m_hp <= 0)
+	{
+		m_hp = 0;
+		m_isDead = true;	// 死亡判定
+		m_deadFrame = 0;	// アニメーションタイマー
+	}
+
 }
 
 bool Player::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
