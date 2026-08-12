@@ -44,12 +44,29 @@ Player::Player() :
 	m_frameCount(0),
 	m_attackType(1)
 {
-	for (int i = 0; i < 7; i++)  m_idleHandle[i] = -1;
-	for (int i = 0; i < 10; i++) m_runHandle[i] = -1;
-	for (int i = 0; i < 6; i++) m_attack1Handle[i] = -1;
-	for (int i = 0; i < 4; i++) m_attack2Handle[i] = -1;
-	for (int i = 0; i < 6; i++) m_attack3Handle[i] = -1;
-	for (int i = 0; i < 4; i++) m_DamageHitHandle[i] = -1;
+	for (int i = 0; i < 10; i++) 
+	{
+		m_runHandle[i] = -1;
+	}
+	for (int i = 0; i < 7; i++)  
+	{
+		m_idleHandle[i] = -1;
+	}
+	for (int i = 0; i < 6; i++)
+	{
+	m_attack1Handle[i] = -1;
+	m_attack3Handle[i] = -1;
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		m_DeadHandle[i] = -1;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		m_attack2Handle[i] = -1;
+		m_DamageHitHandle[i] = -1;
+	}
+	
 }
 
 Player::~Player()

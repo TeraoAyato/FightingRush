@@ -12,15 +12,15 @@ public:
 
 	bool GetAttackHitBox(float& outX, float& outY, float& outW, float& outH)const;
 	void HitBox(float& outX,float& outY,float& outW,float& outH)const;
-	void OnDamage(float playerX);
+	void OnDamage(float playerX,int damage = 1);
 
 	void SetIdle();
-
 private:
 	int m_EnemyIdleHandle[4];	// 敵待機状態ハンドル
 	int m_EnemyWalkHandle[4];	// 敵歩行ハンドル
 	int m_EnemyPunchHandle[3];	// 敵攻撃ハンドル
 	int m_DamageHitHandle[2];	// ダメージ判定画像
+	int m_DeadHandle[4];	// 死亡画像
 
 
 	int m_EnemyAnimFrame;
@@ -37,5 +37,16 @@ private:
 	bool m_isHit;	// ダメージ状態か判定
 	int m_hitFrame;	// ダメージフレーム数
 	float m_knockbackDir;	// ノックバック距離
+
+	// HP管理用
+	int m_hp;	// 敵のHP
+	int m_maxHp;	// 敵の最大HP
+	int m_isDead;	// 敵が死亡したか判定
+	int m_deadFrame;	// 死亡フレーム数
+public:
+
+	int GetHp() const { return m_hp; }
+	bool IsDead() const { return m_isDead; }
+
 };
 

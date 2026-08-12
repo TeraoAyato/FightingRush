@@ -18,6 +18,7 @@ namespace
 Enemy::Enemy() :
 	m_EnemyAnimFrame(0),
 	m_EnemyAttackFrame(0),
+	m_EnemyAttackCoolTime(0),
 	m_isMoving(false),
 	m_isAttacking(false),
 	m_posX(1000.0f),	// 初期出現位置
@@ -26,7 +27,11 @@ Enemy::Enemy() :
 	m_direction(1),	// 移動方向
 	m_isHit(false),
 	m_hitFrame(0),
-	m_knockbackDir(0.0f)
+	m_knockbackDir(0.0f),
+	m_hp(3),		// 現在HP
+	m_maxHp(3),		// 最大HP
+	m_isDead(false),
+	m_deadFrame(0)
 {
 	for (int i = 0;i < 4;i++)
 	{
@@ -36,6 +41,10 @@ Enemy::Enemy() :
 	for (int i = 0;i < 3;i++)
 	{
 		m_EnemyPunchHandle[i] = -1;
+	}
+	for (int i = 0; i < 2;i++)
+	{
+		m_DamageHitHandle[i] = -1;
 	}
 }
 
@@ -67,10 +76,17 @@ void Enemy::Init()
 	);
 
 	LoadDivGraph(
-		"sozai/Enemy/hurt.png",	// ダメージ状態画像
+		"sozai/Enemy/Dead.png",	// ダメージ状態画像
 		2, 2, 1,            // 総数2コマ（横2コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_DamageHitHandle
+	);
+
+	LoadDivGraph(
+		"sozai/Enemy/Dead.png",	// ダメージ状態画像
+		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
+		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
+		m_DeadHandle
 	);
 }
 
@@ -103,11 +119,22 @@ void Enemy::End()
 
 void Enemy::Update(float playerX, float playerY)
 {
+	if (m_isDead)
+	{
+		m_deadFrame++;
+		if (m_deadFrame < 15)
+		{
+			m_posX += m_knockbackDir * 2.0f; // 死亡時のノックバック
+		}
+		return;
+	}
+	
+
 	if (m_isHit)
 	{
 		m_hitFrame++;
 
-		float knockbackSpeed = 6.0f; // ノックバック速度
+		float knockbackSpeed = 4.0f; // ノックバック速度
 		m_posX += m_knockbackDir * knockbackSpeed;
 
 		if (m_hitFrame >= 20)
@@ -231,12 +258,21 @@ void Enemy::Update(float playerX, float playerY)
 
 void Enemy::Draw()
 {
-
+	if (m_isDead && m_deadFrame > 90)
+	{
+		return;
+	}
 
 	const int* currentHandle = m_isMoving ? m_EnemyWalkHandle : m_EnemyIdleHandle ;
 	int animIndex = 0;
 
-	if (m_isHit)
+	if (m_isDead)
+	{
+		currentHandle = m_DeadHandle;
+		animIndex = m_deadFrame / 10;
+		if (animIndex >= 4)animIndex = 3; // 死亡アニメーションの最後のフレームでストップ
+	}
+	else if (m_isHit)
 	{
 		currentHandle = m_DamageHitHandle;
 		animIndex = (m_hitFrame / 10) % 2;
@@ -248,10 +284,12 @@ void Enemy::Draw()
 	}
 	else if (m_isMoving)
 	{
+		currentHandle = m_EnemyWalkHandle;
 		animIndex = (m_EnemyAnimFrame / 15) % 4; // 歩行アニメーション
 	}
 	else
 	{
+		currentHandle = m_EnemyIdleHandle;
 		animIndex = (m_EnemyAnimFrame / 15) % 4; // 待機アニメーション
 	}
 	if (currentHandle != nullptr && currentHandle[0] != -1)
@@ -277,7 +315,7 @@ void Enemy::Draw()
 		float atkX, atkY, atkW, atkH;
 		if (GetAttackHitBox(atkX, atkY, atkW, atkH))
 		{
-			DrawBox(
+			::DrawBox(
 				static_cast<int>(atkX), static_cast<int>(atkY),
 				static_cast<int>(atkX + atkW), static_cast<int>(atkY + atkH),
 				GetColor(255, 0, 0), FALSE
@@ -287,17 +325,22 @@ void Enemy::Draw()
 		float boxX, boxY, boxW, boxH;
 		HitBox(boxX, boxY, boxW, boxH);
 
-		DrawBox(
+		::DrawBox(
 			static_cast<int>(boxX), static_cast<int>(boxY),
 			static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
 			GetColor(0, 255, 0), FALSE
 		);
+
+		DrawFormatString(10, 151, GetColor(0, 0, 0), "ENEMY HP : %d / %d", m_hp, m_maxHp);
+		DrawFormatString(10, 150, GetColor(255, 255, 255), "ENEMY HP : %d / %d", m_hp, m_maxHp);
 #endif
 	}	
 }
 
 bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
 {
+	if (m_isDead)return false;
+
 	// 攻撃（パンチ）アニメーション中のみ判定を発生させる
 	if (m_isAttacking)
 	{
@@ -326,6 +369,8 @@ bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) 
 
 void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 {
+	if (m_isDead)return;
+
 	// ダメージ判定のサイズ
 	outW = kEnemyWidth * kEnemySize * 0.25f;
 	outH = kEnemyHeight * kEnemySize * 0.7f;
@@ -335,13 +380,21 @@ void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	outY = m_posY - (outH / 2.0f);
 }
 
-void Enemy::OnDamage(float playerX)
+void Enemy::OnDamage(float playerX, int damage)
 {
-	if (m_isHit)return;
+	if (m_isHit || m_isDead)return;
 
 	m_isHit = true;
 	m_hitFrame = 0;
+	m_isAttacking = false;
 
+	m_hp -= damage;
+	if (m_hp <= 0)
+	{
+		m_hp = 0;
+		m_isDead = true;	// HPが0で死亡
+		m_deadFrame = 0;	// 死亡アニメーション開始
+	}
 	if (playerX < m_posX)
 	{
 		m_knockbackDir = 0.4f; // プレイヤーが左にいる場合、右方向にノックバック

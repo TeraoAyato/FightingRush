@@ -1,6 +1,7 @@
 #include "SceneMain.h"
 #include "DxLib.h"
 #include "Bg.h"
+#include "Enemy.h"
 
 namespace
 {
@@ -73,7 +74,7 @@ void SceneMain::Update()
 		float eBodyX, eBodyY, eBodyW, eBodyH;
 		m_enemy.HitBox(eBodyX, eBodyY, eBodyW, eBodyH);
 
-		if (CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
+		if (!m_enemy.IsDead() && CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
 		{
 			m_OnHit = true;
 
@@ -165,7 +166,4 @@ void SceneMain::Draw()
 		DrawString(0, 120, "ENEMY ATTACK HIT!!", GetColor(255, 0, 0));
 	}
 #endif
-	
-	
-	
 }
