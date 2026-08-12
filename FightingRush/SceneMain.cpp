@@ -95,16 +95,51 @@ void SceneMain::Update()
 
 
 	m_bg.Update();
-	
-	
-	
-	
 }
 
 void SceneMain::Draw()
 {
 	
 	m_bg.Draw();
+	m_enemy.Draw();
+	m_player.Draw();
+
+	// HP表示
+	int hp = m_player.GetHp();
+	int maxHp = m_player.GetMaxHp();
+
+	// UIサイズ
+	int startX = 80;
+	int startY = 30;
+	int  blockWidth = 14;	// ブロック1個の横幅
+	int barHeight = 16;		// ブロックの高さ
+	int blockSpacing = 3;	// ブロック同士の感覚
+
+	unsigned int cWhite = GetColor(255, 0, 0);	// 体力背景
+	unsigned int cBlack = GetColor(0, 0, 0);
+	unsigned int cRed = GetColor(230, 30, 30);	// 体力ゲージ
+
+	for (int i = 0; i < maxHp;i++)
+	{
+		int x1 = startX + i * (blockWidth + blockSpacing);
+		int y1 = startY;
+		int x2 = x1 + blockWidth;
+		int y2 = y1 + barHeight;
+
+		DrawBox(x1 - 1, y1 - 1, x2 + 1, y2 + 1, cBlack, TRUE);
+
+		if (i < hp)
+		{
+			// のこりHP (赤)
+			DrawBox(x1, y1, x2, y2, cWhite, TRUE);
+		}
+		else
+		{
+			// 被ダメ(黒)
+			DrawBox(x1, y1, x2, y2, cBlack, TRUE);
+		}
+	}
+
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
@@ -122,7 +157,6 @@ void SceneMain::Draw()
 	}
 #endif
 	
-	m_enemy.Draw();
-	m_player.Draw();
+	
 	
 }

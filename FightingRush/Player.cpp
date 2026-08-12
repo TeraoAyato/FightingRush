@@ -29,6 +29,12 @@ Player::Player() :
 	m_posY(kDefaultPosY),
 	m_isMoving(false),
 	m_isDirRight(true),
+	m_isHit(false),
+	m_hitFrame(0),
+	m_maxHp(10),
+	m_hp(10),
+	m_isDead(false),
+	m_deadFrame(0),
 	m_isAttacking(false),
 	m_isAttackInput(false),
 	m_ComboInput(false),
@@ -36,9 +42,7 @@ Player::Player() :
 	m_nextAttackType(0),
 	m_attackFrame(0),
 	m_frameCount(0),
-	m_attackType(1),
-	m_isHit(false),
-	m_hitFrame(0)
+	m_attackType(1)
 {
 	for (int i = 0; i < 7; i++)  m_idleHandle[i] = -1;
 	for (int i = 0; i < 10; i++) m_runHandle[i] = -1;
@@ -130,6 +134,17 @@ void Player::Init()
 		m_DamageHitHandle	// 保存配列
 	);
 
+	// 死亡画像
+	LoadDivGraph(
+		"sozai/Player/Dead.png",	// 素材ファイル名
+		5,	// 総コマ数
+		5,	// 横コマ数
+		1,	// 縦コマ数
+		kWidth,	// 1コマの幅
+		kHeight,	// １コマの高さ
+		m_DeadHandle	// 保存配列
+	);
+
 }
 
 void Player::End()
@@ -138,16 +153,35 @@ void Player::End()
 	InitGraph();
 }
 
-void Player::OnDamage()
+void Player::OnDamage(int damage)
 {
-	if (m_isHit)return;
+	if (m_isHit || m_isDead)return;
 
 	m_isHit = true;
 	m_hitFrame = 0;	//フレームリセット
 	m_isAttacking = false;	// 攻撃中なら攻撃終了
+
+	m_hp -= damage;
+	if (m_hp <= 0)
+	{
+		m_hp = 0;
+		m_isDead = true;	// 死亡判定
+		m_deadFrame = 0;	// アニメーションタイマー
+	}
+	
 }
 void Player::Update()
 {
+	// 死亡したら操作不能
+	if (m_isDead)
+	{
+		if (m_deadFrame < 60)
+		{
+			m_deadFrame++;
+		}
+		return;
+	}
+
 	m_frameCount++;
 
 	// ダメージ状態中の処理
@@ -342,8 +376,14 @@ void Player::Draw()
 	float Angle = 0.0;
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
-	// 最優先でダメージアニメーションを描画
-	if (m_isHit)
+
+	if (m_isDead)
+	{
+		int AnimIndex = m_deadFrame / 10;
+
+		DrawRotaGraph(centerX, centerY, Size, Angle, m_DeadHandle[AnimIndex], TRUE, turnFlag);
+	}
+	else if (m_isHit)
 	{
 		// m_hitFrameに合わせて切り替え
 		int animIndex = m_hitFrame / 8;
