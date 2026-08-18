@@ -166,8 +166,14 @@ void Player::Init()
 
 void Player::End()
 {
-	// 画像を一括で削除
-	InitGraph();
+	// 画像削除
+	DeleteGraph(m_idleHandle[0]);
+	DeleteGraph(m_runHandle[0]);
+	DeleteGraph(m_attack1Handle[0]);
+	DeleteGraph(m_attack2Handle[0]);
+	DeleteGraph(m_attack3Handle[0]);
+	DeleteGraph(m_DamageHitHandle[0]);
+	DeleteGraph(m_DeadHandle[0]);
 }
 
 
