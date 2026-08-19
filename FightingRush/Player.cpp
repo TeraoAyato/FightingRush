@@ -31,8 +31,8 @@ Player::Player() :
 	m_isDirRight(true),
 	m_isHit(false),
 	m_hitFrame(0),
-	m_maxHp(10),
-	m_hp(10),
+	m_maxHp(10),	//	最大体力
+	m_hp(10),		// 現在の体力
 	m_isDead(false),
 	m_deadFrame(0),
 	m_isAttacking(false),

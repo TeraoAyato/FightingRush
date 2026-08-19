@@ -21,6 +21,7 @@ private:
 
 	// 背景ハンドル
 	int m_BgHandle;
+	int m_GameOverFontHandle;
 
 	// フォント
 	int m_fontHandle;

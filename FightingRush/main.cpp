@@ -11,6 +11,7 @@ namespace
 	{
 		kSceneTitle,
 		kSceneMain,
+		kSceneGameOver,
 	};
 }
 
@@ -47,7 +48,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 
 	// 現在実行したいシーンを変数で持つ
 	SceneType type = kSceneTitle;
-	sceneTitle.Init();
 
 	// 最初に実行したいシーンを初期化
 	switch (type)
@@ -58,6 +58,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	case kSceneMain:
 		sceneMain.Init();
 		break;
+	case kSceneGameOver:
+		sceneGameOver;
+		sceneGameOver.Init();
 	}
 
 	// メインループ
@@ -93,6 +96,20 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 				// シーンの終了処理
 				sceneMain.End();
 
+				type = kSceneGameOver;
+
+				// 次のシーンの初期化を行う
+				sceneGameOver.Init();
+			}
+			break;
+		case kSceneGameOver:
+			sceneGameOver.Update();
+			sceneGameOver.Draw();
+			if (sceneGameOver.IsEnd())
+			{
+				// シーンの終了処理
+				sceneGameOver.End();
+
 				type = kSceneTitle;
 
 				// 次のシーンの初期化を行う
@@ -125,6 +142,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 			break;
 	case kSceneMain:
 		sceneMain.End();
+		break;
+	case kSceneGameOver:
+		sceneGameOver.End();
 		break;
 	}
 

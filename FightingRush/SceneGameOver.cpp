@@ -19,6 +19,7 @@ SceneGameOver::SceneGameOver() :
 	m_isEnd(false),
 	m_frameCount(0),
 	m_BgHandle(-1),
+	m_GameOverFontHandle(-1),
 	m_fontHandle(-1),
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
@@ -33,7 +34,8 @@ SceneGameOver::~SceneGameOver()
 void SceneGameOver::Init()
 {
 	// 背景ロード
-	m_BgHandle = LoadGraph("sozai/Title/TitleBg.png");
+	m_BgHandle = LoadGraph("sozai/Result/GameOverBg.png");
+	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
@@ -51,6 +53,7 @@ void SceneGameOver::Init()
 void SceneGameOver::End()
 {
 	DeleteGraph(m_BgHandle);
+	DeleteGraph(m_GameOverFontHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
 }
@@ -73,7 +76,7 @@ void SceneGameOver::Update()
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-		if (pad & PAD_INPUT_1)
+		if (pad & PAD_INPUT_2)
 		{
 			// フェードアウトを開始する
 			m_fadeSpeed = +1;
@@ -88,10 +91,10 @@ void SceneGameOver::Update()
 
 void SceneGameOver::Draw()
 {
-	// 背景色
-//	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(255, 250, 205), true);
-// 	   // 背景の表示
+	// 背景の表示 DrawExtendGraph(左上,上,右上,下)
 	DrawExtendGraph(0, 0, 1280, 720, m_BgHandle, TRUE);
+
+	DrawExtendGraph(200, 50, 1100, 400, m_GameOverFontHandle, TRUE);
 
 	// sinカーブを使って透明度を変化させる
 	float sinRate = sinf(m_sinAngle);	// -1.0 ~ 1.0
@@ -104,8 +107,8 @@ void SceneGameOver::Draw()
 	if (m_frameCount >= kKeyInputWaitFrame)	// キー入力できない間は表示しない
 	{
 		// ボタンを押してください表示
-		int width = GetDrawStringWidthToHandle("PRESS A TO START!", strlen("PRESS A TO START!"), m_fontHandle);
-		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, 550, "PRESS A TO START!", GetColor(255, 40, 0), m_fontHandle);
+		int width = GetDrawStringWidthToHandle("PRESS B TO TITLE", strlen("PRESS B TO TITLE"), m_fontHandle);
+		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, 550, "PRESS B TO TITLE", GetColor(255, 40, 0), m_fontHandle);
 	}
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
