@@ -3,6 +3,7 @@
 #include "SceneMain.h"
 #include "Player.h"
 #include "SceneTitle.h"
+#include "SceneGameOver.h"
 
 namespace
 {
@@ -42,6 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	// ゲームシーンの作成
 	SceneMain sceneMain;
 	SceneTitle sceneTitle;
+	SceneGameOver sceneGameOver;
 
 	// 現在実行したいシーンを変数で持つ
 	SceneType type = kSceneTitle;

@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "FightingRush\\x64\\Debug\\SceneGameOver.obj",
+            "outputs": [
+                "FightingRush\\x64\\Debug\\SceneGameOver.cpp.obj.dt.module.json",
+                "FightingRush\\x64\\Debug\\SceneGameOver.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

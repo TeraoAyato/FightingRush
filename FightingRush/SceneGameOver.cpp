@@ -1,4 +1,4 @@
-#include "SceneTitle.h"
+#include "SceneGameOver.h"
 #include "DxLib.h"
 #include "Game.h"
 #include <cmath>
@@ -15,11 +15,10 @@ namespace
 //	constexpr int kBgmVolume = 128;
 }
 
-SceneTitle::SceneTitle() :
+SceneGameOver::SceneGameOver() :
 	m_isEnd(false),
 	m_frameCount(0),
-	m_logoHandle(-1),
-	m_TitleBgHandle(-1),
+	m_BgHandle(-1),
 	m_fontHandle(-1),
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
@@ -27,16 +26,14 @@ SceneTitle::SceneTitle() :
 {
 }
 
-SceneTitle::~SceneTitle()
+SceneGameOver::~SceneGameOver()
 {
 }
 
-void SceneTitle::Init()
+void SceneGameOver::Init()
 {
-	// グラフィックロード
-	m_logoHandle = LoadGraph("sozai/Title/Title.png");
-	// タイトル背景ロード
-	m_TitleBgHandle = LoadGraph("sozai/Title/TitleBg.png");
+	// 背景ロード
+	m_BgHandle = LoadGraph("sozai/Title/TitleBg.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
@@ -51,15 +48,14 @@ void SceneTitle::Init()
 	m_isEnd = false;
 }
 
-void SceneTitle::End()
+void SceneGameOver::End()
 {
-	// グラフィック削除
-	DeleteGraph(m_logoHandle);
+	DeleteGraph(m_BgHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
 }
 
-void SceneTitle::Update()
+void SceneGameOver::Update()
 {
 	m_frameCount++;
 	m_sinAngle += 0.05f;
@@ -90,15 +86,12 @@ void SceneTitle::Update()
 	}
 }
 
-void SceneTitle::Draw()
+void SceneGameOver::Draw()
 {
 	// 背景色
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(255, 250, 205), true);
-// 	   // タイトル背景の表示
-	DrawExtendGraph(0, 0, 1280, 720, m_TitleBgHandle, TRUE);
-	// タイトルロゴの表示
-	DrawExtendGraph(250, 100,1050,400, m_logoHandle, TRUE);
-	
+// 	   // 背景の表示
+	DrawExtendGraph(0, 0, 1280, 720, m_BgHandle, TRUE);
 
 	// sinカーブを使って透明度を変化させる
 	float sinRate = sinf(m_sinAngle);	// -1.0 ~ 1.0
@@ -109,14 +102,14 @@ void SceneTitle::Draw()
 	// 半透明で表示を開始
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	if (m_frameCount >= kKeyInputWaitFrame)	// キー入力できない間は表示しない
-	{ 
+	{
 		// ボタンを押してください表示
 		int width = GetDrawStringWidthToHandle("PRESS A TO START!", strlen("PRESS A TO START!"), m_fontHandle);
 		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, 550, "PRESS A TO START!", GetColor(255, 40, 0), m_fontHandle);
 	}
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	
+
 
 	// 半透明で表示を開始
 
