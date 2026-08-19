@@ -82,11 +82,17 @@ void Player::Init()
 	m_isAttacking = false;
 	m_isAttackInput = false;
 	m_ComboInput = false;
+	m_isDead = false;
+	m_deadFrame = 0;
+	m_isHit = false;
+	m_hitFrame = 0;
+	m_hp = m_maxHp;
 	m_ComboInputTime = 0;
 	m_nextAttackType = 0;
 	m_attackFrame = 0;
 	m_frameCount = 0;
 	m_attackType = 1;
+	
 
 	LoadDivGraph(
 		"sozai/Player/Idle.png",	// ファイル名
@@ -388,6 +394,10 @@ void Player::Draw()
 	{
 		int AnimIndex = m_deadFrame / 10;
 
+		if (AnimIndex >= 5)
+		{
+			AnimIndex = 4;	// 死亡アニメーションの最後で停止
+		}
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_DeadHandle[AnimIndex], TRUE, turnFlag);
 	}
 	else if (m_isHit)

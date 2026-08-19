@@ -21,6 +21,7 @@ Enemy::Enemy() :
 	m_EnemyAttackCoolTime(0),
 	m_isMoving(false),
 	m_isAttacking(false),
+	m_DeadHandle(false),
 	m_posX(1000.0f),	// 初期出現位置
 	m_posY(320.0f), // 初期出現位置
 	m_speed(kEnemySpeed),	// 移動スピード

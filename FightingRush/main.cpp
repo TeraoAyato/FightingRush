@@ -2,8 +2,16 @@
 #include "Game.h"
 #include "SceneMain.h"
 #include "Player.h"
+#include "SceneTitle.h"
 
-
+namespace
+{
+	enum SceneType
+	{
+		kSceneTitle,
+		kSceneMain,
+	};
+}
 
 
 // プログラムは WinMain から始まります
@@ -32,8 +40,23 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	// ゲームシーンの作成
-	SceneMain scene;
-	scene.Init();
+	SceneMain sceneMain;
+	SceneTitle sceneTitle;
+
+	// 現在実行したいシーンを変数で持つ
+	SceneType type = kSceneTitle;
+	sceneTitle.Init();
+
+	// 最初に実行したいシーンを初期化
+	switch (type)
+	{
+	case kSceneTitle:
+			sceneTitle.Init();
+			break;
+	case kSceneMain:
+		sceneMain.Init();
+		break;
+	}
 
 	// メインループ
 	while (ProcessMessage() == 0)
@@ -44,10 +67,37 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 		// 画面をクリア
 		ClearDrawScreen();
 
-		scene.Update();
-		scene.Draw();
+		switch (type)
+		{
+		case kSceneTitle:
+			sceneTitle.Update();
+			sceneTitle.Draw();
+			// シーン終了フラグが立っていたらTitleからMainに移行する
+			if (sceneTitle.IsEnd())
+			{
+				// 現在のシーンの終了処理
+				sceneTitle.End();
 
-		
+				type = kSceneMain;
+				// 次のシーンの初期化を行う
+				sceneMain.Init();
+			}
+			break;
+		case kSceneMain:
+			sceneMain.Update();
+			sceneMain.Draw();
+			if (sceneMain.IsEnd())
+			{
+				// シーンの終了処理
+				sceneMain.End();
+
+				type = kSceneTitle;
+
+				// 次のシーンの初期化を行う
+				sceneTitle.Init();
+			}
+			break;
+		}
 
 		// 1フレームごとにカウントアップ
 		frameCount++;
@@ -66,7 +116,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 		}
 	}
 
-	scene.End();
+	switch (type)
+	{
+	case kSceneTitle:
+			sceneTitle.End();
+			break;
+	case kSceneMain:
+		sceneMain.End();
+		break;
+	}
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

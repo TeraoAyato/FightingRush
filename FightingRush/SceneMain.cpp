@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include "Bg.h"
 #include "Enemy.h"
+#include "SceneTitle.h"
+#include "Game.h"
 
 namespace
 {
@@ -18,10 +20,22 @@ namespace
 		}
 		return false; // 重なっていない
 	}
+
+	// フェードにかかるフレーム数
+	constexpr int kFadeFrame = 30;
+
+	// キー入力を受け付けないフレーム数
+	constexpr int kKeyInputWaitFrame = 60;
+
+	// BGMの音量
+//	constexpr int kBgmVolume = 128;
 }
 
-SceneMain::SceneMain(): 
-	m_frameCount(0)
+SceneMain::SceneMain() :
+	m_frameCount(0),
+	m_isEnd(false),
+	m_fadeFrame(0),
+	m_fadeSpeed(0)
 {
 	
 }
@@ -32,7 +46,12 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	// 初期化時終了フラグ
+	m_isEnd = false;
 	m_frameCount = 0;
+
+	m_fadeFrame = kFadeFrame;
+	m_fadeSpeed = -1;
 
 	m_bg.Init();
 	
@@ -52,10 +71,27 @@ void SceneMain::End()
 
 void SceneMain::Update()
 {
+	m_fadeFrame += m_fadeSpeed;
+	if (m_fadeFrame < 0)
+	{
+		m_fadeFrame = 0;
+		m_fadeSpeed = 0;
+	}
+	if (m_fadeFrame > kFadeFrame)
+	{
+		m_fadeFrame = kFadeFrame;
+		m_isEnd = true;
+	}
+	
 	m_player.Update();
 	if (m_player.IsDead())
 	{
 		m_enemy.SetIdle();	// プレイヤー死亡時、敵は待機状態
+
+		if (m_fadeSpeed == 0)
+		{
+			m_fadeSpeed = 1;	// フェードアウト
+		}
 
 		m_bg.Update();
 		m_frameCount++;
@@ -97,6 +133,20 @@ void SceneMain::Update()
 			m_player.OnDamage(); // プレイヤーにダメージを与える
 
 			
+		}
+		// ゲームオーバーやクリア条件を満たしたらm_isEndをtrueにする
+		// if (player.IsDead())
+		// {
+		//	m_isEnd = true;
+		// }
+
+		// フェード処理
+		m_fadeFrame += m_fadeSpeed;;
+		if (m_fadeFrame < 0)	m_fadeFrame = 0;
+		if (m_fadeFrame > kFadeFrame)
+		{
+			m_fadeFrame = kFadeFrame;
+			m_isEnd = true;
 		}
 	}
 
@@ -149,6 +199,17 @@ void SceneMain::Draw()
 			DrawBox(x1, y1, x2, y2, cBlack, TRUE);
 		}
 	}
+
+	// フェード
+	float frameRate = static_cast<float>(m_fadeFrame) / static_cast<float>(kFadeFrame);	// 浮動小数点数の計算のするためキャスト
+
+	// 0.0~1.0 の割合を 0~255 の間の値に変換する
+	int alpha = static_cast<int>(255 * frameRate);
+	// 半透明で表示を開始
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
+	// 半透明で表示を終了
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
