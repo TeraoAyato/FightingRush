@@ -5,15 +5,15 @@
 namespace
 {
 	// エネミー
-	constexpr int PosX = 1000.0f;	// 初期座標
-	constexpr int PosY = 320.0f;	// 初期座標
+	constexpr float PosX = 1000.0f;	// 初期座標
+	constexpr float PosY = 320.0f;	// 初期座標
 	constexpr int EnemyMaxHp = 4;	// 敵最大HP
 	constexpr int EnemyHp = 4;		// 敵HP
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
-	constexpr int kEnemySpeed = 2.0f;	// 移動速度
+	constexpr float kEnemySpeed = 2.0f;	// 移動速度
 	constexpr float kEnemySize = 1.2;	// キャラクターの大きさ
-	constexpr int kEnemyAngle = 0.0;	// キャラクターの角度
+	constexpr float kEnemyAngle = 0.0;	// キャラクターの角度
 
 	// 当たり判定の半径
 	constexpr float kColRadius = 6.0f;
@@ -25,7 +25,6 @@ Enemy::Enemy() :
 	m_EnemyAttackCoolTime(0),
 	m_isMoving(false),
 	m_isAttacking(false),
-	m_DeadHandle(false),
 	m_posX(PosX),	// 初期出現位置
 	m_posY(PosY), // 初期出現位置
 	m_speed(kEnemySpeed),	// 移動スピード
@@ -42,6 +41,7 @@ Enemy::Enemy() :
 	{
 		m_EnemyIdleHandle[i] = -1;
 		m_EnemyWalkHandle[i] = -1;
+		m_DeadHandle[i] = -1;
 	}
 	for (int i = 0;i < 3;i++)
 	{
@@ -59,22 +59,23 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-	m_EnemyAnimFrame = 0,
-		m_EnemyAttackFrame = 0,
-		m_EnemyAttackCoolTime = 0,
-		m_isMoving = false,
-		m_isAttacking = false,
-		m_posX = PosX,	// 初期出現位置
-		m_posY = PosY, // 初期出現位置
-		m_speed = kEnemySpeed,	// 移動スピード
-		m_direction = 1,	// 移動方向
-		m_isHit = false,
-		m_hitFrame = 0,
-		m_knockbackDir = 0.0f,
-		m_hp = EnemyMaxHp,		// 現在HP
-		m_maxHp = EnemyHp,		// 最大HP
-		m_isDead = false,
-		m_deadFrame = 0,
+	m_EnemyAnimFrame = 0;
+	m_EnemyAttackFrame = 0;
+	m_EnemyAttackCoolTime = 0;
+	m_isMoving = false;
+	m_isAttacking = false;
+	m_posX = PosX;	// 初期出現位置
+	m_posY = PosY; // 初期出現位置
+	m_speed = kEnemySpeed;	// 移動スピード
+	m_direction = 1;	// 移動方向
+	m_isHit = false;
+	m_hitFrame = 0;
+	m_knockbackDir = 0.0f;
+	m_hp = EnemyMaxHp;		// 現在HP
+	m_maxHp = EnemyHp;		// 最大HP
+	m_isDead = false;
+	m_deadFrame = 0;
+
 	LoadDivGraph(
 		"sozai/Enemy/idle.png",	// 待機状態画像
 		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
@@ -127,13 +128,27 @@ void Enemy::End()
 			DeleteGraph(m_EnemyWalkHandle[i]);
 			m_EnemyWalkHandle[i] = -1;
 		}
+		// 死亡状態の画像が読み込まれていれば削除
+		if (m_DeadHandle[i] != -1)
+		{
+			DeleteGraph(m_DeadHandle[i]);
+			m_DeadHandle[i] = -1;
+		}
 	}
 	for (int i = 0;i < 3;i++)
 	{
-		if(m_EnemyPunchHandle[i] != -1)
+		if (m_EnemyPunchHandle[i] != -1)
 		{
-		DeleteGraph(m_EnemyPunchHandle[i]);
-		m_EnemyPunchHandle[i] = -1;
+			DeleteGraph(m_EnemyPunchHandle[i]);
+			m_EnemyPunchHandle[i] = -1;
+		}
+	}
+	for (int i = 0;i < 2;i++)
+	{
+		if (m_DamageHitHandle[i] != -1)
+		{
+			DeleteGraph(m_DamageHitHandle[i]);
+			m_DamageHitHandle[i] = -1;
 		}
 	}
 }
@@ -149,7 +164,7 @@ void Enemy::Update(float playerX, float playerY)
 		}
 		return;
 	}
-	
+
 
 	if (m_isHit)
 	{
@@ -204,7 +219,7 @@ void Enemy::Update(float playerX, float playerY)
 		m_EnemyAttackFrame = 0;
 
 		// プレイヤーの方向を向かせる
-		if(diffX != 0.0f)
+		if (diffX != 0.0f)
 		{
 			m_direction = (diffX > 0.0f) ? 1 : -1;
 		}
@@ -284,7 +299,7 @@ void Enemy::Draw()
 		return;
 	}
 
-	const int* currentHandle = m_isMoving ? m_EnemyWalkHandle : m_EnemyIdleHandle ;
+	const int* currentHandle = m_isMoving ? m_EnemyWalkHandle : m_EnemyIdleHandle;
 	int animIndex = 0;
 
 	if (m_isDead)
@@ -327,35 +342,33 @@ void Enemy::Draw()
 			TRUE,
 			isTurn // 反転フラグ
 		);
+	}
 
-		
 
-		// デバッグ
 #ifdef _DEBUG
-		// 攻撃HitBox
-		float atkX, atkY, atkW, atkH;
-		if (GetAttackHitBox(atkX, atkY, atkW, atkH))
-		{
+			// 攻撃HitBox
+			float atkX, atkY, atkW, atkH;
+			if (GetAttackHitBox(atkX, atkY, atkW, atkH))
+			{
+				::DrawBox(
+					static_cast<int>(atkX), static_cast<int>(atkY),
+					static_cast<int>(atkX + atkW), static_cast<int>(atkY + atkH),
+					GetColor(255, 0, 0), FALSE
+				);
+			}
+			// 当たり判定（HitBox）のデバッグ枠を描画（緑色）
+			float boxX, boxY, boxW, boxH;
+			HitBox(boxX, boxY, boxW, boxH);
+
 			::DrawBox(
-				static_cast<int>(atkX), static_cast<int>(atkY),
-				static_cast<int>(atkX + atkW), static_cast<int>(atkY + atkH),
-				GetColor(255, 0, 0), FALSE
+				static_cast<int>(boxX), static_cast<int>(boxY),
+				static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
+				GetColor(0, 255, 0), FALSE
 			);
-		}
-		// 当たり判定（HitBox）のデバッグ枠を描画（緑色）
-		float boxX, boxY, boxW, boxH;
-		HitBox(boxX, boxY, boxW, boxH);
 
-		::DrawBox(
-			static_cast<int>(boxX), static_cast<int>(boxY),
-			static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
-			GetColor(0, 255, 0), FALSE
-		);
-
-		DrawFormatString(10, 151, GetColor(0, 0, 0), "EnemyHp: %d / %d", m_hp, m_maxHp);
-		DrawFormatString(10, 150, GetColor(255, 255, 255), "EnemyHp : %d / %d", m_hp, m_maxHp);
+			DrawFormatString(10, 151, GetColor(0, 0, 0), "EnemyHp: %d / %d", m_hp, m_maxHp);
+			DrawFormatString(10, 150, GetColor(255, 255, 255), "EnemyHp : %d / %d", m_hp, m_maxHp);
 #endif
-	}	
 }
 
 bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
