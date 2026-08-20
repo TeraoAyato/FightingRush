@@ -35,6 +35,7 @@ void SceneGameOver::Init()
 {
 	// 背景ロード
 	m_BgHandle = LoadGraph("sozai/Result/GameOverBg.png");
+	// ゲームオーバー文字
 	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);

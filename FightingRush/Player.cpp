@@ -10,7 +10,7 @@ namespace
 	constexpr int kAttack3AnimNum = 6;	// 攻撃3【強攻撃】
 
 	// プレイヤー
-	constexpr int kDefaultPosX = 600;	// 初期X座標
+	constexpr int kDefaultPosX = 300;	// 初期X座標
 	constexpr int kDefaultPosY = 240;	// 初期Y座標
 	constexpr int kMoveSpeed = 4;	// 移動速度
 	constexpr int kWidth = 128;	// キャラクターの横幅

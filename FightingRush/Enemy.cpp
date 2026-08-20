@@ -5,6 +5,10 @@
 namespace
 {
 	// エネミー
+	constexpr int PosX = 1000.0f;	// 初期座標
+	constexpr int PosY = 320.0f;	// 初期座標
+	constexpr int EnemyMaxHp = 4;	// 敵最大HP
+	constexpr int EnemyHp = 4;		// 敵HP
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr int kEnemySpeed = 2.0f;	// 移動速度
@@ -22,8 +26,8 @@ Enemy::Enemy() :
 	m_isMoving(false),
 	m_isAttacking(false),
 	m_DeadHandle(false),
-	m_posX(1000.0f),	// 初期出現位置
-	m_posY(320.0f), // 初期出現位置
+	m_posX(PosX),	// 初期出現位置
+	m_posY(PosY), // 初期出現位置
 	m_speed(kEnemySpeed),	// 移動スピード
 	m_direction(1),	// 移動方向
 	m_isHit(false),
@@ -55,6 +59,22 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
+	m_EnemyAnimFrame = 0,
+		m_EnemyAttackFrame = 0,
+		m_EnemyAttackCoolTime = 0,
+		m_isMoving = false,
+		m_isAttacking = false,
+		m_posX = PosX,	// 初期出現位置
+		m_posY = PosY, // 初期出現位置
+		m_speed = kEnemySpeed,	// 移動スピード
+		m_direction = 1,	// 移動方向
+		m_isHit = false,
+		m_hitFrame = 0,
+		m_knockbackDir = 0.0f,
+		m_hp = EnemyMaxHp,		// 現在HP
+		m_maxHp = EnemyHp,		// 最大HP
+		m_isDead = false,
+		m_deadFrame = 0,
 	LoadDivGraph(
 		"sozai/Enemy/idle.png",	// 待機状態画像
 		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
