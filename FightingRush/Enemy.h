@@ -13,6 +13,7 @@ public:
 	bool GetAttackHitBox(float& outX, float& outY, float& outW, float& outH)const;
 	void HitBox(float& outX,float& outY,float& outW,float& outH)const;
 	void OnDamage(float playerX,int damage = 1);
+	void SetPosition(float x, float y);
 
 	void SetIdle();
 private:
@@ -45,6 +46,9 @@ private:
 	int m_deadFrame;	// 死亡フレーム数
 public:
 
+	// Enemy.h の public: 内に追加
+// 死亡アニメーション（90フレーム等）が終わったら true
+	bool IsDestroyed() const { return m_isDead && m_deadFrame > 90; }
 	int GetHp() const { return m_hp; }
 	bool IsDead() const { return m_isDead; }
 

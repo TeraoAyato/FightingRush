@@ -4,10 +4,11 @@
 #include "Enemy.h"
 #include "SceneTitle.h"
 #include "Game.h"
+#include "EnemyManager.h"
 
 namespace
 {
-	// 2つの矩形（四角形）が重なっているかチェックする関数 (AABB判定)
+	// 2つの矩形が重なっているかチェック
 	bool CheckAABB(float x1, float y1, float w1, float h1,
 		float x2, float y2, float w2, float h2)
 	{
@@ -55,8 +56,8 @@ void SceneMain::Init()
 
 	m_bg.Init();
 	
-	m_enemy.Init();
 	m_player.Init();
+	m_enemyManager.Init();
 	
 }
 
@@ -64,13 +65,20 @@ void SceneMain::End()
 {
 	m_bg.End();
 	
-	m_enemy.End();
 	m_player.End();
-	
+	m_enemyManager.End();
 }
 
 void SceneMain::Update()
 {
+	// プレイヤー座標取得
+	float playerX = m_player.GetCenterX();
+	float playerY = m_player.GetCenterY();
+
+	// エネミー全体の更新（中で移動や生成が行われる）
+	m_enemyManager.Update(playerX, playerY);
+
+	// フェード処理
 	m_fadeFrame += m_fadeSpeed;
 	if (m_fadeFrame < 0)
 	{
@@ -82,64 +90,66 @@ void SceneMain::Update()
 		m_fadeFrame = kFadeFrame;
 		m_isEnd = true;
 	}
-	
+
 	m_player.Update();
+
+	// プレイヤー死亡処理
 	if (m_player.IsDead())
 	{
-		m_enemy.SetIdle();	// プレイヤー死亡時、敵は待機状態
+		// 画面上の全敵を待機状態にする
+		for (auto& enemy : m_enemyManager.GetEnemies())
+		{
+			enemy->SetIdle();
+		}
 
 		if (m_fadeSpeed == 0)
 		{
-			m_fadeSpeed = 1;	// フェードアウト
+			m_fadeSpeed = 1; // フェードアウト開始
 		}
 
 		m_bg.Update();
 		m_frameCount++;
 		return;
 	}
-	// プレイヤー生存時のみアニメーション
-	m_enemy.Update(m_player.GetCenterX(), m_player.GetCenterY());
 
 	m_OnHit = false;
 	m_OnEnemyHit = false;
 
-	// プレイヤーの攻撃判定
+	// 当たり判定
+	// プレイヤーの攻撃ヒットボックス
 	float pAtkX, pAtkY, pAtkW, pAtkH;
-	if (m_player.GetAttackHitBox(pAtkX, pAtkY, pAtkW, pAtkH))
+	bool isPlayerAttacking = m_player.GetAttackHitBox(pAtkX, pAtkY, pAtkW, pAtkH);
+
+	// プレイヤーの本体ヒットボックスを取得
+	float pBodyX, pBodyY, pBodyW, pBodyH;
+	m_player.HitBox(pBodyX, pBodyY, pBodyW, pBodyH);
+
+	// 全ての敵と当たり判定チェック
+	for (auto& enemy : m_enemyManager.GetEnemies())
 	{
-		float eBodyX, eBodyY, eBodyW, eBodyH;
-		m_enemy.HitBox(eBodyX, eBodyY, eBodyW, eBodyH);
-
-		if (!m_enemy.IsDead() && CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
+		// プレイヤー攻撃 -> 敵本体
+		if (isPlayerAttacking)
 		{
-			m_OnHit = true;
+			float eBodyX, eBodyY, eBodyW, eBodyH;
+			enemy->HitBox(eBodyX, eBodyY, eBodyW, eBodyH);
 
-			m_enemy.OnDamage(m_player.GetCenterX()); // 敵にダメージを与える
+			if (!enemy->IsDead() && CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
+			{
+				m_OnHit = true;
+				enemy->OnDamage(playerX, 1); // 敵に1ダメージを与える
+			}
 		}
-	}
 
-	// 敵の攻撃判定
-	float eAtkX, eAtkY, eAtkW, eAtkH;
-	if (m_enemy.GetAttackHitBox(eAtkX, eAtkY, eAtkW, eAtkH))
-	{
-		float pBodyX, pBodyY, pBodyW, pBodyH;
-		m_player.HitBox(pBodyX, pBodyY, pBodyW, pBodyH);
-
-		// 当たり判定
-		if (CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
+		// 敵攻撃 -> プレイヤー本体
+		float eAtkX, eAtkY, eAtkW, eAtkH;
+		if (enemy->GetAttackHitBox(eAtkX, eAtkY, eAtkW, eAtkH))
 		{
-			m_OnEnemyHit = true;
-
-			m_player.OnDamage(); // プレイヤーにダメージを与える
-
-			
+			if (CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
+			{
+				m_OnEnemyHit = true;
+				m_player.OnDamage(); // プレイヤーにダメージを与える
+			}
 		}
-		// ゲームオーバーやクリア条件を満たしたらm_isEndをtrueにする
-		// if (player.IsDead())
-		// {
-		//	m_isEnd = true;
-		// }
-
 		// フェード処理
 		m_fadeFrame += m_fadeSpeed;;
 		if (m_fadeFrame < 0)	m_fadeFrame = 0;
@@ -150,18 +160,22 @@ void SceneMain::Update()
 		}
 	}
 
-
 	m_frameCount++;
-
-
 	m_bg.Update();
 }
+// ゲームオーバーやクリア条件を満たしたらm_isEndをtrueにする
+		// if (player.IsDead())
+		// {
+		//	m_isEnd = true;
+		// }
+
+
 
 void SceneMain::Draw()
 {
 	
 	m_bg.Draw();
-	m_enemy.Draw();
+	m_enemyManager.Draw();
 	m_player.Draw();
 
 	// HP表示
@@ -214,6 +228,7 @@ void SceneMain::Draw()
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
+	DrawFormatString(0, 80, GetColor(0, 255, 0), "ENEMYKILLCOUNT:%d/%d", m_enemyManager.GetSpawnCount(),m_enemyManager.GetTotalCount());
 
 	// プレイヤーの攻撃が敵に当たった場合
 	if (m_OnHit)

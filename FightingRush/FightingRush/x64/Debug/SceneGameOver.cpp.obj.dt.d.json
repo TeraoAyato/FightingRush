@@ -1,10 +1,10 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\scenegameover.cpp",
+        "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\scenegameover.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\scenegameover.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\scenegameover.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxlib.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxcompileconfig.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxdatatype.h",
@@ -261,7 +261,7 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\dpa_dsa.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxfunctionwin.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\game.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\game.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\cmath",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals_core.h",

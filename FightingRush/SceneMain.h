@@ -2,6 +2,7 @@
 #include"Bg.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyManager.h"
 
 class SceneMain
 {
@@ -24,8 +25,8 @@ private:
 	bool m_isEnd;
 
 	Bg m_bg;
-	Enemy m_enemy;
 	Player m_player;
+	EnemyManager m_enemyManager;
 
 	// フェード管理
 	int m_fadeFrame;

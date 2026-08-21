@@ -7,8 +7,8 @@ namespace
 	// エネミー
 	constexpr float PosX = 1000.0f;	// 初期座標
 	constexpr float PosY = 320.0f;	// 初期座標
-	constexpr int EnemyMaxHp = 4;	// 敵最大HP
-	constexpr int EnemyHp = 4;		// 敵HP
+	constexpr int EnemyMaxHp = 3;	// 敵最大HP
+	constexpr int EnemyHp = 3;		// 敵HP
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr float kEnemySpeed = 2.0f;	// 移動速度
@@ -64,8 +64,8 @@ void Enemy::Init()
 	m_EnemyAttackCoolTime = 0;
 	m_isMoving = false;
 	m_isAttacking = false;
-	m_posX = PosX;	// 初期出現位置
-	m_posY = PosY; // 初期出現位置
+//	m_posX = PosX;	// 初期出現位置
+//	m_posY = PosY; // 初期出現位置
 	m_speed = kEnemySpeed;	// 移動スピード
 	m_direction = 1;	// 移動方向
 	m_isHit = false;
@@ -208,7 +208,7 @@ void Enemy::Update(float playerX, float playerY)
 			m_isAttacking = false;
 			m_EnemyAnimFrame = 0;
 
-			m_EnemyAttackCoolTime = 60;	// パンチ後のクールタイムを設定
+			m_EnemyAttackCoolTime = 120;	// パンチ後のクールタイムを設定
 		}
 		return;
 	}
@@ -257,7 +257,7 @@ void Enemy::Update(float playerX, float playerY)
 			}
 		}
 	}
-
+	/*
 	// 絶対値の差がm_speedより大きければプレイヤー追従
 	if (absDiffY > m_speed)
 	{
@@ -279,7 +279,38 @@ void Enemy::Update(float playerX, float playerY)
 		// プレイヤーと距離が近かったら、プレイヤーのY軸座標に合わせる
 		m_posY = playerY;
 	}
+	*/
+	// --- 修正前 ---
+/*
+if (absDiffY > m_speed)
+{
+	isMovingY = true;
+	if (diffY > 0.0f) m_posY += m_speed;
+	else              m_posY -= m_speed;
+}
+else
+{
+	m_posY = playerY; // ← これが原因でフリーズ・ワープしていた！
+}
+*/
 
+// --- 修正後 ---
+// Y軸の移動目標（プレイヤーのY座標に近づく）
+	constexpr float kStopDistanceY = 5.0f; // Y軸の許容誤差
+
+	if (absDiffY > kStopDistanceY)
+	{
+		isMovingY = true;
+
+		if (diffY > 0.0f)
+		{
+			m_posY += m_speed; // 下に移動
+		}
+		else
+		{
+			m_posY -= m_speed; // 上に移動
+		}
+	}
 	// 動いているか
 	m_isMoving = (isMovingX || isMovingY);
 
@@ -445,4 +476,10 @@ void Enemy::SetIdle()
 	m_isAttacking = false;    // 攻撃動作キャンセルの停止
 	m_EnemyAttackFrame = 0;   // 攻撃フレーム初期化
 	m_EnemyAnimFrame++;       // 待機アニメーションのコマだけは進める
+}
+
+void Enemy::SetPosition(float x, float y)
+{
+	m_posX = x;
+	m_posY = y;
 }
