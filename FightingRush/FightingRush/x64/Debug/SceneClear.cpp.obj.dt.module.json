@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "FightingRush\\x64\\Debug\\SceneClear.obj",
+            "outputs": [
+                "FightingRush\\x64\\Debug\\SceneClear.cpp.obj.dt.module.json",
+                "FightingRush\\x64\\Debug\\SceneClear.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -28,17 +28,17 @@ namespace
 	// キー入力を受け付けないフレーム数
 	constexpr int kKeyInputWaitFrame = 60;
 
-	// BGMの音量
-//	constexpr int kBgmVolume = 128;
+	// BGMの音量//	constexpr int kBgmVolume = 128;
 }
 
 SceneMain::SceneMain() :
 	m_frameCount(0),
 	m_isEnd(false),
+	m_isClear(false),
 	m_fadeFrame(0),
-	m_fadeSpeed(0)
+	m_fadeSpeed(0),
+	m_OnHit(false)
 {
-	
 }
 
 SceneMain::~SceneMain()
@@ -49,22 +49,23 @@ void SceneMain::Init()
 {
 	// 初期化時終了フラグ
 	m_isEnd = false;
+	m_isClear = false;
 	m_frameCount = 0;
 
 	m_fadeFrame = kFadeFrame;
 	m_fadeSpeed = -1;
 
 	m_bg.Init();
-	
+
 	m_player.Init();
 	m_enemyManager.Init();
-	
+
 }
 
 void SceneMain::End()
 {
 	m_bg.End();
-	
+
 	m_player.End();
 	m_enemyManager.End();
 }
@@ -107,6 +108,20 @@ void SceneMain::Update()
 			m_fadeSpeed = 1; // フェードアウト開始
 		}
 
+		m_bg.Update();
+		m_frameCount++;
+		return;
+	}
+
+	if (m_enemyManager.IsAllEnemyDie())
+	{
+		m_isClear = true;	// クリア判定
+		m_fadeSpeed = 1;
+
+		if (m_fadeSpeed == 0)
+		{
+			m_fadeSpeed = 1;	// クリアフェードアウト
+		}
 		m_bg.Update();
 		m_frameCount++;
 		return;
@@ -169,11 +184,8 @@ void SceneMain::Update()
 		//	m_isEnd = true;
 		// }
 
-
-
 void SceneMain::Draw()
 {
-	
 	m_bg.Draw();
 	m_enemyManager.Draw();
 	m_player.Draw();
@@ -228,7 +240,7 @@ void SceneMain::Draw()
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
-	DrawFormatString(0, 80, GetColor(0, 255, 0), "ENEMYKILLCOUNT:%d/%d", m_enemyManager.GetSpawnCount(),m_enemyManager.GetTotalCount());
+	DrawFormatString(0, 80, GetColor(0, 255, 0), "ENEMYKILLCOUNT:%d/%d", m_enemyManager.GetSpawnCount(), m_enemyManager.GetTotalCount());
 
 	// プレイヤーの攻撃が敵に当たった場合
 	if (m_OnHit)

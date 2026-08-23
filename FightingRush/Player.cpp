@@ -461,7 +461,7 @@ void Player::Draw()
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
 
-	// ★ 攻撃のHitBoxを赤枠で描画
+	// 攻撃のHitBox(赤枠)
 	float atkX, atkY, atkW, atkH;
 	if (GetAttackHitBox(atkX, atkY, atkW, atkH))
 	{
@@ -471,7 +471,7 @@ void Player::Draw()
 			GetColor(255, 0, 0), FALSE
 		);
 	}
-	// 当たり判定（HitBox）のデバッグ枠を描画（緑色）
+	// 当たり判定(HitBox)のデバッグ枠（緑色）
 	float boxX, boxY, boxW, boxH;
 	HitBox(boxX, boxY, boxW, boxH);
 

@@ -44,6 +44,7 @@ private:
 	int m_maxHp;	// 敵の最大HP
 	int m_isDead;	// 敵が死亡したか判定
 	int m_deadFrame;	// 死亡フレーム数
+
 public:
 
 	// Enemy.h の public: 内に追加

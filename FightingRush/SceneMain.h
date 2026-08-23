@@ -17,12 +17,15 @@ public:
 	void Draw();
 
 	bool IsEnd()const { return m_isEnd; }
+	bool IsClear()const { return m_isClear; }
 
 private:
 	int m_frameCount;
 
 	// シーン終了フラグ	trueなら遷移する
 	bool m_isEnd;
+
+	bool m_isClear;
 
 	Bg m_bg;
 	Player m_player;

@@ -12,7 +12,7 @@ public:
     void Draw();
 
     // 15体すべて倒したか？（クリア判定用）
-    bool IsAllDefeated() const { return m_killCount >= kMaxTotalEnemies; }
+    bool IsAllEnemyDie() const { return m_killCount >= kMaxTotalEnemies; }
 
     // 当たり判定用に敵のリストを取得する関数
     std::vector<std::shared_ptr<Enemy>>& GetEnemies() { return m_enemies; }

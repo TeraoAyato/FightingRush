@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "SceneTitle.h"
 #include "SceneGameOver.h"
+#include "SceneClear.h"
 
 namespace
 {
@@ -12,18 +13,19 @@ namespace
 		kSceneTitle,
 		kSceneMain,
 		kSceneGameOver,
+		kSceneClear,
 	};
 }
 
 
 // プログラムは WinMain から始まります
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	// windowモードで起動する
 	ChangeWindowMode(1);
 
 	// ウィンドウサイズを16:9に
-	SetGraphMode(Game::kScreenWidth,Game::kScreenHeight,Game::kColorDepth);
+	SetGraphMode(Game::kScreenWidth, Game::kScreenHeight, Game::kColorDepth);
 
 	//　ウィンドウのタイトル表示を変更
 	SetMainWindowText("Fighting Rush");
@@ -40,11 +42,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
-	
+
 	// ゲームシーンの作成
 	SceneMain sceneMain;
 	SceneTitle sceneTitle;
 	SceneGameOver sceneGameOver;
+	SceneClear sceneClear;
 
 	// 現在実行したいシーンを変数で持つ
 	SceneType type = kSceneTitle;
@@ -53,14 +56,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 	switch (type)
 	{
 	case kSceneTitle:
-			sceneTitle.Init();
-			break;
+		sceneTitle.Init();
+		break;
 	case kSceneMain:
 		sceneMain.Init();
 		break;
 	case kSceneGameOver:
 		sceneGameOver;
 		sceneGameOver.Init();
+		break;
+	case kSceneClear:
+		sceneClear;
+		sceneClear.Init();
+		break;
 	}
 
 	// メインループ
@@ -96,59 +104,78 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,_I
 				// シーンの終了処理
 				sceneMain.End();
 
-				type = kSceneGameOver;
-
-				// 次のシーンの初期化を行う
-				sceneGameOver.Init();
+				if (sceneMain.IsClear())
+				{
+					type = kSceneClear;	// クリア画面に遷移
+					sceneClear.Init();
+				}
+				else
+				{
+					type = kSceneGameOver;	// ゲームオーバー画面に遷移
+					sceneGameOver.Init();
+				}
 			}
 			break;
+
+			// ゲームオーバーシーン
 		case kSceneGameOver:
 			sceneGameOver.Update();
 			sceneGameOver.Draw();
 			if (sceneGameOver.IsEnd())
 			{
-				// シーンの終了処理
 				sceneGameOver.End();
-
 				type = kSceneTitle;
+				sceneTitle.Init();
+			}
+			break;
 
-				// 次のシーンの初期化を行う
+			// クリアシーン
+		case kSceneClear:
+			sceneClear.Update();
+			sceneClear.Draw();
+			if (sceneClear.IsEnd())
+			{
+				sceneClear.End();
+				type = kSceneTitle;
 				sceneTitle.Init();
 			}
 			break;
 		}
 
-		// 1フレームごとにカウントアップ
-		frameCount++;
-		
-		// 画面の書き換えを待つ
-		ScreenFlip();
+			// 1フレームごとにカウントアップ
+			frameCount++;
 
-		// escキーを押したらゲームを強制終了
-		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;
-		
+			// 画面の書き換えを待つ
+			ScreenFlip();
 
-		// 画面のリフレッシュレートにかかわらず1/60経過するまで待つ
-		while (GetNowHiPerformanceCount() - start < 16667)
-		{
-			// 時間経過まで何もせずに待つ
-		}
+			// escキーを押したらゲームを強制終了
+			if (CheckHitKey(KEY_INPUT_ESCAPE))	break;
+
+
+			// 画面のリフレッシュレートにかかわらず1/60経過するまで待つ
+			while (GetNowHiPerformanceCount() - start < 16667)
+			{
+				// 時間経過まで何もせずに待つ
+			}
 	}
 
-	switch (type)
-	{
-	case kSceneTitle:
+		switch (type)
+		{
+		case kSceneTitle:
 			sceneTitle.End();
 			break;
-	case kSceneMain:
-		sceneMain.End();
-		break;
-	case kSceneGameOver:
-		sceneGameOver.End();
-		break;
+		case kSceneMain:
+			sceneMain.End();
+			break;
+		case kSceneGameOver:
+			sceneGameOver.End();
+			break;
+		case kSceneClear:
+			sceneClear.End();
+			break;
+		}
+
+		DxLib_End();				// ＤＸライブラリ使用の終了処理
+
+		return 0;				// ソフトの終了 
 	}
-
-	DxLib_End();				// ＤＸライブラリ使用の終了処理
-
-	return 0;				// ソフトの終了 
-}

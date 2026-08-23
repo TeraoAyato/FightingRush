@@ -1,4 +1,4 @@
-#include "SceneGameOver.h"
+#include "SceneClear.h"
 #include "DxLib.h"
 #include "Game.h"
 #include <cmath>
@@ -15,28 +15,28 @@ namespace
 //	constexpr int kBgmVolume = 128;
 }
 
-SceneGameOver::SceneGameOver() :
-	m_isEnd(false),
-	m_frameCount(0),
-	m_BgHandle(-1),
-	m_GameOverFontHandle(-1),
-	m_fontHandle(-1),
-	m_fadeFrame(0),
-	m_fadeSpeed(0),
-	m_sinAngle(0.0f)
+SceneClear::SceneClear():
+m_isEnd(false),
+m_frameCount(0),
+m_BgHandle(-1),
+m_ClearFontHandle(-1),
+m_fontHandle(-1),
+m_fadeFrame(0),
+m_fadeSpeed(0),
+m_sinAngle(0.0f)
 {
 }
 
-SceneGameOver::~SceneGameOver()
+SceneClear::~SceneClear()
 {
 }
 
-void SceneGameOver::Init()
+void SceneClear::Init()
 {
 	// 背景ロード
-	m_BgHandle = LoadGraph("sozai/Result/GameOverBg.png");
+	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
 	// ゲームオーバー文字
-	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
+	m_ClearFontHandle = LoadGraph("sozai/Result/GameClearFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
@@ -51,15 +51,15 @@ void SceneGameOver::Init()
 	m_isEnd = false;
 }
 
-void SceneGameOver::End()
+void SceneClear::End()
 {
 	DeleteGraph(m_BgHandle);
-	DeleteGraph(m_GameOverFontHandle);
+	DeleteGraph(m_ClearFontHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
 }
 
-void SceneGameOver::Update()
+void SceneClear::Update()
 {
 	m_frameCount++;
 	m_sinAngle += 0.05f;
@@ -83,19 +83,19 @@ void SceneGameOver::Update()
 			m_fadeSpeed = +1;
 
 			// フェードアウトが終わったらシーンを終了するよう変更
-			// シーンを終了してタイトルへ
+			// タイトル画面を終了してゲームへ
 			m_isEnd = true;
 
 		}
 	}
 }
 
-void SceneGameOver::Draw()
+void SceneClear::Draw()
 {
 	// 背景の表示 DrawExtendGraph(左上,上,右上,下)
 	DrawExtendGraph(0, 0, 1280, 720, m_BgHandle, TRUE);
 
-	DrawExtendGraph(200, 50, 1100, 400, m_GameOverFontHandle, TRUE);
+	DrawExtendGraph(200, 50, 1100, 400, m_ClearFontHandle, TRUE);
 
 	// sinカーブを使って透明度を変化させる
 	float sinRate = sinf(m_sinAngle);	// -1.0 ~ 1.0
@@ -133,6 +133,6 @@ void SceneGameOver::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	DrawString(0, 0, "SceneTitle", GetColor(0, 255, 0));
+	DrawString(0, 0, "SceneClear", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
 }

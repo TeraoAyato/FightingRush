@@ -61,8 +61,12 @@ void EnemyManager::SpawnEnemy()
     auto newEnemy = std::make_shared<Enemy>();
     newEnemy->Init();
 
+    // 出現位置
     float spawnX = 0.0f;
     float spawnY = 260.0f + (m_spawnCount % 3) * 20.0f; 
+
+    // 出現時の敵同士の距離
+    float distanceOffset = (m_spawnCount % 3) * 120.0f + (rand() % 40);
 
     // ランダムでスポーン（0: 左から / 1: 右から）
     bool isLeft = (rand() % 2 == 0);
@@ -70,12 +74,12 @@ void EnemyManager::SpawnEnemy()
     if (isLeft)
     {
         // 画面左から出現
-        spawnX = -20.0f - (rand() % 50);
+        spawnX = -20.0f - distanceOffset;
     }
     else
     {
         // 画面右から出現
-        spawnX = 1300.0f + (rand() % 50);
+        spawnX = 1320.0f + distanceOffset;
     }
 
     newEnemy->SetPosition(spawnX, spawnY);
