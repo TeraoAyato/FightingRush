@@ -257,45 +257,8 @@ void Enemy::Update(float playerX, float playerY)
 			}
 		}
 	}
-	/*
-	// 絶対値の差がm_speedより大きければプレイヤー追従
-	if (absDiffY > m_speed)
-	{
-		isMovingY = true;
-
-		if (diffY > 0.0f)
-		{
-			// プレイヤーが下にいると下へ移動
-			m_posY += m_speed;
-		}
-		else
-		{
-			// プレイヤーが上にいると上へ移動
-			m_posY -= m_speed;
-		}
-	}
-	else
-	{
-		// プレイヤーと距離が近かったら、プレイヤーのY軸座標に合わせる
-		m_posY = playerY;
-	}
-	*/
-	// --- 修正前 ---
-/*
-if (absDiffY > m_speed)
-{
-	isMovingY = true;
-	if (diffY > 0.0f) m_posY += m_speed;
-	else              m_posY -= m_speed;
-}
-else
-{
-	m_posY = playerY; // ← これが原因でフリーズ・ワープしていた！
-}
-*/
-
-// --- 修正後 ---
-// Y軸の移動目標（プレイヤーのY座標に近づく）
+	
+// Y軸追従
 	constexpr float kStopDistanceY = 5.0f; // Y軸の許容誤差
 
 	if (absDiffY > kStopDistanceY)

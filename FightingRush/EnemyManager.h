@@ -6,6 +6,10 @@
 class EnemyManager
 {
 public:
+
+    EnemyManager();
+    ~EnemyManager();
+
     void Init();
     void End();
     void Update(float playerX, float playerY);

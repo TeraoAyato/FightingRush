@@ -1,11 +1,19 @@
 #include "EnemyManager.h"
 #include "Enemy.h"
 
+EnemyManager::EnemyManager():
+m_spawnCount(0),
+m_killCount(0)
+{
+}
+
+EnemyManager::~EnemyManager()
+{
+}
+
 void EnemyManager::Init()
 {
     m_enemies.clear();
-    m_spawnCount = 0;
-    m_killCount = 0;
 
     // 初期化時に3体スポーン
     for (int i = 0; i < kMaxOnScreen; ++i)
