@@ -13,7 +13,12 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init()
 {
+    // 敵リセット
+    m_spawnCount = 0;
+    m_killCount = 0;
+
     m_enemies.clear();
+
 
     // 初期化時に3体スポーン
     for (int i = 0; i < kMaxOnScreen; ++i)

@@ -23,7 +23,8 @@ SceneGameOver::SceneGameOver() :
 	m_fontHandle(-1),
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
-	m_sinAngle(0.0f)
+	m_sinAngle(0.0f),
+	m_bgmHandle(-1)
 {
 }
 
@@ -39,6 +40,11 @@ void SceneGameOver::Init()
 	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
+
+	// BGM読み込み
+	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneGameOverBgm.mp3");
+	ChangeVolumeSoundMem(220, m_bgmHandle);
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
 	// サウンドのロード
 //	m_bgmTitleHandle = LoadSoundMem("data/sound/titleBgm.mp3");
@@ -57,6 +63,14 @@ void SceneGameOver::End()
 	DeleteGraph(m_GameOverFontHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
+
+	// BGMの削除
+	if (m_bgmHandle != -1)
+	{
+		StopSoundMem(m_bgmHandle); // 再生停止
+		DeleteSoundMem(m_bgmHandle); // メモリ解放
+		m_bgmHandle = -1;
+	}
 }
 
 void SceneGameOver::Update()

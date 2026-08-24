@@ -33,5 +33,8 @@ private:
 
 	// 演出サインカーブ
 	float m_sinAngle;
+
+	// サウンド
+	int m_bgmHandle;
 };
 

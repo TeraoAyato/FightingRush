@@ -27,8 +27,6 @@ namespace
 
 	// キー入力を受け付けないフレーム数
 	constexpr int kKeyInputWaitFrame = 60;
-
-	// BGMの音量//	constexpr int kBgmVolume = 128;
 }
 
 SceneMain::SceneMain() :
@@ -39,7 +37,8 @@ SceneMain::SceneMain() :
 	m_fadeSpeed(0),
 	m_OnHit(false),
 	m_PlayerhitSoundHandle(-1),
-	m_EnemyhitSoundHandle(-1)
+	m_EnemyhitSoundHandle(-1),
+	m_bgmHandle(-1)
 {
 }
 
@@ -67,6 +66,12 @@ void SceneMain::Init()
 	m_PlayerhitSoundHandle = LoadSoundMem("sozai/Sound/PlayerPunch.mp3");
 	m_EnemyhitSoundHandle = LoadSoundMem("sozai/Sound/EnemyPunch.mp3");
 
+	// BGM読み込み
+	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneMainBgm.mp3");
+	ChangeVolumeSoundMem(180, m_bgmHandle);
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+	
+
 }
 
 void SceneMain::End()
@@ -88,6 +93,14 @@ void SceneMain::End()
 	{
 		DeleteSoundMem(m_EnemyhitSoundHandle);
 		m_EnemyhitSoundHandle = -1;
+	}
+
+	// BGMの削除
+	if (m_bgmHandle != -1)
+	{
+		StopSoundMem(m_bgmHandle); // 再生停止
+		DeleteSoundMem(m_bgmHandle); // メモリ解放
+		m_bgmHandle = -1;
 	}
 }
 

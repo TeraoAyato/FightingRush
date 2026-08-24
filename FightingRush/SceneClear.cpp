@@ -40,8 +40,9 @@ void SceneClear::Init()
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
-	// サウンドのロード
-//	m_bgmTitleHandle = LoadSoundMem("data/sound/titleBgm.mp3");
+	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneClearBgm.mp3");
+	ChangeVolumeSoundMem(220, m_bgmHandle);
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
 	// フェードの初期化	真っ暗な状態から始まる
 	m_fadeFrame = kFadeFrame;
@@ -57,6 +58,14 @@ void SceneClear::End()
 	DeleteGraph(m_ClearFontHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
+
+	// BGMの削除
+	if (m_bgmHandle != -1)
+	{
+		StopSoundMem(m_bgmHandle); // 再生停止
+		DeleteSoundMem(m_bgmHandle); // メモリ解放
+		m_bgmHandle = -1;
+	}
 }
 
 void SceneClear::Update()
@@ -81,11 +90,6 @@ void SceneClear::Update()
 		{
 			// フェードアウトを開始する
 			m_fadeSpeed = +1;
-
-			// フェードアウトが終わったらシーンを終了するよう変更
-			// タイトル画面を終了してゲームへ
-			m_isEnd = true;
-
 		}
 	}
 }

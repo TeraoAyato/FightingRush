@@ -10,9 +10,6 @@ namespace
 
 	// キー入力を受け付けないフレーム数
 	constexpr int kKeyInputWaitFrame = 60;
-
-	// BGMの音量
-//	constexpr int kBgmVolume = 128;
 }
 
 SceneTitle::SceneTitle() :
@@ -23,7 +20,8 @@ SceneTitle::SceneTitle() :
 	m_fontHandle(-1),
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
-	m_sinAngle(0.0f)
+	m_sinAngle(0.0f),
+	m_bgmHandle(-1)
 {
 }
 
@@ -40,8 +38,10 @@ void SceneTitle::Init()
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
-	// サウンドのロード
-//	m_bgmTitleHandle = LoadSoundMem("data/sound/titleBgm.mp3");
+	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneTitleBgm.mp3");
+	ChangeVolumeSoundMem(180, m_bgmHandle);
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+
 
 	// フェードの初期化	真っ暗な状態から始まる
 	m_fadeFrame = kFadeFrame;
@@ -57,6 +57,14 @@ void SceneTitle::End()
 	DeleteGraph(m_logoHandle);
 	// フォントの削除
 	DeleteFontToHandle(m_fontHandle);
+
+	// BGMの削除
+	if (m_bgmHandle != -1)
+	{
+		StopSoundMem(m_bgmHandle); // 再生停止
+		DeleteSoundMem(m_bgmHandle); // メモリ解放
+		m_bgmHandle = -1;
+	}
 }
 
 void SceneTitle::Update()
