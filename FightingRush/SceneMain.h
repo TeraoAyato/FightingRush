@@ -43,5 +43,9 @@ private:
 	// エフェクト
 	Effect m_hitEffect;
 
+	// サウンド
+	int m_PlayerhitSoundHandle;
+	int m_EnemyhitSoundHandle;
+
 };
 

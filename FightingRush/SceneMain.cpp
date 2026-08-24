@@ -37,7 +37,9 @@ SceneMain::SceneMain() :
 	m_isClear(false),
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
-	m_OnHit(false)
+	m_OnHit(false),
+	m_PlayerhitSoundHandle(-1),
+	m_EnemyhitSoundHandle(-1)
 {
 }
 
@@ -61,6 +63,10 @@ void SceneMain::Init()
 	m_hitEffect.Init();
 	m_enemyManager.Init();
 
+	// ヒットサウンド読み込み
+	m_PlayerhitSoundHandle = LoadSoundMem("sozai/Sound/PlayerPunch.mp3");
+	m_EnemyhitSoundHandle = LoadSoundMem("sozai/Sound/EnemyPunch.mp3");
+
 }
 
 void SceneMain::End()
@@ -70,6 +76,19 @@ void SceneMain::End()
 	m_player.End();
 	m_hitEffect.End();
 	m_enemyManager.End();
+
+	// ヒットサウンドの削除
+	if (m_PlayerhitSoundHandle != 1)
+	{
+		DeleteSoundMem(m_PlayerhitSoundHandle);
+		m_PlayerhitSoundHandle = -1;
+	}
+
+	if (m_EnemyhitSoundHandle != 1)
+	{
+		DeleteSoundMem(m_EnemyhitSoundHandle);
+		m_EnemyhitSoundHandle = -1;
+	}
 }
 
 void SceneMain::Update()
@@ -157,6 +176,13 @@ void SceneMain::Update()
 				enemy->OnDamage(playerX, 1); // 敵に1ダメージを与える
 
 				m_hitEffect.Play(pAtkX + pAtkW * 0.3f, eBodyY + eBodyH * 0.5f);
+
+				// プレイヤー攻撃ヒット音
+				if (m_PlayerhitSoundHandle != -1)
+				{
+					PlaySoundMem(m_PlayerhitSoundHandle, DX_PLAYTYPE_BACK);
+					ChangeVolumeSoundMem(200, m_PlayerhitSoundHandle);
+				}
 			}
 		}
 
@@ -168,6 +194,13 @@ void SceneMain::Update()
 			{
 				m_OnEnemyHit = true;
 				m_player.OnDamage(); // プレイヤーにダメージを与える
+
+				// エネミー攻撃ヒット音
+				if (m_EnemyhitSoundHandle != -1)
+				{
+					PlaySoundMem(m_EnemyhitSoundHandle, DX_PLAYTYPE_BACK);
+					ChangeVolumeSoundMem(200, m_EnemyhitSoundHandle);
+				}
 			}
 		}
 		// フェード処理
