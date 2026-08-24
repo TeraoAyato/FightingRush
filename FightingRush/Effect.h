@@ -8,16 +8,24 @@ public:
 
 	void Init();
 	void End();
-	void Play(float x, float y);
 	void Update();
 	void Draw();
 
+	void Play(float x, float y);
+
 private:
-	static constexpr int kMaxFrames = 7; // 画像のコマ数
+	static constexpr int kMaxFrame = 7; // 画像のコマ数
+		
+	// エフェクトハンドル
+	int m_atkHitHandle[kMaxFrame];
+
 
 	float m_x;
 	float m_y;
-	int m_frame;
+	
+	// 再生しているか
 	bool m_isPlaying;
-	int m_handles[kMaxFrames];
+
+	// アニメーションフレームカウント
+	int m_frame;
 };

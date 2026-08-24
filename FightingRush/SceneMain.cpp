@@ -58,6 +58,7 @@ void SceneMain::Init()
 	m_bg.Init();
 
 	m_player.Init();
+	m_hitEffect.Init();
 	m_enemyManager.Init();
 
 }
@@ -67,6 +68,7 @@ void SceneMain::End()
 	m_bg.End();
 
 	m_player.End();
+	m_hitEffect.End();
 	m_enemyManager.End();
 }
 
@@ -93,6 +95,7 @@ void SceneMain::Update()
 	}
 
 	m_player.Update();
+	m_hitEffect.Update();
 
 	// プレイヤー死亡処理
 	if (m_player.IsDead())
@@ -152,6 +155,8 @@ void SceneMain::Update()
 			{
 				m_OnHit = true;
 				enemy->OnDamage(playerX, 1); // 敵に1ダメージを与える
+
+				m_hitEffect.Play(pAtkX + pAtkW * 0.3f, eBodyY + eBodyH * 0.5f);
 			}
 		}
 
@@ -189,6 +194,7 @@ void SceneMain::Draw()
 	m_bg.Draw();
 	m_enemyManager.Draw();
 	m_player.Draw();
+	m_hitEffect.Draw();
 
 	// HP表示
 	int hp = m_player.GetHp();

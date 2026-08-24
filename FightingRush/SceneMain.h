@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyManager.h"
+#include "Effect.h"
 
 class SceneMain
 {
@@ -38,6 +39,9 @@ private:
 	// 当たり判定
 	bool m_OnHit = false;
 	bool m_OnEnemyHit = false;
+
+	// エフェクト
+	Effect m_hitEffect;
 
 };
 
