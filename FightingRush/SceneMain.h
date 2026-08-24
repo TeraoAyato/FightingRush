@@ -48,6 +48,7 @@ private:
 	int m_EnemyhitSoundHandle;
 
 	int m_bgmHandle;
+	int m_PlayerDieSeHandle;
 
 };
 

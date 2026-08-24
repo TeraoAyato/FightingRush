@@ -36,5 +36,6 @@ private:
 
 	// サウンド
 	int m_bgmHandle;
+	int m_seHandle;
 };
 

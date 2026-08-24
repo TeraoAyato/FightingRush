@@ -45,9 +45,8 @@ void SceneGameOver::Init()
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneGameOverBgm.mp3");
 	ChangeVolumeSoundMem(220, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
-
-	// サウンドのロード
-//	m_bgmTitleHandle = LoadSoundMem("data/sound/titleBgm.mp3");
+	// SE読み込み
+	m_seHandle = LoadSoundMem("sozai/Sound/SceneGameOverSe.mp3");
 
 	// フェードの初期化	真っ暗な状態から始まる
 	m_fadeFrame = kFadeFrame;
@@ -69,6 +68,14 @@ void SceneGameOver::End()
 	{
 		StopSoundMem(m_bgmHandle); // 再生停止
 		DeleteSoundMem(m_bgmHandle); // メモリ解放
+		m_bgmHandle = -1;
+	}
+
+	// SEの削除
+	if (m_seHandle != -1)
+	{
+		StopSoundMem(m_seHandle); // 再生停止
+		DeleteSoundMem(m_seHandle); // メモリ解放
 		m_bgmHandle = -1;
 	}
 }
@@ -93,13 +100,15 @@ void SceneGameOver::Update()
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if (pad & PAD_INPUT_2)
 		{
+
+			if (m_seHandle != -1)
+			{
+				ChangeVolumeSoundMem(220, m_seHandle);
+				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+			}
+
 			// フェードアウトを開始する
 			m_fadeSpeed = +1;
-
-			// フェードアウトが終わったらシーンを終了するよう変更
-			// シーンを終了してタイトルへ
-			m_isEnd = true;
-
 		}
 	}
 }

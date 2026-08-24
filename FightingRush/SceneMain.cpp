@@ -65,6 +65,7 @@ void SceneMain::Init()
 	// ヒットサウンド読み込み
 	m_PlayerhitSoundHandle = LoadSoundMem("sozai/Sound/PlayerPunch.mp3");
 	m_EnemyhitSoundHandle = LoadSoundMem("sozai/Sound/EnemyPunch.mp3");
+	m_PlayerDieSeHandle = LoadSoundMem("sozai/sound/Die.mp3");
 
 	// BGM読み込み
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneMainBgm.mp3");
@@ -82,14 +83,20 @@ void SceneMain::End()
 	m_hitEffect.End();
 	m_enemyManager.End();
 
-	// ヒットサウンドの削除
+	// プレイヤーヒットサウンドの削除
 	if (m_PlayerhitSoundHandle != 1)
 	{
 		DeleteSoundMem(m_PlayerhitSoundHandle);
 		m_PlayerhitSoundHandle = -1;
 	}
-
+	// エネミーヒットサウンドの削除
 	if (m_EnemyhitSoundHandle != 1)
+	{
+		DeleteSoundMem(m_EnemyhitSoundHandle);
+		m_EnemyhitSoundHandle = -1;
+	}
+
+	if (m_PlayerDieSeHandle != 1)
 	{
 		DeleteSoundMem(m_EnemyhitSoundHandle);
 		m_EnemyhitSoundHandle = -1;
@@ -141,6 +148,13 @@ void SceneMain::Update()
 		if (m_fadeSpeed == 0)
 		{
 			m_fadeSpeed = 1; // フェードアウト開始
+		}
+
+		// プレイヤー攻撃ヒット音
+		if (m_PlayerDieSeHandle != -1)
+		{
+			PlaySoundMem(m_PlayerDieSeHandle, DX_PLAYTYPE_BACK);
+			ChangeVolumeSoundMem(200, m_PlayerDieSeHandle);
 		}
 
 		m_bg.Update();

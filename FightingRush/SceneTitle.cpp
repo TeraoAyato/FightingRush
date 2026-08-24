@@ -21,7 +21,8 @@ SceneTitle::SceneTitle() :
 	m_fadeFrame(0),
 	m_fadeSpeed(0),
 	m_sinAngle(0.0f),
-	m_bgmHandle(-1)
+	m_bgmHandle(-1),
+	m_seHandle(-1)
 {
 }
 
@@ -38,9 +39,14 @@ void SceneTitle::Init()
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
 
+	// BGM初期化
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneTitleBgm.mp3");
+	// BGM再生
 	ChangeVolumeSoundMem(180, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+
+	// SE初期化
+	m_seHandle = LoadSoundMem("sozai/Sound/SceneTitleSe.mp3");
 
 
 	// フェードの初期化	真っ暗な状態から始まる
@@ -65,6 +71,13 @@ void SceneTitle::End()
 		DeleteSoundMem(m_bgmHandle); // メモリ解放
 		m_bgmHandle = -1;
 	}
+	// SEの削除
+	if (m_bgmHandle != -1)
+	{
+		StopSoundMem(m_seHandle); // 再生停止
+		DeleteSoundMem(m_seHandle); // メモリ解放
+		m_bgmHandle = -1;
+	}
 }
 
 void SceneTitle::Update()
@@ -87,13 +100,19 @@ void SceneTitle::Update()
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if (pad & PAD_INPUT_1)
 		{
+			if (m_seHandle != -1)
+			{
+				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+			}
+
 			// フェードアウトを開始する
 			m_fadeSpeed = +1;
 
 			// フェードアウトが終わったらシーンを終了するよう変更
 			// タイトル画面を終了してゲームへ
-			m_isEnd = true;
+		//	m_isEnd = true;
 
+			
 		}
 	}
 }
