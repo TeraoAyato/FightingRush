@@ -396,9 +396,6 @@ void Enemy::Draw()
 				static_cast<int>(boxX + boxW), static_cast<int>(boxY + boxH),
 				GetColor(0, 255, 0), FALSE
 			);
-
-			DrawFormatString(10, 151, GetColor(0, 0, 0), "EnemyHp: %d / %d", m_hp, m_maxHp);
-			DrawFormatString(10, 150, GetColor(255, 255, 255), "EnemyHp : %d / %d", m_hp, m_maxHp);
 #endif
 }
 
