@@ -23,7 +23,9 @@ m_ClearFontHandle(-1),
 m_fontHandle(-1),
 m_fadeFrame(0),
 m_fadeSpeed(0),
-m_sinAngle(0.0f)
+m_sinAngle(0.0f),
+m_bgmHandle(-1),
+m_seHandle(-1)
 {
 }
 
