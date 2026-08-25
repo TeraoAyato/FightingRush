@@ -5,7 +5,7 @@ public:
 	SceneClear();
 	~SceneClear();
 
-	void Init();
+	void Init(int clearTimeFrame);
 	void End();
 	void Update();
 	void Draw();
@@ -16,6 +16,10 @@ public:
 private:
 	// タイトル終了フラグ	trueならゲームに移行する
 	bool m_isEnd;
+
+	// クリアタイム保持変数
+	int m_clearTimeFrame;
+	int m_timeFontHandle;
 
 	int m_frameCount;
 

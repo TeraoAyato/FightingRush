@@ -406,7 +406,12 @@ void Player::Draw()
 		int animIndex = m_hitFrame / 8;
 		if (animIndex >= 4) animIndex = 3;
 
+		// ダメージを受けたら一瞬赤色
+		SetDrawBright(255, 60, 60);
+
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_DamageHitHandle[animIndex], TRUE, turnFlag);
+
+		SetDrawBright(255, 255, 255);
 	}
 	// 2. 攻撃中
 	else if (m_isAttacking)

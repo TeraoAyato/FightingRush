@@ -1,31 +1,12 @@
-﻿  SceneMain.cpp
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+﻿  SceneClear.cpp
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneClear.cpp' をコンパイルしています)
   
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Effect.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
+C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(144,68): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   コード生成しています。
-  3 of 212 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+  2 of 214 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-  SummerSakuhinn.vcxproj -> C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\x64\Release\FightingRush.exe
+  SummerSakuhinn.vcxproj -> C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\x64\Release\FightingRush.exe

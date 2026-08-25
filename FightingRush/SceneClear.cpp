@@ -15,8 +15,10 @@ namespace
 //	constexpr int kBgmVolume = 128;
 }
 
-SceneClear::SceneClear():
+SceneClear::SceneClear() :
 m_isEnd(false),
+m_clearTimeFrame(0),
+m_timeFontHandle(-1),
 m_frameCount(0),
 m_BgHandle(-1),
 m_ClearFontHandle(-1),
@@ -33,8 +35,12 @@ SceneClear::~SceneClear()
 {
 }
 
-void SceneClear::Init()
+void SceneClear::Init(int clearTimeFrame)
 {
+	m_clearTimeFrame = clearTimeFrame;
+
+	// タイマーフォント生成
+	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, 1);
 	// 背景ロード
 	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
 	// ゲームオーバー文字
@@ -77,6 +83,12 @@ void SceneClear::End()
 		StopSoundMem(m_seHandle); // 再生停止
 		DeleteSoundMem(m_seHandle); // メモリ解放
 		m_bgmHandle = -1;
+	}
+
+	if (m_timeFontHandle != -1)
+	{
+		DeleteFontToHandle(m_timeFontHandle);
+		m_timeFontHandle = -1;
 	}
 }
 
@@ -153,6 +165,23 @@ void SceneClear::Draw()
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	int totalSeconds = m_clearTimeFrame / 60;
+	int min = totalSeconds / 60;
+	int sec = totalSeconds % 60;
+
+	// 中央揃えでタイムを描画
+	int textWidth = GetDrawFormatStringWidthToHandle(m_fontHandle, "CLEAR TIME  %02d:%02d", min, sec);
+	int drawX = Game::kScreenWidth / 2 - textWidth / 2;
+	int drawY = 460; // 画面のレイアウトに合わせてY座標を調整
+
+	DrawFormatStringToHandle(
+		drawX, drawY,
+		GetColor(255, 255, 255),
+		m_fontHandle,
+		"CLEAR TIME  %02d:%02d",
+		min, sec
+	);
 
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneClear", GetColor(0, 255, 0));

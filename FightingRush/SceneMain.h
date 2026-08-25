@@ -51,7 +51,8 @@ private:
 	int m_bgmHandle;
 	int m_PlayerDieSeHandle;
 
-	int m_playTimeFrame;	// プレイ時間
+	// プレイタイム
+	int m_playTimeFrame;	
 
 	// フォントハンドル
 	int m_fontHandle;

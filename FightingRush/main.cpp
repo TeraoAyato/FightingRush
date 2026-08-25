@@ -67,7 +67,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		break;
 	case kSceneClear:
 		sceneClear;
-		sceneClear.Init();
+		sceneClear.Init(sceneMain.GetClearTimeFrame());
 		break;
 	}
 
@@ -107,7 +107,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				if (sceneMain.IsClear())
 				{
 					type = kSceneClear;	// クリア画面に遷移
-					sceneClear.Init();
+					sceneClear.Init(sceneMain.GetClearTimeFrame());
 				}
 				else
 				{

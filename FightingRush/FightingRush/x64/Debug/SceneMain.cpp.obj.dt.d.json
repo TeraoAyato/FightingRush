@@ -1,13 +1,13 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\scenemain.cpp",
+        "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\scenemain.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\scenemain.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\bg.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\player.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\scenemain.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\bg.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\player.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\cmath",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals_core.h",
@@ -284,8 +284,8 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\dpa_dsa.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxfunctionwin.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\vector",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\__msvc_bit_utils.hpp",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\climits",
@@ -345,9 +345,9 @@
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\ctime",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\ucrt\\time.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\xatomic_wait.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\effect.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\scenetitle.h",
-            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\game.h"
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\effect.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\scenetitle.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\game.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

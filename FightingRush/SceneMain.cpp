@@ -326,14 +326,13 @@ void SceneMain::Draw()
 	int totalSeconds = m_playTimeFrame / 60;
 	int min = m_playTimeFrame / 60;
 	int sec = m_playTimeFrame % 60;
-	int millis = (m_playTimeFrame % 60) * 100 / 60;
 
 	int TimerX = 1020;
 	int TimerY = 20;
 
 	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d", min,sec);
 
-	DrawString(10, 30, "Player", GetColor(255, 255, 255));
+	DrawString(15, 30, "Player", GetColor(255, 255, 255));
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
