@@ -20,6 +20,7 @@ public:
 	bool IsEnd()const { return m_isEnd; }
 	bool IsClear()const { return m_isClear; }
 
+	int GetClearTimeFrame()const { return m_playTimeFrame; }
 private:
 	int m_frameCount;
 
@@ -50,5 +51,9 @@ private:
 	int m_bgmHandle;
 	int m_PlayerDieSeHandle;
 
+	int m_playTimeFrame;	// プレイ時間
+
+	// フォントハンドル
+	int m_fontHandle;
 };
 

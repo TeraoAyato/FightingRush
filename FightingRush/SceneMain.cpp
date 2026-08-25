@@ -1,10 +1,11 @@
-#include "SceneMain.h"
+﻿#include "SceneMain.h"
 #include "DxLib.h"
 #include "Bg.h"
 #include "Enemy.h"
 #include "SceneTitle.h"
 #include "Game.h"
 #include "EnemyManager.h"
+#include "Player.h"
 
 namespace
 {
@@ -38,7 +39,10 @@ SceneMain::SceneMain() :
 	m_OnHit(false),
 	m_PlayerhitSoundHandle(-1),
 	m_EnemyhitSoundHandle(-1),
-	m_bgmHandle(-1)
+	m_bgmHandle(-1),
+	m_PlayerDieSeHandle(-1),
+	m_playTimeFrame(0),
+	m_fontHandle(-1)
 {
 }
 
@@ -52,6 +56,7 @@ void SceneMain::Init()
 	m_isEnd = false;
 	m_isClear = false;
 	m_frameCount = 0;
+	m_playTimeFrame = 0;
 
 	m_fadeFrame = kFadeFrame;
 	m_fadeSpeed = -1;
@@ -71,6 +76,9 @@ void SceneMain::Init()
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneMainBgm.mp3");
 	ChangeVolumeSoundMem(180, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+
+	// タイマー文字
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING);
 	
 
 }
@@ -108,6 +116,12 @@ void SceneMain::End()
 		StopSoundMem(m_bgmHandle); // 再生停止
 		DeleteSoundMem(m_bgmHandle); // メモリ解放
 		m_bgmHandle = -1;
+	}
+
+	if (m_fontHandle != -1)
+	{
+		DeleteFontToHandle(m_fontHandle);
+			m_fontHandle = -1;
 	}
 }
 
@@ -200,7 +214,7 @@ void SceneMain::Update()
 			if (!enemy->IsDead() && CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
 			{
 				m_OnHit = true;
-				enemy->OnDamage(playerX, 1); // 敵に1ダメージを与える
+				enemy->OnDamage(playerX, m_player.GetAttackPower()); // 敵に1ダメージを与える
 
 				m_hitEffect.Play(pAtkX + pAtkW * 0.3f, eBodyY + eBodyH * 0.5f);
 
@@ -238,6 +252,11 @@ void SceneMain::Update()
 			m_fadeFrame = kFadeFrame;
 			m_isEnd = true;
 		}
+	}
+	// タイマー
+	if (!m_isClear && !m_player.IsDead())
+	{
+		m_playTimeFrame++;
 	}
 
 	m_frameCount++;
@@ -303,6 +322,18 @@ void SceneMain::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+	// フレーム数を秒単位に変換
+	int totalSeconds = m_playTimeFrame / 60;
+	int min = m_playTimeFrame / 60;
+	int sec = m_playTimeFrame % 60;
+	int millis = (m_playTimeFrame % 60) * 100 / 60;
+
+	int TimerX = 1020;
+	int TimerY = 20;
+
+	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d", min,sec);
+
+	DrawString(10, 30, "Player", GetColor(255, 255, 255));
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);

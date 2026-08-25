@@ -1,10 +1,10 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemy.cpp",
+        "Source": "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemy.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
+            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxlib.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxcompileconfig.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxdatatype.h",

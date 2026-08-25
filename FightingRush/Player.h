@@ -33,6 +33,9 @@ public:
 
 	// ダメージ中かどうかを外部から取得する関数
 	bool IsHit() const { return m_isHit; }
+
+	int GetAttackPower()const;
+
 private:
 
 	// アニメーション画像ハンドル

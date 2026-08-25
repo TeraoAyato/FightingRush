@@ -40,7 +40,7 @@ void SceneGameOver::Init()
 	// ゲームオーバー文字
 	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
 
 	// BGM読み込み
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneGameOverBgm.mp3");
@@ -157,6 +157,8 @@ void SceneGameOver::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	DrawString(0, 0, "SceneTitle", GetColor(0, 255, 0));
+#ifdef _DEBUG
+	DrawString(0, 0, "SceneGameOver", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
+#endif
 }

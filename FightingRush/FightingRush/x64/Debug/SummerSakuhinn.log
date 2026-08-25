@@ -1,14 +1,70 @@
-﻿  SceneClear.cpp
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneClear.cpp' をコンパイルしています)
+﻿  Player.cpp
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'Player.cpp' をコンパイルしています)
   
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(132,68): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  SceneGameOver.cpp
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneGameOver.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneGameOver.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneGameOver.cpp' をコンパイルしています)
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Player.cpp' をコンパイルしています)
   
-C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\SceneGameOver.cpp(135,68): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Player.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.cpp(314,12): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+  SceneMain.cpp
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Effect.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  
+  main.cpp
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Effect.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneGameOver.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  
   コードを生成中...
-  SummerSakuhinn.vcxproj -> C:\Users\Train\Documents\GitHub\NatuSakuhin\FightingRush\x64\Debug\FightingRush.exe
+  SummerSakuhinn.vcxproj -> C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\x64\Debug\FightingRush.exe

@@ -40,7 +40,7 @@ void SceneClear::Init()
 	// ゲームオーバー文字
 	m_ClearFontHandle = LoadGraph("sozai/Result/GameClearFont.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
 
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneClearBgm.mp3");
 	ChangeVolumeSoundMem(220, m_bgmHandle);
@@ -154,6 +154,8 @@ void SceneClear::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+#ifdef _DEBUG
 	DrawString(0, 0, "SceneClear", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
+#endif
 }

@@ -506,8 +506,33 @@ void Player::OnDamage(int damage)
 bool Player::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const
 {
 	// 攻撃アニメーション中のみ判定を行う
-	if (m_isAttacking)
+	if (!m_isAttacking)return false;
+
+	constexpr int kAnimSpeed = 5;	// 1コマ当たりのフレーム数
+	int totalFrames = 0;
+
+	// 攻撃タイプに応じたフレーム数を取得
+	if (m_attackType == 1)
 	{
+		totalFrames = kAttack1AnimNum * kAnimSpeed;
+	}
+	if (m_attackType == 2)
+	{
+		totalFrames = kAttack2AnimNum * kAnimSpeed;
+	}
+	if (m_attackType == 3)
+	{
+		totalFrames = kAttack3AnimNum * kAnimSpeed;
+	}
+
+	int hitStartFrame = static_cast<int>(totalFrames * 0.4f);
+		int hitEndFrame = static_cast<int>(totalFrames * 0.8f);
+
+		if (m_attackFrame < hitStartFrame || m_attackFrame > hitEndFrame)
+		{
+			return false;
+		}
+	
 		// 1. キャラクターの中心座標を計算
 		float centerX = static_cast<float>(m_posX + kWidth / 2);
 		float centerY = static_cast<float>(m_posY + kHeight / 2);
@@ -533,10 +558,7 @@ bool Player::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH)
 		outW = attackWidth;
 		outH = attackHeight;
 
-		return true; // 攻撃している
-	}
-
-	return false; // 攻撃していない
+		return true;
 }
 
 void Player::HitBox(float& outX, float& outY, float& outW, float& outH) const
@@ -552,4 +574,16 @@ void Player::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	// 中心から左上座標を算出
 	outX = centerX - (outW / 2.0f);
 	outY = (centerY - (outH / 2.0f)) + 25.0f;
+}
+
+int Player::GetAttackPower() const
+{
+	// 攻撃3（強攻撃）の時は 2 ダメージ
+	if (m_attackType == 3)
+	{
+		return 2;
+	}
+
+	// 攻撃1・攻撃2（弱攻撃）は 1 ダメージ
+	return 1;
 }

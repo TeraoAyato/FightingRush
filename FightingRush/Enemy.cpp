@@ -367,8 +367,19 @@ bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) 
 	if (m_isDead)return false;
 
 	// 攻撃（パンチ）アニメーション中のみ判定を発生させる
-	if (m_isAttacking)
-	{
+	if (!m_isAttacking)return false;
+	constexpr int kAttackAnimNum = 3;
+		constexpr int kAnimSpeed = 10;
+		int totalFrames = kAttackAnimNum * kAnimSpeed;
+
+		const int hitStartFrame = static_cast<int>(totalFrames * 0.4f);
+		const int hitEndFrame = static_cast<int>(totalFrames * 0.8f);
+
+		if (m_EnemyAttackFrame < hitStartFrame || m_EnemyAttackFrame > hitEndFrame)
+		{
+			return false;
+		}
+	
 		float attackWidth = 35.0f; // 敵のパンチの横幅
 		float attackHeight = 25.0f; // 敵のパンチの高さ
 
@@ -387,7 +398,7 @@ bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) 
 		outH = attackHeight;
 
 		return true;
-	}
+	
 
 	return false;
 }

@@ -37,7 +37,7 @@ void SceneTitle::Init()
 	// タイトル背景ロード
 	m_TitleBgHandle = LoadGraph("sozai/Title/TitleBg.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Arial", 50, -1, 1);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
 
 	// BGM初期化
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneTitleBgm.mp3");
@@ -163,6 +163,8 @@ void SceneTitle::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+#ifdef _DEBUG
 	DrawString(0, 0, "SceneTitle", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
+#endif
 }
