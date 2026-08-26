@@ -1,4 +1,6 @@
 #pragma once
+#include "DxLib.h"
+#include "Vec2.h"
 class Enemy
 {
 public:
@@ -14,6 +16,8 @@ public:
 	void HitBox(float& outX,float& outY,float& outW,float& outH)const;
 	void OnDamage(float playerX,int damage = 1);
 	void SetPosition(float x, float y);
+	float GetPosX() const { return m_pos.x; } // 必要に応じて現在座標を返す
+	float GetPosY() const { return m_pos.y; }
 
 	void SetIdle();
 private:
@@ -34,6 +38,7 @@ private:
 	float m_speed;	// 移動速度
 	int m_direction;	// 移動方向
 	
+	
 	// ダメージ状態用
 	bool m_isHit;	// ダメージ状態か判定
 	int m_hitFrame;	// ダメージフレーム数
@@ -44,6 +49,8 @@ private:
 	int m_maxHp;	// 敵の最大HP
 	int m_isDead;	// 敵が死亡したか判定
 	int m_deadFrame;	// 死亡フレーム数
+	
+	Vec2 m_pos;
 
 public:
 

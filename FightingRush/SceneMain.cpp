@@ -81,7 +81,7 @@ void SceneMain::Init()
 	// タイマー文字
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
 
-	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
+	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 	
 
 }

@@ -48,8 +48,8 @@ private:
 	int m_DeadHandle[5];	// 死亡画像
 
 	// 座標
-	int m_posX;
-	int m_posY;
+	float m_posX;
+	float m_posY;
 
 	// 移動方向、向き
 	bool m_isMoving;

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "DxLib.h"
+#include "Vec2.h"
 #include<cmath>
 
 namespace
@@ -64,8 +65,8 @@ void Enemy::Init()
 	m_EnemyAttackCoolTime = 0;
 	m_isMoving = false;
 	m_isAttacking = false;
-//	m_posX = PosX;	// 初期出現位置
-//	m_posY = PosY; // 初期出現位置
+	m_pos.x = m_posX;	// 初期出現位置座標
+	m_pos.y = m_posY;	// 初期出現位置座標
 	m_speed = kEnemySpeed;	// 移動スピード
 	m_direction = 1;	// 移動方向
 	m_isHit = false;
@@ -160,7 +161,7 @@ void Enemy::Update(float playerX, float playerY)
 		m_deadFrame++;
 		if (m_deadFrame < 15)
 		{
-			m_posX += m_knockbackDir * 2.0f; // 死亡時のノックバック
+			m_pos.x += m_knockbackDir * 2.0f; // 死亡時のノックバック
 		}
 		return;
 	}
@@ -171,7 +172,7 @@ void Enemy::Update(float playerX, float playerY)
 		m_hitFrame++;
 
 		float knockbackSpeed = 4.0f; // ノックバック速度
-		m_posX += m_knockbackDir * knockbackSpeed;
+		m_pos.x += m_knockbackDir * knockbackSpeed;
 
 		if (m_hitFrame >= 20)
 		{
@@ -188,10 +189,11 @@ void Enemy::Update(float playerX, float playerY)
 	}
 	// 左右の間合い（プレイヤーの横どの距離で止まるか）
 	constexpr float kStopDistanceX = 40.0f;
+	constexpr float kStopDistanceY = 5.0f;
 
 	// プレイヤーとの距離
-	float diffX = playerX - m_posX;
-	float diffY = playerY - m_posY;
+	float diffX = playerX - m_pos.x;
+	float diffY = playerY - m_pos.y;
 
 	// 絶対値で計算
 	float absDiffX = std::abs(diffX);
@@ -226,61 +228,57 @@ void Enemy::Update(float playerX, float playerY)
 		return;
 	}
 
-	bool isMovingX = false;
-	bool isMovingY = false;
+	m_isMoving = false;
+	Vec2 moveDir(0.0f, 0.0f);
 
-	// kStopDistanceX以上離れてたらプレイヤーを追従する
+	// X軸の判定
 	if (absDiffX > kStopDistanceX)
 	{
-		isMovingX = true;
-
-		if (diffX > 0.0f)
-		{
-			// プレイヤーが右にいると右に移動
-			m_direction = 1;
-			m_posX += m_speed;
-
-			if (m_posX > playerX - kStopDistanceX)
-			{
-				m_posX = playerX - kStopDistanceX;
-			}
-		}
-		else
-		{
-			// プレイヤーが左にいると左に移動
-			m_direction = -1;
-			m_posX -= m_speed;
-
-			if (m_posX < playerX + kStopDistanceX)
-			{
-				m_posX = playerX + kStopDistanceX;
-			}
-		}
+		moveDir.x = (diffX > 0.0f) ? 1.0f : -1.0f;
 	}
-	
-// Y軸追従
-	constexpr float kStopDistanceY = 5.0f; // Y軸の許容誤差
-
+	// Y軸の判定
 	if (absDiffY > kStopDistanceY)
 	{
-		isMovingY = true;
-
-		if (diffY > 0.0f)
-		{
-			m_posY += m_speed; // 下に移動
-		}
-		else
-		{
-			m_posY -= m_speed; // 上に移動
-		}
+		moveDir.y = (diffY > 0.0f) ? 1.0f : -1.0f;
 	}
-	// 動いているか
-	m_isMoving = (isMovingX || isMovingY);
 
-	// 向きは常にプレイヤーのいる方向を向く
-	if (diffX != 0.0f)
+	// kStopDistanceX以上離れてたらプレイヤーを追従する
+	if (moveDir.SqLength() > 0.0f)
 	{
-		m_direction = (diffX > 0.0f) ? 1 : -1;	// 右にいるなら1、左にいるなら-1
+		m_isMoving = true;
+
+		// 斜め移動時も一定速度
+		moveDir.Normalize();
+
+		bool isDiagonal = (moveDir.x != 0.0f && moveDir.y != 0.0f);
+		float speedRate = isDiagonal ? 1.15f : 1.0f;
+
+		m_pos.x += moveDir.x * (m_speed * speedRate);
+		m_pos.y += moveDir.y * (m_speed * speedRate);
+
+		// プレイヤーとの間合いの行き過ぎ防止
+		if (diffX > 0.0f)
+		{
+			// エネミーのプレイヤー追従位置を超えないように制限
+			if (m_pos.x > playerX - kStopDistanceX)
+			{
+				m_pos.x = playerX - kStopDistanceX;
+			}
+		}
+		else if(diffX < 0.0f)
+		{
+			// エネミーのプレイヤー追従位置を超えないように制限
+			if (m_pos.x < playerX + kStopDistanceX)
+			{
+				m_pos.x = playerX + kStopDistanceX;
+			}
+		}
+
+		// 方向は常にプレイヤーの方向
+		if (diffX != 0.0f)
+		{
+			m_direction = (diffX > 0.0f) ? 1 : -1;
+		}
 	}
 	// アニメーションフレームカウント
 	m_EnemyAnimFrame++;
@@ -328,8 +326,8 @@ void Enemy::Draw()
 		BOOL isTurn = (m_direction == 1) ? TRUE : FALSE;
 
 		DrawRotaGraph(
-			static_cast<int>(m_posX),	// 描画位置
-			static_cast<int>(m_posY),	// 描画位置
+			static_cast<int>(m_pos.x),	// 描画位置
+			static_cast<int>(m_pos.y),	// 描画位置
 			kEnemySize,	// 拡大率
 			kEnemyAngle,	// 回転角度
 			currentHandle[animIndex],	// 画像ハンドル
@@ -386,14 +384,14 @@ bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) 
 		// 向き（m_direction: 1が右、-1が左）に合わせて位置を設定
 		if (m_direction == 1)
 		{
-			outX = m_posX; // 右側へ発生
+			outX = m_pos.x; // 右側へ発生
 		}
 		else
 		{
-			outX = m_posX - attackWidth; // 左側へ発生
+			outX = m_pos.x - attackWidth; // 左側へ発生
 		}
 
-		outY = m_posY - 10.0f; // 高さ
+		outY = m_pos.y - 10.0f; // 高さ
 		outW = attackWidth;
 		outH = attackHeight;
 
@@ -412,8 +410,8 @@ void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	outH = kEnemyHeight * kEnemySize * 0.7f;
 
 	// 中心座標から左上の座標を計算
-	outX = m_posX - (outW / 2.0f);
-	outY = m_posY - (outH / 2.0f);
+	outX = m_pos.x - (outW / 2.0f);
+	outY = m_pos.y - (outH / 2.0f);
 }
 
 void Enemy::OnDamage(float playerX, int damage)
@@ -431,7 +429,7 @@ void Enemy::OnDamage(float playerX, int damage)
 		m_isDead = true;	// HPが0で死亡
 		m_deadFrame = 0;	// 死亡アニメーション開始
 	}
-	if (playerX < m_posX)
+	if (playerX < m_pos.x)
 	{
 		m_knockbackDir = 0.4f; // プレイヤーが左にいる場合、右方向にノックバック
 	}
@@ -451,6 +449,8 @@ void Enemy::SetIdle()
 
 void Enemy::SetPosition(float x, float y)
 {
-	m_posX = x;
+	m_posX = x;	// 出現位置
 	m_posY = y;
+	m_pos.x = x;	// 現在位置
+	m_pos.y = y;	// 現在位置
 }

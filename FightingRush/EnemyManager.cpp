@@ -95,6 +95,8 @@ void EnemyManager::SpawnEnemy()
         spawnX = 1320.0f + distanceOffset;
     }
 
+
+
     newEnemy->SetPosition(spawnX, spawnY);
 
     m_enemies.push_back(newEnemy);

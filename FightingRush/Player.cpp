@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Player.h"
 #include "Game.h"
+#include "Vec2.h"
 
 namespace
 {
@@ -267,32 +268,46 @@ void Player::Update()
 	// 攻撃中でないときに移動可能
 	if (!m_isAttacking)
 	{
+		Vec2 moveDir(0.0f, 0.0f);
 
 		// 入力に合わせて向きを変える
 		if (padState & PAD_INPUT_LEFT)
 		{
 			// 左入力、向き
-			m_posX -= kMoveSpeed;
-			m_isMoving = true;
+			moveDir.x -= 1.0f;
 			m_isDirRight = false;
 		}
 		if (padState & PAD_INPUT_RIGHT)
 		{
 			// 右入力、向き
-			m_posX += kMoveSpeed;
-			m_isMoving = true;
+			moveDir.x += 1.0f;
 			m_isDirRight = true;
 		}
 		if (padState & PAD_INPUT_UP)
 		{
-			m_posY -= kMoveSpeed;
-			m_isMoving = true;
-		}	// 上入力
+			// 上入力
+			moveDir.y -= 1.0f;
+		}	
 		if (padState & PAD_INPUT_DOWN)
 		{
-			m_posY += kMoveSpeed;
+			// 下入力
+			moveDir.y += 1.0f;
+		}	
+
+		if (moveDir.SqLength() > 0.0f)
+		{
 			m_isMoving = true;
-		}	// 下入力
+			// 斜め入力されているか
+			bool isDiagonal = (moveDir.x != 0.0f && moveDir.y != 0.0f);
+
+			// 斜め入力時の加速防止
+			moveDir.Normalize();
+
+			float speedRate = isDiagonal ? 1.15f : 1.0f;
+
+			m_posX += moveDir.x * (kMoveSpeed * speedRate);
+			m_posY += moveDir.y * (kMoveSpeed * speedRate);
+		}
 	}
 
 	// 画面外に出ない処理
