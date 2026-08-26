@@ -256,24 +256,6 @@ void Enemy::Update(float playerX, float playerY)
 		m_pos.x += moveDir.x * (m_speed * speedRate);
 		m_pos.y += moveDir.y * (m_speed * speedRate);
 
-		// プレイヤーとの間合いの行き過ぎ防止
-		if (diffX > 0.0f)
-		{
-			// エネミーのプレイヤー追従位置を超えないように制限
-			if (m_pos.x > playerX - kStopDistanceX)
-			{
-				m_pos.x = playerX - kStopDistanceX;
-			}
-		}
-		else if(diffX < 0.0f)
-		{
-			// エネミーのプレイヤー追従位置を超えないように制限
-			if (m_pos.x < playerX + kStopDistanceX)
-			{
-				m_pos.x = playerX + kStopDistanceX;
-			}
-		}
-
 		// 方向は常にプレイヤーの方向
 		if (diffX != 0.0f)
 		{
