@@ -40,7 +40,7 @@ void SceneClear::Init(int clearTimeFrame)
 	m_clearTimeFrame = clearTimeFrame;
 
 	// タイマーフォント生成
-	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, 1);
+	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 65, -1, 1);
 	// 背景ロード
 	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
 	// ゲームオーバー文字
@@ -171,14 +171,14 @@ void SceneClear::Draw()
 	int sec = totalSeconds % 60;
 
 	// 中央揃えでタイムを描画
-	int textWidth = GetDrawFormatStringWidthToHandle(m_fontHandle, "CLEAR TIME  %02d:%02d", min, sec);
+	int textWidth = GetDrawFormatStringWidthToHandle(m_timeFontHandle, "CLEAR TIME  %02d:%02d", min, sec);
 	int drawX = Game::kScreenWidth / 2 - textWidth / 2;
-	int drawY = 460; // 画面のレイアウトに合わせてY座標を調整
+	int drawY = 370; // 画面のレイアウトに合わせてY座標を調整
 
 	DrawFormatStringToHandle(
 		drawX, drawY,
 		GetColor(255, 255, 255),
-		m_fontHandle,
+		m_timeFontHandle,
 		"CLEAR TIME  %02d:%02d",
 		min, sec
 	);

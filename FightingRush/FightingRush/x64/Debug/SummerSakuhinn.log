@@ -1,13 +1,7 @@
-﻿  Player.cpp
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'Player.cpp' をコンパイルしています)
+﻿  SceneClear.cpp
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SceneClear.cpp' をコンパイルしています)
   
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(16,32): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Player.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(17,33): warning C4244: 'return': 'const int' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル 'Player.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.cpp(314,12): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.cpp(144,68): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   SummerSakuhinn.vcxproj -> C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\x64\Debug\FightingRush.exe
