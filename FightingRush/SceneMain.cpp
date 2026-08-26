@@ -131,7 +131,7 @@ void SceneMain::Update()
 	float playerX = m_player.GetCenterX();
 	float playerY = m_player.GetCenterY();
 
-	// エネミー全体の更新（中で移動や生成が行われる）
+	// エネミー全体の更新
 	m_enemyManager.Update(playerX, playerY);
 
 	// フェード処理

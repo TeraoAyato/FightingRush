@@ -1,10 +1,10 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\player.h",
+        "Source": "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\player.h",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
+            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\cmath",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals_core.h",
