@@ -4,6 +4,9 @@
 
 namespace
 {
+	// プレイヤーHP
+	constexpr int MaxHp = 20;
+	constexpr int Hp = 20;
 	// 攻撃アニメーション
 	constexpr int kAttack1AnimNum = 6;	// 攻撃1【弱攻撃】
 	constexpr int kAttack2AnimNum = 4;	// 攻撃2【弱攻撃】
@@ -31,8 +34,8 @@ Player::Player() :
 	m_isDirRight(true),
 	m_isHit(false),
 	m_hitFrame(0),
-	m_maxHp(20),	//	最大体力
-	m_hp(20),		// 現在の体力
+	m_maxHp(MaxHp),	//	最大体力
+	m_hp(Hp),		// 現在の体力
 	m_isDead(false),
 	m_deadFrame(0),
 	m_isAttacking(false),

@@ -79,9 +79,9 @@ void SceneMain::Init()
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
 	// タイマー文字
-	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
 
-	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 18, -1, DX_FONTTYPE_ANTIALIASING);
+	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
 	
 
 }
@@ -289,9 +289,9 @@ void SceneMain::Draw()
 	int maxHp = m_player.GetMaxHp();
 
 	// UIサイズ
-	int startX = 80;
+	int startX = 100;
 	int startY = 30;
-	int  blockWidth = 14;	// ブロック1個の横幅
+	int  blockWidth = 8;	// ブロック1個の横幅
 	int barHeight = 16;		// ブロックの高さ
 	int blockSpacing = 3;	// ブロック同士の感覚
 
@@ -299,6 +299,7 @@ void SceneMain::Draw()
 	unsigned int cBlack = GetColor(0, 0, 0);
 	unsigned int cRed = GetColor(230, 30, 30);	// 体力ゲージ
 
+	// 体力ゲージの部分
 	for (int i = 0; i < maxHp;i++)
 	{
 		int x1 = startX + i * (blockWidth + blockSpacing);
@@ -333,14 +334,15 @@ void SceneMain::Draw()
 
 	// フレーム数を秒単位に変換
 	int totalSeconds = m_playTimeFrame / 60;
-	int min = m_playTimeFrame / 60;
-	int sec = m_playTimeFrame % 60;
+	int min = totalSeconds / 60;
+	int sec = totalSeconds % 60;
+	int millis = (m_playTimeFrame % 60) * 100 / 60;
 
-	int TimerX = 1020;
+	int TimerX = 900;
 	int TimerY = 20;
 
 	// タイマー描画
-	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d", min,sec);
+	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d.%02d", min,sec,millis);
 
 	// Player文字
 	DrawFormatStringToHandle(15, 27,  GetColor(255, 255, 255),m_playerFontHandle, "Player");

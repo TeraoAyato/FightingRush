@@ -7,8 +7,8 @@ namespace
 	// エネミー
 	constexpr float PosX = 1000.0f;	// 初期座標
 	constexpr float PosY = 320.0f;	// 初期座標
-	constexpr int EnemyMaxHp = 3;	// 敵最大HP
-	constexpr int EnemyHp = 3;		// 敵HP
+	constexpr int EnemyMaxHp = 4;	// 敵最大HP
+	constexpr int EnemyHp = 4;		// 敵HP
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr float kEnemySpeed = 2.0f;	// 移動速度

@@ -37,7 +37,7 @@ void SceneTitle::Init()
 	// タイトル背景ロード
 	m_TitleBgHandle = LoadGraph("sozai/Title/TitleBg.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 
 	// BGM初期化
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneTitleBgm.mp3");

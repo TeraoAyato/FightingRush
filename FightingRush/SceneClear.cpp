@@ -39,15 +39,15 @@ void SceneClear::Init(int clearTimeFrame)
 {
 	m_clearTimeFrame = clearTimeFrame;
 
-	// タイマーフォント生成
-	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 65, -1, 1);
+	
 	// 背景ロード
 	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
 	// ゲームオーバー文字
 	m_ClearFontHandle = LoadGraph("sozai/Result/GameClearFont.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
-
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
+	// タイマーフォント生成
+	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 65, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneClearBgm.mp3");
 	ChangeVolumeSoundMem(220, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
@@ -85,11 +85,18 @@ void SceneClear::End()
 		m_bgmHandle = -1;
 	}
 
+	if (m_fontHandle != -1)
+	{
+		DeleteFontToHandle(m_fontHandle);
+		m_fontHandle = -1;
+	}
+
 	if (m_timeFontHandle != -1)
 	{
 		DeleteFontToHandle(m_timeFontHandle);
 		m_timeFontHandle = -1;
 	}
+	
 }
 
 void SceneClear::Update()
@@ -130,6 +137,24 @@ void SceneClear::Draw()
 
 	DrawExtendGraph(200, 50, 1100, 400, m_ClearFontHandle, TRUE);
 
+	int totalSeconds = m_clearTimeFrame / 60;
+	int min = totalSeconds / 60;
+	int sec = totalSeconds % 60;
+	int millis = (m_clearTimeFrame % 60) * 100 / 60;
+
+	// 中央揃えでタイムを描画
+	int textWidth = GetDrawFormatStringWidthToHandle(m_timeFontHandle, "CLEAR TIME  %02d:%02d.%02d", min, sec, millis);
+	int drawX = Game::kScreenWidth / 2 - textWidth / 2;
+	int drawY = 370; // 画面のレイアウトに合わせてY座標を調整
+
+	DrawFormatStringToHandle(
+		drawX, drawY,
+		GetColor(255, 255, 255),
+		m_timeFontHandle,
+		"CLEAR TIME  %02d:%02d.%02d",
+		min, sec, millis
+	);
+
 	// sinカーブを使って透明度を変化させる
 	float sinRate = sinf(m_sinAngle);	// -1.0 ~ 1.0
 	sinRate /= 2.0f;	// -0.5 ~ 0.5
@@ -166,22 +191,7 @@ void SceneClear::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	int totalSeconds = m_clearTimeFrame / 60;
-	int min = totalSeconds / 60;
-	int sec = totalSeconds % 60;
-
-	// 中央揃えでタイムを描画
-	int textWidth = GetDrawFormatStringWidthToHandle(m_timeFontHandle, "CLEAR TIME  %02d:%02d", min, sec);
-	int drawX = Game::kScreenWidth / 2 - textWidth / 2;
-	int drawY = 370; // 画面のレイアウトに合わせてY座標を調整
-
-	DrawFormatStringToHandle(
-		drawX, drawY,
-		GetColor(255, 255, 255),
-		m_timeFontHandle,
-		"CLEAR TIME  %02d:%02d",
-		min, sec
-	);
+	
 
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneClear", GetColor(0, 255, 0));

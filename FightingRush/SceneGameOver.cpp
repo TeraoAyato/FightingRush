@@ -40,7 +40,7 @@ void SceneGameOver::Init()
 	// ゲームオーバー文字
 	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
 	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, 1);
+	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 
 	// BGM読み込み
 	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneGameOverBgm.mp3");
