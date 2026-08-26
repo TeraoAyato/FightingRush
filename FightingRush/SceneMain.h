@@ -56,5 +56,6 @@ private:
 
 	// フォントハンドル
 	int m_fontHandle;
+	int m_playerFontHandle;
 };
 

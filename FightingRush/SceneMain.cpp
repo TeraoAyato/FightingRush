@@ -42,7 +42,8 @@ SceneMain::SceneMain() :
 	m_bgmHandle(-1),
 	m_PlayerDieSeHandle(-1),
 	m_playTimeFrame(0),
-	m_fontHandle(-1)
+	m_fontHandle(-1),
+	m_playerFontHandle(-1)
 {
 }
 
@@ -79,6 +80,8 @@ void SceneMain::Init()
 
 	// タイマー文字
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING);
+
+	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 18, -1, DX_FONTTYPE_ANTIALIASING);
 	
 
 }
@@ -122,6 +125,12 @@ void SceneMain::End()
 	{
 		DeleteFontToHandle(m_fontHandle);
 			m_fontHandle = -1;
+	}
+
+	if (m_playerFontHandle != -1)
+	{
+		DeleteFontToHandle(m_playerFontHandle);
+			m_playerFontHandle = -1;
 	}
 }
 
@@ -330,9 +339,11 @@ void SceneMain::Draw()
 	int TimerX = 1020;
 	int TimerY = 20;
 
+	// タイマー描画
 	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d", min,sec);
 
-	DrawString(15, 30, "Player", GetColor(255, 255, 255));
+	// Player文字
+	DrawFormatStringToHandle(15, 27,  GetColor(255, 255, 255),m_playerFontHandle, "Player");
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
