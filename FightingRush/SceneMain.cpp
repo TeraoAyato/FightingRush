@@ -321,6 +321,21 @@ void SceneMain::Draw()
 		}
 	}
 
+	// フレーム数を秒単位に変換
+	int totalSeconds = m_playTimeFrame / 60;
+	int min = totalSeconds / 60;
+	int sec = totalSeconds % 60;
+	int millis = (m_playTimeFrame % 60) * 100 / 60;
+
+	int TimerX = 900;
+	int TimerY = 20;
+
+	// タイマー描画
+	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255), m_fontHandle, "Time %02d:%02d.%02d", min, sec, millis);
+
+	// Player文字
+	DrawFormatStringToHandle(15, 27, GetColor(255, 255, 255), m_playerFontHandle, "Player");
+
 	// フェード
 	float frameRate = static_cast<float>(m_fadeFrame) / static_cast<float>(kFadeFrame);	// 浮動小数点数の計算のするためキャスト
 
@@ -332,20 +347,6 @@ void SceneMain::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	// フレーム数を秒単位に変換
-	int totalSeconds = m_playTimeFrame / 60;
-	int min = totalSeconds / 60;
-	int sec = totalSeconds % 60;
-	int millis = (m_playTimeFrame % 60) * 100 / 60;
-
-	int TimerX = 900;
-	int TimerY = 20;
-
-	// タイマー描画
-	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255),m_fontHandle, "Time %02d:%02d.%02d", min,sec,millis);
-
-	// Player文字
-	DrawFormatStringToHandle(15, 27,  GetColor(255, 255, 255),m_playerFontHandle, "Player");
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneMain", GetColor(0, 255, 0));
 	DrawFormatString(0, 16, GetColor(0, 255, 0), "FRAME:%d", m_frameCount);
