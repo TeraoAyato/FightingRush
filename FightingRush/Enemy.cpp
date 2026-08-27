@@ -14,7 +14,7 @@ namespace
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr float kEnemySpeed = 2.0f;	// 移動速度
 
-	constexpr float kEnemyOffsetY = 13.0f;// 描画位置
+	constexpr float kEnemyOffsetY = 12.0f;// 描画位置
 
 	// 当たり判定の半径
 	constexpr float kColRadius = 6.0f;
