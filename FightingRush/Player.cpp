@@ -403,8 +403,8 @@ void Player::Draw()
 {
 	int centerX = m_posX + kWidth / 2;
 	int centerY = m_posY + kHeight / 2;
-	float Size = 1.0;
-	float Angle = 0.0;
+	float Size = 1.2;	// プレイヤーサイズ
+	float Angle = 0.0;	// 角度
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
 

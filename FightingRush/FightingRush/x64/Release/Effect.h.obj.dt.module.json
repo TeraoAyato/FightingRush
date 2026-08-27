@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "FightingRush\\x64\\Release\\Effect.obj",
+            "outputs": [
+                "FightingRush\\x64\\Release\\Effect.h.obj.dt.module.json",
+                "FightingRush\\x64\\Release\\Effect.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -36,6 +36,8 @@ public:
 
 	int GetAttackPower()const;
 
+	bool IsDirRight() const { return m_isDirRight; }
+
 private:
 
 	// アニメーション画像ハンドル

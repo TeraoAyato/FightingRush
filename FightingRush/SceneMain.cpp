@@ -225,7 +225,26 @@ void SceneMain::Update()
 				m_OnHit = true;
 				enemy->OnDamage(playerX, m_player.GetAttackPower()); // 敵に1ダメージを与える
 
-				m_hitEffect.Play(pAtkX + pAtkW * 0.3f, eBodyY + eBodyH * 0.5f);
+				// ★ 向きに合わせて先端側のX座標を計算
+				float effectX = 0.0f;
+				if (m_player.IsDirRight())
+				{
+					effectX = pAtkX + pAtkW * 0.7f; // 右向き時の手の先
+				}
+				else
+				{
+					effectX = pAtkX + pAtkW * 0.3f; // 左向き時の手の先
+				}
+
+				m_hitEffect.Play(effectX, eBodyY + eBodyH * 0.3f);
+
+				// プレイヤー攻撃ヒット音
+				if (m_PlayerhitSoundHandle != -1)
+				{
+					PlaySoundMem(m_PlayerhitSoundHandle, DX_PLAYTYPE_BACK);
+					ChangeVolumeSoundMem(200, m_PlayerhitSoundHandle);
+				}
+				m_hitEffect.Play(pAtkX + pAtkW * 0.7f, eBodyY + eBodyH * 0.3f);
 
 				// プレイヤー攻撃ヒット音
 				if (m_PlayerhitSoundHandle != -1)

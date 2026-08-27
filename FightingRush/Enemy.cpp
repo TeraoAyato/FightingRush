@@ -13,8 +13,8 @@ namespace
 	constexpr int kEnemyWidth = 96;	// キャラクターの横幅
 	constexpr int kEnemyHeight = 63;	// キャラクターの高さ
 	constexpr float kEnemySpeed = 2.0f;	// 移動速度
-	constexpr float kEnemySize = 1.2;	// キャラクターの大きさ
-	constexpr float kEnemyAngle = 0.0;	// キャラクターの角度
+
+	constexpr float kEnemyOffsetY = 13.0f;// 描画位置
 
 	// 当たり判定の半径
 	constexpr float kColRadius = 6.0f;
@@ -268,6 +268,10 @@ void Enemy::Update(float playerX, float playerY)
 
 void Enemy::Draw()
 {
+
+	float Size = 1.5;	// プレイヤーサイズ
+	float Angle = 0.0;	// 角度
+
 	if (m_isDead && m_deadFrame > 90)
 	{
 		return;
@@ -309,9 +313,9 @@ void Enemy::Draw()
 
 		DrawRotaGraph(
 			static_cast<int>(m_pos.x),	// 描画位置
-			static_cast<int>(m_pos.y),	// 描画位置
-			kEnemySize,	// 拡大率
-			kEnemyAngle,	// 回転角度
+			static_cast<int>(m_pos.y + kEnemyOffsetY),	// 描画位置
+			Size,	// 拡大率
+			Angle,	// 回転角度
 			currentHandle[animIndex],	// 画像ハンドル
 			TRUE,
 			isTurn // 反転フラグ
@@ -373,7 +377,7 @@ bool Enemy::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) 
 			outX = m_pos.x - attackWidth; // 左側へ発生
 		}
 
-		outY = m_pos.y - 10.0f; // 高さ
+		outY = (m_pos.y + kEnemyOffsetY) - 10.0f; // 高さ
 		outW = attackWidth;
 		outH = attackHeight;
 
@@ -387,13 +391,14 @@ void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 {
 	if (m_isDead)return;
 
+	float Size = 1.5;	// プレイヤーサイズ
 	// ダメージ判定のサイズ
-	outW = kEnemyWidth * kEnemySize * 0.25f;
-	outH = kEnemyHeight * kEnemySize * 0.7f;
+	outW = kEnemyWidth * Size * 0.25f;
+	outH = kEnemyHeight * Size * 0.7f;
 
 	// 中心座標から左上の座標を計算
 	outX = m_pos.x - (outW / 2.0f);
-	outY = m_pos.y - (outH / 2.0f);
+	outY = (m_pos.y + kEnemyOffsetY) - (outH / 2.0f);
 }
 
 void Enemy::OnDamage(float playerX, int damage)
