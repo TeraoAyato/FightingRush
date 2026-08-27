@@ -591,7 +591,7 @@ void Player::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	float centerY = static_cast<float>(m_posY + kHeight / 2);
 
 	// ダメージ判定のサイズ
-	outW = 40.0f;
+	outW = 35.0f;
 	outH = 70.0f;
 
 	// 中心から左上座標を算出
