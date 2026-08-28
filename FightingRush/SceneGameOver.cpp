@@ -17,6 +17,7 @@ namespace
 
 SceneGameOver::SceneGameOver() :
 	m_isEnd(false),
+	m_isStart(false),
 	m_frameCount(0),
 	m_BgHandle(-1),
 	m_GameOverFontHandle(-1),
@@ -59,6 +60,7 @@ void SceneGameOver::Init()
 
 void SceneGameOver::End()
 {
+	m_isStart = false;
 	DeleteGraph(m_BgHandle);
 	DeleteGraph(m_GameOverFontHandle);
 	// フォントの削除
@@ -88,7 +90,11 @@ void SceneGameOver::Update()
 
 	// フェード処理
 	m_fadeFrame += m_fadeSpeed;;
-	if (m_fadeFrame < 0)	m_fadeFrame = 0;
+	if (m_fadeFrame < 0)
+	{
+		m_fadeFrame = 0;
+		m_fadeSpeed = 0;
+	}
 	if (m_fadeFrame > kFadeFrame)
 	{
 		m_fadeFrame = kFadeFrame;
@@ -98,11 +104,13 @@ void SceneGameOver::Update()
 	// 一定時間経過しないと入力を受け付けない
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
+		if (m_fadeSpeed == 0)
+		{
 		// Bボタン
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if (pad & PAD_INPUT_2)
 		{
-
+			m_isStart = true;
 			if (m_seHandle != -1)
 			{
 				ChangeVolumeSoundMem(220, m_seHandle);
@@ -111,6 +119,7 @@ void SceneGameOver::Update()
 
 			// フェードアウトを開始する
 			m_fadeSpeed = +1;
+		}
 		}
 	}
 }

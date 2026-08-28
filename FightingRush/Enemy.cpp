@@ -401,9 +401,9 @@ void Enemy::HitBox(float& outX, float& outY, float& outW, float& outH) const
 	outY = (m_pos.y + kEnemyOffsetY) - (outH / 2.0f);
 }
 
-void Enemy::OnDamage(float playerX, int damage)
+bool Enemy::OnDamage(float playerX, int damage)
 {
-	if (m_isHit || m_isDead)return;
+	if (m_isHit || m_isDead)return false;
 
 	m_isHit = true;
 	m_hitFrame = 0;
@@ -424,6 +424,7 @@ void Enemy::OnDamage(float playerX, int damage)
 	{
 		m_knockbackDir = -0.4f; // プレイヤーが右にいる場合、左方向にノックバック
 	}
+	return true;
 }
 
 void Enemy::SetIdle()

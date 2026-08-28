@@ -16,18 +16,19 @@ namespace
 }
 
 SceneClear::SceneClear() :
-m_isEnd(false),
-m_clearTimeFrame(0),
-m_timeFontHandle(-1),
-m_frameCount(0),
-m_BgHandle(-1),
-m_ClearFontHandle(-1),
-m_fontHandle(-1),
-m_fadeFrame(0),
-m_fadeSpeed(0),
-m_sinAngle(0.0f),
-m_bgmHandle(-1),
-m_seHandle(-1)
+	m_isEnd(false),
+	m_isStart(false),
+	m_clearTimeFrame(0),
+	m_timeFontHandle(-1),
+	m_frameCount(0),
+	m_BgHandle(-1),
+	m_ClearFontHandle(-1),
+	m_fontHandle(-1),
+	m_fadeFrame(0),
+	m_fadeSpeed(0),
+	m_sinAngle(0.0f),
+	m_bgmHandle(-1),
+	m_seHandle(-1)
 {
 }
 
@@ -39,7 +40,9 @@ void SceneClear::Init(int clearTimeFrame)
 {
 	m_clearTimeFrame = clearTimeFrame;
 
-	
+	// タイトル初期化
+	m_isStart = false;
+
 	// 背景ロード
 	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
 	// ゲームオーバー文字
@@ -53,7 +56,7 @@ void SceneClear::Init(int clearTimeFrame)
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
 	m_seHandle = LoadSoundMem("sozai/Sound/SceneClearSe.mp3");
-	
+
 
 	// フェードの初期化	真っ暗な状態から始まる
 	m_fadeFrame = kFadeFrame;
@@ -96,7 +99,7 @@ void SceneClear::End()
 		DeleteFontToHandle(m_timeFontHandle);
 		m_timeFontHandle = -1;
 	}
-	
+
 }
 
 void SceneClear::Update()
@@ -106,7 +109,11 @@ void SceneClear::Update()
 
 	// フェード処理
 	m_fadeFrame += m_fadeSpeed;;
-	if (m_fadeFrame < 0)	m_fadeFrame = 0;
+	if (m_fadeFrame < 0)
+	{
+		m_fadeFrame = 0;
+		m_fadeSpeed = 0;
+	}
 	if (m_fadeFrame > kFadeFrame)
 	{
 		m_fadeFrame = kFadeFrame;
@@ -116,18 +123,21 @@ void SceneClear::Update()
 	// 一定時間経過しないと入力を受け付けない
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
-
-		// Bボタン
-		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-		if (pad & PAD_INPUT_2)
+		if (m_fadeSpeed == 0)
 		{
-			if (m_seHandle != -1)
+			// Bボタン
+			int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+			if (pad & PAD_INPUT_2)
 			{
-				ChangeVolumeSoundMem(220, m_seHandle);
-				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+				m_isStart = true;
+				if (m_seHandle != -1)
+				{
+					ChangeVolumeSoundMem(220, m_seHandle);
+					PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+				}
+				// フェードアウトを開始する
+				m_fadeSpeed = +1;
 			}
-			// フェードアウトを開始する
-			m_fadeSpeed = +1;
 		}
 	}
 }
@@ -193,7 +203,7 @@ void SceneClear::Draw()
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	
+
 
 #ifdef _DEBUG
 	DrawString(0, 0, "SceneClear", GetColor(0, 255, 0));

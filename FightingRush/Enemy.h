@@ -14,12 +14,15 @@ public:
 
 	bool GetAttackHitBox(float& outX, float& outY, float& outW, float& outH)const;
 	void HitBox(float& outX,float& outY,float& outW,float& outH)const;
-	void OnDamage(float playerX,int damage = 1);
+	bool OnDamage(float playerX,int damage = 1);
 	void SetPosition(float x, float y);
 	float GetPosX() const { return m_pos.x; } // 必要に応じて現在座標を返す
 	float GetPosY() const { return m_pos.y; }
 
 	void SetIdle();
+
+	// 被弾中か
+	bool IsHit() const { return m_isHit; }
 private:
 	int m_EnemyIdleHandle[4];	// 敵待機状態ハンドル
 	int m_EnemyWalkHandle[4];	// 敵歩行ハンドル

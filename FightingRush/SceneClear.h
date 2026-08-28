@@ -17,6 +17,9 @@ private:
 	// タイトル終了フラグ	trueならゲームに移行する
 	bool m_isEnd;
 
+	// Aボタン押したか
+	bool m_isStart;
+
 	// クリアタイム保持変数
 	int m_clearTimeFrame;
 	int m_timeFontHandle;

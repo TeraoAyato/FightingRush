@@ -96,22 +96,22 @@ void SceneMain::End()
 	m_enemyManager.End();
 
 	// プレイヤーヒットサウンドの削除
-	if (m_PlayerhitSoundHandle != 1)
+	if (m_PlayerhitSoundHandle != -1)
 	{
 		DeleteSoundMem(m_PlayerhitSoundHandle);
 		m_PlayerhitSoundHandle = -1;
 	}
 	// エネミーヒットサウンドの削除
-	if (m_EnemyhitSoundHandle != 1)
+	if (m_EnemyhitSoundHandle != -1)
 	{
 		DeleteSoundMem(m_EnemyhitSoundHandle);
 		m_EnemyhitSoundHandle = -1;
 	}
 
-	if (m_PlayerDieSeHandle != 1)
+	if (m_PlayerDieSeHandle != -1)
 	{
-		DeleteSoundMem(m_EnemyhitSoundHandle);
-		m_EnemyhitSoundHandle = -1;
+		DeleteSoundMem(m_PlayerDieSeHandle);
+		m_PlayerDieSeHandle = -1;
 	}
 
 	// BGMの削除
@@ -174,10 +174,12 @@ void SceneMain::Update()
 			enemy->SetIdle();
 		}
 
-		if(m_player.IsDeadAnimFinished())
-		if (m_fadeSpeed == 0)
+		if (m_player.IsDeadAnimFinished())
 		{
-			m_fadeSpeed = 1; // フェードアウト開始
+			if (m_fadeSpeed == 0)
+			{
+				m_fadeSpeed = 1; // フェードアウト開始
+			}
 		}
 
 		// プレイヤー攻撃ヒット音
@@ -227,12 +229,12 @@ void SceneMain::Update()
 			float eBodyX, eBodyY, eBodyW, eBodyH;
 			enemy->HitBox(eBodyX, eBodyY, eBodyW, eBodyH);
 
-			if (!enemy->IsDead() && CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
+			if (!enemy->IsDead() && !enemy->IsHit()&& CheckAABB(pAtkX, pAtkY, pAtkW, pAtkH, eBodyX, eBodyY, eBodyW, eBodyH))
 			{
 				m_OnHit = true;
 				enemy->OnDamage(playerX, m_player.GetAttackPower()); // 敵に1ダメージを与える
 
-				// ★ 向きに合わせて先端側のX座標を計算
+				// 向きに合わせて先端側のX座標を計算
 				float effectX = 0.0f;
 				if (m_player.IsDirRight())
 				{
@@ -242,16 +244,8 @@ void SceneMain::Update()
 				{
 					effectX = pAtkX + pAtkW * 0.3f; // 左向き時の手の先
 				}
-
 				m_hitEffect.Play(effectX, eBodyY + eBodyH * 0.3f);
 
-				// プレイヤー攻撃ヒット音
-				if (m_PlayerhitSoundHandle != -1)
-				{
-					PlaySoundMem(m_PlayerhitSoundHandle, DX_PLAYTYPE_BACK);
-					ChangeVolumeSoundMem(200, m_PlayerhitSoundHandle);
-				}
-				m_hitEffect.Play(pAtkX + pAtkW * 0.7f, eBodyY + eBodyH * 0.3f);
 
 				// プレイヤー攻撃ヒット音
 				if (m_PlayerhitSoundHandle != -1)
@@ -298,11 +292,6 @@ void SceneMain::Update()
 	m_frameCount++;
 	m_bg.Update();
 }
-// ゲームオーバーやクリア条件を満たしたらm_isEndをtrueにする
-		// if (player.IsDead())
-		// {
-		//	m_isEnd = true;
-		// }
 
 void SceneMain::Draw()
 {

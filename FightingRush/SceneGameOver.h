@@ -17,6 +17,9 @@ private:
 	// タイトル終了フラグ	trueならゲームに移行する
 	bool m_isEnd;
 
+	// Aボタン押したか
+	bool m_isStart;
+
 	int m_frameCount;
 
 	// 背景ハンドル
