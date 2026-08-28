@@ -43,7 +43,8 @@ SceneMain::SceneMain() :
 	m_PlayerDieSeHandle(-1),
 	m_playTimeFrame(0),
 	m_fontHandle(-1),
-	m_playerFontHandle(-1)
+	m_playerFontHandle(-1),
+	m_manualFontHandle(-1)
 {
 }
 
@@ -82,8 +83,8 @@ void SceneMain::Init()
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
 
 	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
-	
-
+	// シーンメイン内操作方法フォント
+	m_manualFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 }
 
 void SceneMain::End()
@@ -131,6 +132,11 @@ void SceneMain::End()
 	{
 		DeleteFontToHandle(m_playerFontHandle);
 			m_playerFontHandle = -1;
+	}
+	if (m_manualFontHandle != -1)
+	{
+		DeleteFontToHandle(m_manualFontHandle);
+			m_manualFontHandle = -1;
 	}
 }
 
@@ -299,6 +305,27 @@ void SceneMain::Update()
 void SceneMain::Draw()
 {
 	m_bg.Draw();
+
+	int boxWidth = 260;
+	int boxHeight = 100;
+
+	int x1 = 0;
+	int y1 = Game::kScreenHeight - boxHeight;
+	int x2 = boxWidth;
+	int y2 = Game::kScreenHeight;
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+
+	// 2. 四角形を描画（黒や白など好みの色で）
+	DrawBox(x1, y1, x2, y2, GetColor(0, 0, 0), TRUE);
+
+	// 3. 通常の描画モードに戻す（
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	DrawFormatStringToHandle(5, 620, GetColor(255, 255, 255), m_manualFontHandle, "十字キーorスティック…移動");
+	DrawFormatStringToHandle(5, 650, GetColor(255, 255, 255), m_manualFontHandle, "Xボタン…弱攻撃(連続攻撃)");
+	DrawFormatStringToHandle(5, 680, GetColor(255, 255, 255), m_manualFontHandle, "Yボタン…強攻撃(単発攻撃)");
+
 	m_enemyManager.Draw();
 	m_player.Draw();
 	m_hitEffect.Draw();
@@ -308,10 +335,10 @@ void SceneMain::Draw()
 	int maxHp = m_player.GetMaxHp();
 
 	// UIサイズ
-	int startX = 100;
+	int startX = 200;
 	int startY = 30;
-	int  blockWidth = 8;	// ブロック1個の横幅
-	int barHeight = 16;		// ブロックの高さ
+	int  blockWidth = 12;	// ブロック1個の横幅
+	int barHeight = 24;		// ブロックの高さ
 	int blockSpacing = 3;	// ブロック同士の感覚
 
 	unsigned int cWhite = GetColor(255, 0, 0);	// 体力背景
@@ -353,7 +380,7 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255), m_fontHandle, "Time %02d:%02d.%02d", min, sec, millis);
 
 	// Player文字
-	DrawFormatStringToHandle(15, 27, GetColor(255, 255, 255), m_playerFontHandle, "Player");
+	DrawFormatStringToHandle(120, 30, GetColor(255, 255, 255), m_playerFontHandle, "Player");
 
 	// フェード
 	float frameRate = static_cast<float>(m_fadeFrame) / static_cast<float>(kFadeFrame);	// 浮動小数点数の計算のするためキャスト
