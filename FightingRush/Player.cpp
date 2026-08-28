@@ -327,9 +327,9 @@ void Player::Update()
 		m_posY = -kMarginTop;
 	}
 	// 背景の建物より上に行かないようにする
-	if (m_posY < 230.0f)
+	if (m_posY < 225.0f)
 	{
-		m_posY = 230.0f;
+		m_posY = 225.0f;
 	}
 	// 下端制限
 	if (m_posY + kHeight - kMarginBottom > Game::kScreenHeight)
@@ -481,8 +481,8 @@ void Player::Draw()
 	float offsetY = 0.0f;
 	// デバッグ用表示
 #ifdef _DEBUG
-	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", m_posX);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", m_posY);
+	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", static_cast<int>(m_posX));
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", static_cast<int>(m_posY));
 
 	// 攻撃のHitBox(赤枠)
 	float atkX, atkY, atkW, atkH;

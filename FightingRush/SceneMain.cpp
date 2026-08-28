@@ -81,8 +81,8 @@ void SceneMain::Init()
 
 	// タイマー文字
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 40, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,3);
-
-	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
+	// プレイヤー文字
+	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 18, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 	// シーンメイン内操作方法フォント
 	m_manualFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 }
@@ -322,6 +322,7 @@ void SceneMain::Draw()
 	// 3. 通常の描画モードに戻す（
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+	// 操作方法
 	DrawFormatStringToHandle(5, 620, GetColor(255, 255, 255), m_manualFontHandle, "十字キーorスティック…移動");
 	DrawFormatStringToHandle(5, 650, GetColor(255, 255, 255), m_manualFontHandle, "Xボタン…弱攻撃(連続攻撃)");
 	DrawFormatStringToHandle(5, 680, GetColor(255, 255, 255), m_manualFontHandle, "Yボタン…強攻撃(単発攻撃)");
@@ -380,7 +381,7 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255), m_fontHandle, "Time %02d:%02d.%02d", min, sec, millis);
 
 	// Player文字
-	DrawFormatStringToHandle(120, 30, GetColor(255, 255, 255), m_playerFontHandle, "Player");
+	DrawFormatStringToHandle(115, 30, GetColor(255, 255, 255), m_playerFontHandle, "Player");
 
 	// フェード
 	float frameRate = static_cast<float>(m_fadeFrame) / static_cast<float>(kFadeFrame);	// 浮動小数点数の計算のするためキャスト
