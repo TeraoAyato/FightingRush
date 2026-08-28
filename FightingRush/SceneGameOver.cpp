@@ -98,6 +98,7 @@ void SceneGameOver::Update()
 	// 一定時間経過しないと入力を受け付けない
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
+		// Bボタン
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if (pad & PAD_INPUT_2)
 		{

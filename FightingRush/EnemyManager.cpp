@@ -76,7 +76,7 @@ void EnemyManager::SpawnEnemy()
 
     // 出現位置
     float spawnX = 0.0f;
-    float spawnY = 300.0f + (m_spawnCount % 3) * 20.0f; 
+    float spawnY = 420.0f + (m_spawnCount % 3) * 20.0f; 
 
     // 出現時の敵同士の距離
     float distanceOffset = (m_spawnCount % 3) * 120.0f + (rand() % 40);

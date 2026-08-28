@@ -6,8 +6,8 @@
 namespace
 {
 	// プレイヤーHP
-	constexpr int MaxHp = 20;
-	constexpr int Hp = 20;
+	constexpr int MaxHp = 15;
+	constexpr int Hp = 15;
 	// 攻撃アニメーション
 	constexpr int kAttack1AnimNum = 6;	// 攻撃1【弱攻撃】
 	constexpr int kAttack2AnimNum = 4;	// 攻撃2【弱攻撃】
@@ -343,7 +343,7 @@ void Player::Update()
 		m_attackFrame++;
 		int animSpeed = 5;
 
-		// 【攻撃1】
+		// 【攻撃1】Xボタン
 		if (m_attackType == 1)
 		{
 			if (m_attackFrame >= kAttack1AnimNum * animSpeed)
@@ -368,7 +368,7 @@ void Player::Update()
 				}
 			}
 		}
-		// 【攻撃2】
+		// 【攻撃2】Xボタン
 		else if (m_attackType == 2)
 		{
 			if (m_attackFrame >= kAttack2AnimNum * animSpeed)
@@ -385,7 +385,7 @@ void Player::Update()
 				}
 			}
 		}
-		// 【攻撃3(強攻撃)】
+		// 【攻撃3(強攻撃)】 Yボタン
 		else if (m_attackType == 3)
 		{
 			if (m_attackFrame >= kAttack3AnimNum * animSpeed)

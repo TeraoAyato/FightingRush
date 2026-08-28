@@ -97,6 +97,7 @@ void SceneTitle::Update()
 	// 一定時間経過しないと入力を受け付けない
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
+		// Aボタン
 		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		if (pad & PAD_INPUT_1)
 		{

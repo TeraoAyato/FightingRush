@@ -47,7 +47,6 @@ private:
 	// サウンド
 	int m_PlayerhitSoundHandle;
 	int m_EnemyhitSoundHandle;
-
 	int m_bgmHandle;
 	int m_PlayerDieSeHandle;
 
