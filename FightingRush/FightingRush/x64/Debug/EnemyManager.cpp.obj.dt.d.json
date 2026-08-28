@@ -1,10 +1,10 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.cpp",
+        "Source": "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.h",
+            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemymanager.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\vector",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\yvals_core.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\vcruntime.h",
@@ -104,7 +104,7 @@
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\ctime",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\ucrt\\time.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\xatomic_wait.h",
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
+            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\enemy.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxlib.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxcompileconfig.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxdatatype.h",
@@ -340,7 +340,7 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\dpa_dsa.h",
             "c:\\dxlib_vc\\プロジェクトに追加すべきファイル_vc用\\dxfunctionwin.h",
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
+            "c:\\users\\teraoayato\\documents\\github\\natusakuhin\\fightingrush\\vec2.h",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.51.36231\\include\\cmath"
         ],
         "ImportedModules": [],

@@ -38,6 +38,9 @@ public:
 
 	bool IsDirRight() const { return m_isDirRight; }
 
+	// 死亡したらフェードアウト
+	bool IsDeadAnimFinished() const { return m_deadFrame >= 60; }
+
 private:
 
 	// アニメーション画像ハンドル

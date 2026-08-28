@@ -174,13 +174,14 @@ void SceneMain::Update()
 			enemy->SetIdle();
 		}
 
+		if(m_player.IsDeadAnimFinished())
 		if (m_fadeSpeed == 0)
 		{
 			m_fadeSpeed = 1; // フェードアウト開始
 		}
 
 		// プレイヤー攻撃ヒット音
-		if (m_PlayerDieSeHandle != -1)
+		if (m_PlayerDieSeHandle != -1 && CheckSoundMem(m_PlayerDieSeHandle) == 0 && m_fadeSpeed == 0)
 		{
 			PlaySoundMem(m_PlayerDieSeHandle, DX_PLAYTYPE_BACK);
 			ChangeVolumeSoundMem(200, m_PlayerDieSeHandle);
