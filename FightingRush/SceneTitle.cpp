@@ -14,6 +14,7 @@ namespace
 
 SceneTitle::SceneTitle() :
 	m_isEnd(false),
+	m_isStart(false),
 	m_frameCount(0),
 	m_logoHandle(-1),
 	m_TitleBgHandle(-1),
@@ -32,6 +33,8 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
+	// タイトル初期化
+	m_isStart = false;
 	// グラフィックロード
 	m_logoHandle = LoadGraph("sozai/Title/Title.png");
 	// タイトル背景ロード
@@ -76,7 +79,7 @@ void SceneTitle::End()
 	{
 		StopSoundMem(m_seHandle); // 再生停止
 		DeleteSoundMem(m_seHandle); // メモリ解放
-		m_bgmHandle = -1;
+		m_seHandle = -1;
 	}
 }
 
@@ -87,7 +90,11 @@ void SceneTitle::Update()
 
 	// フェード処理
 	m_fadeFrame += m_fadeSpeed;;
-	if (m_fadeFrame < 0)	m_fadeFrame = 0;
+	if (m_fadeFrame < 0)
+	{
+		m_fadeFrame = 0;
+		m_fadeSpeed = 0;
+	}
 	if (m_fadeFrame > kFadeFrame)
 	{
 		m_fadeFrame = kFadeFrame;
@@ -97,23 +104,23 @@ void SceneTitle::Update()
 	// 一定時間経過しないと入力を受け付けない
 	if (m_frameCount >= kKeyInputWaitFrame)
 	{
-		// Aボタン
-		int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-		if (pad & PAD_INPUT_1)
+		if (m_fadeSpeed == 0)
 		{
-			if (m_seHandle != -1)
+			// Aボタン
+			int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+			if (pad & PAD_INPUT_1)
 			{
-				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+				m_isStart = true;
+				if (m_seHandle != -1)
+				{
+					PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+				}
+
+				// フェードアウトを開始する
+				m_fadeSpeed = +1;
 			}
 
-			// フェードアウトを開始する
-			m_fadeSpeed = +1;
 
-			// フェードアウトが終わったらシーンを終了するよう変更
-			// タイトル画面を終了してゲームへ
-		//	m_isEnd = true;
-
-			
 		}
 	}
 }
@@ -125,8 +132,8 @@ void SceneTitle::Draw()
 // 	   // タイトル背景の表示
 	DrawExtendGraph(0, 0, 1280, 720, m_TitleBgHandle, TRUE);
 	// タイトルロゴの表示
-	DrawExtendGraph(250, 100,1050,400, m_logoHandle, TRUE);
-	
+	DrawExtendGraph(250, 100, 1050, 400, m_logoHandle, TRUE);
+
 
 	// sinカーブを使って透明度を変化させる
 	float sinRate = sinf(m_sinAngle);	// -1.0 ~ 1.0
@@ -137,14 +144,14 @@ void SceneTitle::Draw()
 	// 半透明で表示を開始
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	if (m_frameCount >= kKeyInputWaitFrame)	// キー入力できない間は表示しない
-	{ 
+	{
 		// ボタンを押してください表示
 		int width = GetDrawStringWidthToHandle("PRESS A TO START!", strlen("PRESS A TO START!"), m_fontHandle);
 		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, 550, "PRESS A TO START!", GetColor(255, 40, 0), m_fontHandle);
 	}
 	// 半透明で表示を終了
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	
+
 
 	// 半透明で表示を開始
 

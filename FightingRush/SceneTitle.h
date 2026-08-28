@@ -16,6 +16,8 @@ public:
 private:
 	// タイトル終了フラグ	trueならゲームに移行する
 	bool m_isEnd;
+	// Aボタン押したかどうか
+	bool m_isStart;
 
 	int m_frameCount;
 	// タイトルロゴ画像のハンドル
