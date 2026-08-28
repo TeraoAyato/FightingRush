@@ -72,7 +72,7 @@ void SceneTitle::End()
 		m_bgmHandle = -1;
 	}
 	// SEの削除
-	if (m_bgmHandle != -1)
+	if (m_seHandle != -1)
 	{
 		StopSoundMem(m_seHandle); // 再生停止
 		DeleteSoundMem(m_seHandle); // メモリ解放
