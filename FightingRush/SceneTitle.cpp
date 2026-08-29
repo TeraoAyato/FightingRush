@@ -36,20 +36,20 @@ void SceneTitle::Init()
 	// タイトル初期化
 	m_isStart = false;
 	// グラフィックロード
-	m_logoHandle = LoadGraph("sozai/Title/Title.png");
+	m_logoHandle = LoadGraph("data/Title/Title.png");
 	// タイトル背景ロード
-	m_TitleBgHandle = LoadGraph("sozai/Title/TitleBg.png");
+	m_TitleBgHandle = LoadGraph("data/Title/TitleBg.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 
 	// BGM初期化
-	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneTitleBgm.mp3");
+	m_bgmHandle = LoadSoundMem("data/Sound/SceneTitleBgm.mp3");
 	// BGM再生
 	ChangeVolumeSoundMem(180, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
 	// SE初期化
-	m_seHandle = LoadSoundMem("sozai/Sound/SceneTitleSe.mp3");
+	m_seHandle = LoadSoundMem("data/Sound/SceneTitleSe.mp3");
 
 
 	// フェードの初期化	真っ暗な状態から始まる

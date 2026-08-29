@@ -70,12 +70,12 @@ void SceneMain::Init()
 	m_enemyManager.Init();
 
 	// ヒットサウンド読み込み
-	m_PlayerhitSoundHandle = LoadSoundMem("sozai/Sound/PlayerPunch.mp3");
-	m_EnemyhitSoundHandle = LoadSoundMem("sozai/Sound/EnemyPunch.mp3");
-	m_PlayerDieSeHandle = LoadSoundMem("sozai/sound/Die.mp3");
+	m_PlayerhitSoundHandle = LoadSoundMem("data/Sound/PlayerPunch.mp3");
+	m_EnemyhitSoundHandle = LoadSoundMem("data/Sound/EnemyPunch.mp3");
+	m_PlayerDieSeHandle = LoadSoundMem("data/sound/Die.mp3");
 
 	// BGM読み込み
-	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneMainBgm.mp3");
+	m_bgmHandle = LoadSoundMem("data/Sound/SceneMainBgm.mp3");
 	ChangeVolumeSoundMem(180, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 

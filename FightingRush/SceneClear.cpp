@@ -44,18 +44,18 @@ void SceneClear::Init(int clearTimeFrame)
 	m_isStart = false;
 
 	// 背景ロード
-	m_BgHandle = LoadGraph("sozai/Result/GameClearBg.png");
+	m_BgHandle = LoadGraph("data/Result/GameClearBg.png");
 	// ゲームオーバー文字
-	m_ClearFontHandle = LoadGraph("sozai/Result/GameClearFont.png");
+	m_ClearFontHandle = LoadGraph("data/Result/GameClearFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 	// タイマーフォント生成
 	m_timeFontHandle = CreateFontToHandle("Noto Sans JP Black", 65, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
-	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneClearBgm.mp3");
+	m_bgmHandle = LoadSoundMem("data/Sound/SceneClearBgm.mp3");
 	ChangeVolumeSoundMem(220, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
-	m_seHandle = LoadSoundMem("sozai/Sound/SceneClearSe.mp3");
+	m_seHandle = LoadSoundMem("data/Sound/SceneClearSe.mp3");
 
 
 	// フェードの初期化	真っ暗な状態から始まる

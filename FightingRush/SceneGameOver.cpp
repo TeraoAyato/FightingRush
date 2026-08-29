@@ -37,18 +37,18 @@ SceneGameOver::~SceneGameOver()
 void SceneGameOver::Init()
 {
 	// 背景ロード
-	m_BgHandle = LoadGraph("sozai/Result/GameOverBg.png");
+	m_BgHandle = LoadGraph("data/Result/GameOverBg.png");
 	// ゲームオーバー文字
-	m_GameOverFontHandle = LoadGraph("sozai/Result/GameOverFont.png");
+	m_GameOverFontHandle = LoadGraph("data/Result/GameOverFont.png");
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Noto Sans JP Black", 50, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 3);
 
 	// BGM読み込み
-	m_bgmHandle = LoadSoundMem("sozai/Sound/SceneGameOverBgm.mp3");
+	m_bgmHandle = LoadSoundMem("data/Sound/SceneGameOverBgm.mp3");
 	ChangeVolumeSoundMem(220, m_bgmHandle);
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 	// SE読み込み
-	m_seHandle = LoadSoundMem("sozai/Sound/SceneGameOverSe.mp3");
+	m_seHandle = LoadSoundMem("data/Sound/SceneGameOverSe.mp3");
 
 	// フェードの初期化	真っ暗な状態から始まる
 	m_fadeFrame = kFadeFrame;

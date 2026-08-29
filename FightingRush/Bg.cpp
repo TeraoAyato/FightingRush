@@ -54,7 +54,7 @@ Bg::~Bg()
 
 void Bg::Init()
 {
-	m_bgHandle = LoadGraph("sozai/Map/tileset.png");
+	m_bgHandle = LoadGraph("data/Map/tileset.png");
 }
 
 void Bg::End()

@@ -78,35 +78,35 @@ void Enemy::Init()
 	m_deadFrame = 0;
 
 	LoadDivGraph(
-		"sozai/Enemy/idle.png",	// 待機状態画像
+		"data/Enemy/idle.png",	// 待機状態画像
 		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             //1コマの幅と高さ
 		m_EnemyIdleHandle
 	);
 
 	LoadDivGraph(
-		"sozai/Enemy/walk.png",	// 歩行状態画像
+		"data/Enemy/walk.png",	// 歩行状態画像
 		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_EnemyWalkHandle
 	);
 
 	LoadDivGraph(
-		"sozai/Enemy/punch.png",	// パンチ状態画像
+		"data/Enemy/punch.png",	// パンチ状態画像
 		3, 3, 1,            // 総数4コマ（横4コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_EnemyPunchHandle
 	);
 
 	LoadDivGraph(
-		"sozai/Enemy/Dead.png",	// ダメージ状態画像
+		"data/Enemy/Dead.png",	// ダメージ状態画像
 		2, 2, 1,            // 総数2コマ（横2コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_DamageHitHandle
 	);
 
 	LoadDivGraph(
-		"sozai/Enemy/Dead.png",	// ダメージ状態画像
+		"data/Enemy/Dead.png",	// ダメージ状態画像
 		4, 4, 1,            // 総数4コマ（横4コマ、縦1コマ）
 		kEnemyWidth, kEnemyHeight,             // 1コマの幅と高さ
 		m_DeadHandle

@@ -99,7 +99,7 @@ void Player::Init()
 	
 
 	LoadDivGraph(
-		"sozai/Player/Idle.png",	// ファイル名
+		"data/Player/Idle.png",	// ファイル名
 		7,	// 総コマ数
 		7,	// 横コマ数
 		1,	// 縦コマ数
@@ -110,7 +110,7 @@ void Player::Init()
 
 	// 走り画像
 	LoadDivGraph(
-		"sozai/Player/run.png",	// ファイル名
+		"data/Player/run.png",	// ファイル名
 		10,	// 総コマ数
 		10,	// 横コマ数
 		1,	// 縦コマ数
@@ -121,7 +121,7 @@ void Player::Init()
 
 	// 攻撃1画像
 	LoadDivGraph(
-		"sozai/Player/Attack1.png",	// 素材ファイル名
+		"data/Player/Attack1.png",	// 素材ファイル名
 		6,	// 総コマ数
 		6,	// 横コマ数
 		1,	// 縦コマ数
@@ -131,7 +131,7 @@ void Player::Init()
 	);
 	// 攻撃1画像
 	LoadDivGraph(
-		"sozai/Player/Attack2.png",	// 素材ファイル名
+		"data/Player/Attack2.png",	// 素材ファイル名
 		4,	// 総コマ数
 		4,	// 横コマ数
 		1,	// 縦コマ数
@@ -141,7 +141,7 @@ void Player::Init()
 	);
 	// 攻撃3画像
 	LoadDivGraph(
-		"sozai/Player/Attack3.png",	// 素材ファイル名
+		"data/Player/Attack3.png",	// 素材ファイル名
 		6,	// 総コマ数
 		6,	// 横コマ数
 		1,	// 縦コマ数
@@ -152,7 +152,7 @@ void Player::Init()
 
 	// ダメージ画像
 	LoadDivGraph(
-		"sozai/Player/Damage.png",	// 素材ファイル名
+		"data/Player/Damage.png",	// 素材ファイル名
 		4,	// 総コマ数
 		4,	// 横コマ数
 		1,	// 縦コマ数
@@ -163,7 +163,7 @@ void Player::Init()
 
 	// 死亡画像
 	LoadDivGraph(
-		"sozai/Player/Dead.png",	// 素材ファイル名
+		"data/Player/Dead.png",	// 素材ファイル名
 		5,	// 総コマ数
 		5,	// 横コマ数
 		1,	// 縦コマ数

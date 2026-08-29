@@ -32,7 +32,7 @@ void Effect::Init()
 	// 画像の分割読み込み
 
 		LoadDivGraph(
-		"sozai/Effect/AttackHit.png",	// ファイル名
+		"data/Effect/AttackHit.png",	// ファイル名
 		kMaxFrame,
 		kMaxFrame,
 		1,
