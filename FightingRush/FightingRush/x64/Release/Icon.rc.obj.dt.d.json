@@ -4,7 +4,7 @@
         "Source": "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\icon.rc",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\resource2.h",
+            "c:\\users\\train\\documents\\github\\natusakuhin\\fightingrush\\resource.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\winres.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\winresrc.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\winuser.rh",
