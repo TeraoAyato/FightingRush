@@ -10,10 +10,10 @@ namespace
 {
 	enum SceneType
 	{
-		kSceneTitle,
-		kSceneMain,
-		kSceneGameOver,
-		kSceneClear,
+		Title,
+		GameMain,
+		GameOver,
+		GameClear,
 	};
 }
 
@@ -30,9 +30,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	//　ウィンドウのタイトル表示を変更
 	SetMainWindowText("Fighting Rush");
-
-	// 背景色
-	SetBackgroundColor(0, 0, 0);
 
 	// アニメーション管理用の変数
 	int frameCount = 0;	// 全体のフレーム数を数える
@@ -51,22 +48,22 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SceneClear sceneClear;
 
 	// 現在実行したいシーンを変数で持つ
-	SceneType type = kSceneTitle;
+	SceneType type = Title;
 
 	// 最初に実行したいシーンを初期化
 	switch (type)
 	{
-	case kSceneTitle:
+	case Title:
 		sceneTitle.Init();
 		break;
-	case kSceneMain:
+	case GameMain:
 		sceneMain.Init();
 		break;
-	case kSceneGameOver:
+	case GameOver:
 		sceneGameOver;
 		sceneGameOver.Init();
 		break;
-	case kSceneClear:
+	case GameClear:
 		sceneClear;
 		sceneClear.Init(sceneMain.GetClearTimeFrame());
 		break;
@@ -83,7 +80,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (type)
 		{
-		case kSceneTitle:
+		case Title:
 			sceneTitle.Update();
 			sceneTitle.Draw();
 			// シーン終了フラグが立っていたらTitleからMainに移行する
@@ -92,12 +89,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 				// 現在のシーンの終了処理
 				sceneTitle.End();
 
-				type = kSceneMain;
+				type = GameMain;
 				// 次のシーンの初期化を行う
 				sceneMain.Init();
 			}
 			break;
-		case kSceneMain:
+		case GameMain:
 			sceneMain.Update();
 			sceneMain.Draw();
 			if (sceneMain.IsEnd())
@@ -107,37 +104,37 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 				if (sceneMain.IsClear())
 				{
-					type = kSceneClear;	// クリア画面に遷移
+					type = GameClear;	// クリア画面に遷移
 					sceneClear.Init(sceneMain.GetClearTimeFrame());
 				}
 				else
 				{
-					type = kSceneGameOver;	// ゲームオーバー画面に遷移
+					type = GameOver;	// ゲームオーバー画面に遷移
 					sceneGameOver.Init();
 				}
 			}
 			break;
 
 			// ゲームオーバーシーン
-		case kSceneGameOver:
+		case GameOver:
 			sceneGameOver.Update();
 			sceneGameOver.Draw();
 			if (sceneGameOver.IsEnd())
 			{
 				sceneGameOver.End();
-				type = kSceneTitle;
+				type = Title;
 				sceneTitle.Init();
 			}
 			break;
 
 			// クリアシーン
-		case kSceneClear:
+		case GameClear:
 			sceneClear.Update();
 			sceneClear.Draw();
 			if (sceneClear.IsEnd())
 			{
 				sceneClear.End();
-				type = kSceneTitle;
+				type = Title;
 				sceneTitle.Init();
 			}
 			break;
@@ -162,16 +159,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		switch (type)
 		{
-		case kSceneTitle:
+		case Title:
 			sceneTitle.End();
 			break;
-		case kSceneMain:
+		case GameMain:
 			sceneMain.End();
 			break;
-		case kSceneGameOver:
+		case GameOver:
 			sceneGameOver.End();
 			break;
-		case kSceneClear:
+		case GameClear:
 			sceneClear.End();
 			break;
 		}

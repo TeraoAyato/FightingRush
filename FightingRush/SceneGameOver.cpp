@@ -129,6 +129,7 @@ void SceneGameOver::Draw()
 	// 背景の表示 DrawExtendGraph(左上,上,右上,下)
 	DrawExtendGraph(0, 0, 1280, 720, m_BgHandle, TRUE);
 
+	// ゲームオーバー文字の表示
 	DrawExtendGraph(200, 50, 1100, 400, m_GameOverFontHandle, TRUE);
 
 	// sinカーブを使って透明度を変化させる
