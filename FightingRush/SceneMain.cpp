@@ -297,7 +297,7 @@ void SceneMain::Draw()
 {
 	m_bg.Draw();
 
-	int boxWidth = 260;
+	int boxWidth = 280;
 	int boxHeight = 100;
 
 	int x1 = 0;
@@ -314,7 +314,7 @@ void SceneMain::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// 操作方法
-	DrawFormatStringToHandle(5, 620, GetColor(255, 255, 255), m_manualFontHandle, "十字キーorスティック…移動");
+	DrawFormatStringToHandle(5, 620, GetColor(255, 255, 255), m_manualFontHandle, "十字ボタンorスティック…移動");
 	DrawFormatStringToHandle(5, 650, GetColor(255, 255, 255), m_manualFontHandle, "Xボタン…弱攻撃(連続攻撃)");
 	DrawFormatStringToHandle(5, 680, GetColor(255, 255, 255), m_manualFontHandle, "Yボタン…強攻撃(単発攻撃)");
 
