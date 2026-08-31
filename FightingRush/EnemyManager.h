@@ -31,8 +31,8 @@ private:
     // 画面上に存在する敵のリスト
     std::vector<std::shared_ptr<Enemy>> m_enemies;
 
-    static constexpr int kMaxOnScreen = 3;   // 画面上に同時に存在できる最大数
-    static constexpr int kMaxTotalEnemies = 15; // ゲーム全体で出現する総数
+    static constexpr int kMaxOnScreen = 3;   // 画面上に同時に存在できる敵の最大数
+    static constexpr int kMaxTotalEnemies = 18; // ゲーム全体で出現する敵の総数
 
     int m_spawnCount; // これまでに生成した敵の数
     int m_killCount;  // これまでに倒した敵の数
