@@ -15,7 +15,7 @@ public:
     void Update(float playerX, float playerY);
     void Draw();
 
-    // 15体すべて倒したか？（クリア判定用）
+    // 敵をすべて倒したか？（クリア判定用）
     bool IsAllEnemyDie() const { return m_killCount >= kMaxTotalEnemies; }
 
     // 当たり判定用に敵のリストを取得する関数
