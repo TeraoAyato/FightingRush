@@ -138,6 +138,7 @@ void Enemy::End()
 	}
 	for (int i = 0;i < 3;i++)
 	{
+		// パンチアニメーション処理
 		if (m_EnemyPunchHandle[i] != -1)
 		{
 			DeleteGraph(m_EnemyPunchHandle[i]);
@@ -146,6 +147,7 @@ void Enemy::End()
 	}
 	for (int i = 0;i < 2;i++)
 	{
+		// 被ダメージ処理
 		if (m_DamageHitHandle[i] != -1)
 		{
 			DeleteGraph(m_DamageHitHandle[i]);
@@ -171,7 +173,7 @@ void Enemy::Update(float playerX, float playerY)
 	{
 		m_hitFrame++;
 
-		float knockbackSpeed = 4.0f; // ノックバック速度
+		float knockbackSpeed = 5.0f; // ノックバック速度
 		m_pos.x += m_knockbackDir * knockbackSpeed;
 
 		if (m_hitFrame >= 20)
@@ -189,7 +191,7 @@ void Enemy::Update(float playerX, float playerY)
 	}
 	// 左右の間合い（プレイヤーの横どの距離で止まるか）
 	constexpr float kStopDistanceX = 40.0f;
-	constexpr float kStopDistanceY = 5.0f;
+	constexpr float kStopDistanceY = 6.0f;
 
 	// プレイヤーとの距離
 	float diffX = playerX - m_pos.x;
@@ -199,7 +201,7 @@ void Enemy::Update(float playerX, float playerY)
 	float absDiffX = std::abs(diffX);
 	float absDiffY = std::abs(diffY);
 
-
+	// 攻撃処理
 	if (m_isAttacking)
 	{
 		m_isMoving = false;

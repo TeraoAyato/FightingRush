@@ -1,58 +1,12 @@
-﻿  EnemyManager.cpp
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'EnemyManager.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'EnemyManager.cpp' をコンパイルしています)
-  
-  SceneMain.cpp
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Effect.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
-  
+﻿  SceneTitle.cpp
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'SceneMain.cpp' をコンパイルしています)
+  (ソース ファイル 'SceneTitle.cpp' をコンパイルしています)
   
-  main.cpp
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneMain.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Player.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Enemy.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\EnemyManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\Effect.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneGameOver.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
-C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneClear.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  
+C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\SceneTitle.cpp(149,69): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   コード生成しています。
-  4 of 222 functions ( 1.8%) were compiled, the rest were copied from previous compilation.
+  1 of 222 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   SummerSakuhinn.vcxproj -> C:\Users\TeraoAyato\Documents\GitHub\NatuSakuhin\FightingRush\x64\Release\FightingRush.exe
