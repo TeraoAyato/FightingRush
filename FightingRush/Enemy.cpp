@@ -173,7 +173,7 @@ void Enemy::Update(float playerX, float playerY)
 	{
 		m_hitFrame++;
 
-		float knockbackSpeed = 5.0f; // ノックバック速度
+		float knockbackSpeed = 4.0f; // ノックバック速度
 		m_pos.x += m_knockbackDir * knockbackSpeed;
 
 		if (m_hitFrame >= 20)

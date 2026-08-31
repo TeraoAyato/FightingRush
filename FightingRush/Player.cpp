@@ -6,8 +6,8 @@
 namespace
 {
 	// プレイヤーHP
-	constexpr int MaxHp = 10;
-	constexpr int Hp = 10;
+	constexpr int MaxHp = 15;	// 最大体力
+	constexpr int Hp = 15;		// 体力
 	// 攻撃アニメーション
 	constexpr int kAttack1AnimNum = 6;	// 攻撃1【弱攻撃】
 	constexpr int kAttack2AnimNum = 4;	// 攻撃2【弱攻撃】
