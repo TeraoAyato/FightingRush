@@ -250,7 +250,7 @@ void SceneMain::Update()
 				// プレイヤー攻撃ヒット音
 				if (m_PlayerhitSoundHandle != -1)
 				{	// StartJoypadVibration(使用パッド,振動の強さ,振動の長さ,振動させるモーター)
-					StartJoypadVibration(DX_INPUT_PAD1, 500, 300, -1);
+					StartJoypadVibration(DX_INPUT_PAD1, 2000, 300, -1);
 					PlaySoundMem(m_PlayerhitSoundHandle, DX_PLAYTYPE_BACK);
 					ChangeVolumeSoundMem(200, m_PlayerhitSoundHandle);
 				}
