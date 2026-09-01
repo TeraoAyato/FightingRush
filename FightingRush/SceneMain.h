@@ -57,5 +57,6 @@ private:
 	int m_fontHandle;
 	int m_playerFontHandle;
 	int m_manualFontHandle;
+	int m_enemyKillCountHandle;
 };
 

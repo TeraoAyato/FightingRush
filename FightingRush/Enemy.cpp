@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "DxLib.h"
+#include "SceneMain.h"
 #include "Vec2.h"
 #include<cmath>
 
@@ -211,7 +212,7 @@ void Enemy::Update(float playerX, float playerY)
 		{
 			m_isAttacking = false;
 			m_EnemyAnimFrame = 0;
-
+			
 			m_EnemyAttackCoolTime = 120;	// パンチ後のクールタイムを設定
 		}
 		return;

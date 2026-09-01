@@ -44,7 +44,8 @@ SceneMain::SceneMain() :
 	m_playTimeFrame(0),
 	m_fontHandle(-1),
 	m_playerFontHandle(-1),
-	m_manualFontHandle(-1)
+	m_manualFontHandle(-1),
+	m_enemyKillCountHandle(-1)
 {
 }
 
@@ -85,6 +86,8 @@ void SceneMain::Init()
 	m_playerFontHandle = CreateFontToHandle("Noto Sans JP Black", 18, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 	// シーンメイン内操作方法フォント
 	m_manualFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
+	// エネミーキル数カウント
+	m_enemyKillCountHandle = CreateFontToHandle("Noto Sans JP Black", 20, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 }
 
 void SceneMain::End()
@@ -317,7 +320,7 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(5, 620, GetColor(255, 255, 255), m_manualFontHandle, "十字ボタンorスティック…移動");
 	DrawFormatStringToHandle(5, 650, GetColor(255, 255, 255), m_manualFontHandle, "Xボタン…弱攻撃(連続攻撃)");
 	DrawFormatStringToHandle(5, 680, GetColor(255, 255, 255), m_manualFontHandle, "Yボタン…強攻撃(単発攻撃)");
-
+	
 	m_enemyManager.Draw();
 	m_player.Draw();
 	m_hitEffect.Draw();
@@ -367,6 +370,9 @@ void SceneMain::Draw()
 
 	int TimerX = 900;
 	int TimerY = 20;
+
+	// キル数表示
+	DrawFormatStringToHandle(910, 70, GetColor(255, 255, 255), m_enemyKillCountHandle, "KillCount: %d/%d", m_enemyManager.GetSpawnCount(), m_enemyManager.GetTotalCount());
 
 	// タイマー描画
 	DrawFormatStringToHandle(TimerX, TimerY, GetColor(255, 255, 255), m_fontHandle, "Time %02d:%02d.%02d", min, sec, millis);
