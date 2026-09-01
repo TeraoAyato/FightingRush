@@ -211,8 +211,8 @@ void Player::Update()
 	{
 		m_hitFrame++;
 
-		// 30フレーム（約0.5秒）経過したらダメージ状態解除
-		if (m_hitFrame >= 30)
+		// 15フレーム（約0.25秒）経過したらダメージ状態解除
+		if (m_hitFrame >= 15)
 		{
 			m_isHit = false;
 			m_hitFrame = 0;
