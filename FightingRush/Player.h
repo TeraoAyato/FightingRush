@@ -41,6 +41,8 @@ public:
 	// 死亡したらフェードアウト
 	bool IsDeadAnimFinished() const { return m_deadFrame >= 60; }
 
+	bool IsInvincible()const { return m_invincibleFrame > 0; }
+
 private:
 
 	// アニメーション画像ハンドル
@@ -86,5 +88,7 @@ private:
 
 	// アニメーション用フレームカウント
 	int m_frameCount;
+
+	int m_invincibleFrame = 0; // 無敵フレームカウント
 };
 

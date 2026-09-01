@@ -96,6 +96,7 @@ void Player::Init()
 	m_attackFrame = 0;
 	m_frameCount = 0;
 	m_attackType = 1;
+	m_invincibleFrame = 0;
 	
 
 	LoadDivGraph(
@@ -199,6 +200,10 @@ void Player::Update()
 		return;
 	}
 
+	if (m_invincibleFrame > 0)
+	{
+		m_invincibleFrame--;
+	}
 	m_frameCount++;
 
 	// ダメージ状態中の処理
@@ -395,18 +400,22 @@ void Player::Update()
 			}
 		}
 	}
-
-
 }
 
 void Player::Draw()
 {
+	if(IsInvincible())
+	{
+		int alpha = ((m_invincibleFrame / 4) % 2 == 0) ? 80 : 200;
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+	}
 	int centerX = m_posX + kWidth / 2;
 	int centerY = m_posY + kHeight / 2;
 	float Size = 1.2;	// プレイヤーサイズ
 	float Angle = 0.0;	// 角度
 	int turnFlag = m_isDirRight ? FALSE : TRUE;
 
+	
 
 	if (m_isDead)
 	{
@@ -420,6 +429,9 @@ void Player::Draw()
 	}
 	else if (m_isHit)
 	{
+		int count = 0;
+		bool isVisible = false;
+
 		// m_hitFrameに合わせて切り替え
 		int animIndex = m_hitFrame / 8;
 		if (animIndex >= 4) animIndex = 3;
@@ -428,6 +440,7 @@ void Player::Draw()
 		SetDrawBright(255, 60, 60);
 
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_DamageHitHandle[animIndex], TRUE, turnFlag);
+		
 
 		SetDrawBright(255, 255, 255);
 	}
@@ -476,7 +489,7 @@ void Player::Draw()
 		int animIndex = (m_frameCount / 10) % 7;
 		DrawRotaGraph(centerX, centerY, Size, Angle, m_idleHandle[animIndex], TRUE, turnFlag);
 	}
-
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	float offsetX = 0.0f;
 	float offsetY = 0.0f;
 	// デバッグ用表示
@@ -484,7 +497,7 @@ void Player::Draw()
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "X:%d", static_cast<int>(m_posX));
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "Y:%d", static_cast<int>(m_posY));
 
-	// 攻撃のHitBox(赤枠)
+	// 攻撃のAttackHitBox(赤枠)
 	float atkX, atkY, atkW, atkH;
 	if (GetAttackHitBox(atkX, atkY, atkW, atkH))
 	{
@@ -510,11 +523,13 @@ void Player::Draw()
 
 void Player::OnDamage(int damage)
 {
-	if (m_isHit || m_isDead)return;
+	if (IsInvincible() ||m_isHit || m_isDead)return;
 
 	m_isHit = true;
 	m_hitFrame = 0;	//フレームリセット
 	m_isAttacking = false;	// 攻撃中なら攻撃終了
+
+	m_invincibleFrame = 60;	// 無敵フレームを60に設定
 
 	m_hp -= damage;
 	if (m_hp <= 0)

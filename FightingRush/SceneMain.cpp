@@ -87,7 +87,7 @@ void SceneMain::Init()
 	// シーンメイン内操作方法フォント
 	m_manualFontHandle = CreateFontToHandle("Noto Sans JP Black", 15, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 	// エネミーキル数カウント
-	m_enemyKillCountHandle = CreateFontToHandle("Noto Sans JP Black", 20, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
+	m_enemyKillCountHandle = CreateFontToHandle("Noto Sans JP Black", 25, -1, DX_FONTTYPE_ANTIALIASING_EDGE_4X4,-1,2);
 }
 
 void SceneMain::End()
@@ -264,7 +264,7 @@ void SceneMain::Update()
 		float eAtkX, eAtkY, eAtkW, eAtkH;
 		if (enemy->GetAttackHitBox(eAtkX, eAtkY, eAtkW, eAtkH))
 		{
-			if (CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
+			if (!m_player.IsInvincible() && CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
 			{
 				m_OnEnemyHit = true;
 				m_player.OnDamage(); // プレイヤーにダメージを与える
