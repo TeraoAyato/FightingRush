@@ -29,7 +29,7 @@ public:
 	bool IsDead() const { return m_isDead; }
 
 	// 被ダメージ開始を知らせる関数
-	void OnDamage(int damage = 1);
+	void OnDamage(float enemyX, int damage = 1);
 
 	// ダメージ中かどうかを外部から取得する関数
 	bool IsHit() const { return m_isHit; }
@@ -61,6 +61,9 @@ private:
 	// 移動方向、向き
 	bool m_isMoving;
 	bool m_isDirRight;
+
+	// ノックバック
+	float m_knockbackDir;	
 
 	// HP用
 	int m_hp;	// 現在のHP

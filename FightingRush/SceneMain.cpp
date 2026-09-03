@@ -267,7 +267,8 @@ void SceneMain::Update()
 			if (!m_player.IsInvincible() && CheckAABB(eAtkX, eAtkY, eAtkW, eAtkH, pBodyX, pBodyY, pBodyW, pBodyH))
 			{
 				m_OnEnemyHit = true;
-				m_player.OnDamage(); // プレイヤーにダメージを与える
+				float enemyX = enemy->GetPosX();
+				m_player.OnDamage(enemyX,1); // プレイヤーにダメージを与える
 
 				// エネミー攻撃ヒット音
 				if (m_EnemyhitSoundHandle != -1)

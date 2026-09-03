@@ -33,6 +33,7 @@ Player::Player() :
 	m_posY(kDefaultPosY),
 	m_isMoving(false),
 	m_isDirRight(true),
+	m_knockbackDir(0.0f),
 	m_isHit(false),
 	m_hitFrame(0),
 	m_maxHp(MaxHp),	//	最大体力
@@ -83,6 +84,7 @@ void Player::Init()
 	m_posY = kDefaultPosY;
 	m_isMoving = false;
 	m_isDirRight = true;
+	m_knockbackDir = 0.0f;
 	m_isAttacking = false;
 	m_isAttackInput = false;
 	m_ComboInput = false;
@@ -196,6 +198,7 @@ void Player::Update()
 		if (m_deadFrame < 60)
 		{
 			m_deadFrame++;
+			m_posX += m_knockbackDir * 2.0f;	// 死亡時ノックバック
 		}
 		return;
 	}
@@ -211,8 +214,10 @@ void Player::Update()
 	{
 		m_hitFrame++;
 
-		// 15フレーム（約0.25秒）経過したらダメージ状態解除
-		if (m_hitFrame >= 15)
+		float knockbackSpeed = 4.0f;	// ノックバック速度
+		m_posX += m_knockbackDir * knockbackSpeed;
+		// 15フレーム（約0.5秒）経過したらダメージ状態解除
+		if (m_hitFrame >= 30)
 		{
 			m_isHit = false;
 			m_hitFrame = 0;
@@ -264,7 +269,7 @@ void Player::Update()
 				m_nextAttackType = 2;	// 攻撃2予約
 			}
 		}
-		//	m_ComboInput = true;
+			m_ComboInput = true;
 	}
 
 	// 移動中か判定
@@ -521,15 +526,15 @@ void Player::Draw()
 #endif
 }
 
-void Player::OnDamage(int damage)
+void Player::OnDamage(float enemyX,int damage)
 {
-	if (IsInvincible() ||m_isHit || m_isDead)return;
+	if (IsInvincible() ||m_isHit || m_isDead)return ;
 
 	m_isHit = true;
 	m_hitFrame = 0;	//フレームリセット
 	m_isAttacking = false;	// 攻撃中なら攻撃終了
 
-	m_invincibleFrame = 60;	// 無敵フレームを60に設定
+	m_invincibleFrame = 80;	// 無敵フレーム数
 
 	m_hp -= damage;
 	if (m_hp <= 0)
@@ -539,6 +544,16 @@ void Player::OnDamage(int damage)
 		m_deadFrame = 0;	// アニメーションタイマー
 	}
 
+	float playerCenterX = static_cast<float>(m_posX + kWidth / 2);
+	if (enemyX < playerCenterX)
+	{
+		m_knockbackDir = 0.5f;	// ノックバックの強さ
+	}
+	else
+	{
+		m_knockbackDir = -0.5f;	// ノックバックの強さ
+	}
+	return ;
 }
 
 bool Player::GetAttackHitBox(float& outX, float& outY, float& outW, float& outH) const

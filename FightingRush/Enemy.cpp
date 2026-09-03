@@ -421,11 +421,11 @@ bool Enemy::OnDamage(float playerX, int damage)
 	}
 	if (playerX < m_pos.x)
 	{
-		m_knockbackDir = 0.4f; // プレイヤーが左にいる場合、右方向にノックバック
+		m_knockbackDir = 0.5f; // プレイヤーが左にいる場合、右方向にノックバック
 	}
 	else
 	{
-		m_knockbackDir = -0.4f; // プレイヤーが右にいる場合、左方向にノックバック
+		m_knockbackDir = -0.5f; // プレイヤーが右にいる場合、左方向にノックバック
 	}
 	return true;
 }
